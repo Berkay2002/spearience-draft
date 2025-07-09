@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import DayNightSwitch from "../day-night-switch"
+import { ThemeToggle } from "@/components/theme-toggle"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -15,19 +15,6 @@ import {
 import { Facebook, Instagram, Linkedin, Send, Twitter } from "lucide-react"
 
 function Footerdemo() {
-  const [isDarkMode, setIsDarkMode] = React.useState(true)
-
-  React.useEffect(() => {
-    if (isDarkMode) {
-      document.documentElement.classList.add("dark")
-    } else {
-      document.documentElement.classList.remove("dark")
-    }
-  }, [isDarkMode])
-
-  const handleSwitchToggle = (checked: boolean) => {
-    setIsDarkMode(!checked)
-  }
 
   return (
     <footer className="relative border-t bg-background text-foreground transition-colors duration-300">
@@ -141,10 +128,7 @@ function Footerdemo() {
               </TooltipProvider>
             </div>
             <div className="flex items-center space-x-2">
-              <DayNightSwitch
-                defaultChecked={!isDarkMode}
-                onToggle={handleSwitchToggle}
-              />
+              <ThemeToggle />
             </div>
           </div>
         </div>

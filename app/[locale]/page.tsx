@@ -3,7 +3,7 @@ import { ExpertiseTabs } from '@/components/sections/expertise-tabs'
 import { ProcessShowcase } from '@/components/sections/process-showcase'
 import { TestimonialsSection } from '@/components/sections/testimonials-section'
 import { FeaturedWork } from '@/components/sections/featured-work'
-import { Footerdemo } from '@/components/ui/footer-section'
+import { Footer } from '@/components/sections/footer'
 // import { CookieConsent } from '@/components/cookie-consent'
 import { type Locale } from '@/lib/i18n'
 
@@ -32,7 +32,7 @@ export default function HomePage({ params }: HomePageProps) {
       <FeaturedWork />
       
       {/* Site Footer */}
-      <Footerdemo />
+      <Footer />
       
       {/* Cookie Consent Banner */}
       {/* <CookieConsent /> */}

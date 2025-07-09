@@ -82,4 +82,8 @@ export function useNavigationContent() {
 
 export function useFooterContent() {
   return useContentSection('footer')
+}
+
+export function useImpactContent() {
+  return useContentSection('impact')
 } 

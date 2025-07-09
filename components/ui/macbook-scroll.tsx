@@ -132,6 +132,7 @@ export const Lid = ({
   translate: MotionValue<number>;
   src?: string | React.ReactNode;
 }) => {
+
   return (
     <div className="relative [perspective:800px]">
       <div

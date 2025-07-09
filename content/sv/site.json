@@ -178,6 +178,48 @@
           "40% förbättring av teamsamhörighetsmått",
           "Förstärkt individuell spelarutveckling"
         ]
+      },
+      {
+        "id": "startup-acceleration",
+        "title": "Startup-accelerationsprogram",
+        "description": "Mentorade 20+ startups genom strukturerade tillväxtprogram, gav strategisk vägledning och ledarskapsutveckling för grundarteam.",
+        "category": "Mentorskap",
+        "image": "/images/projects/leadership-program.jpg",
+        "tags": ["Startup-mentorskap", "Tillväxtstrategi", "Teambyggande"],
+        "featured": false,
+        "outcomes": [
+          "85% av startups säkrade fortsatt finansiering",
+          "Genomsnittlig 200% intäktstillväxt",
+          "15 framgångsrika produktlanseringar"
+        ]
+      },
+      {
+        "id": "corporate-restructuring",
+        "title": "Företagsomstruktureringsinitiativ",
+        "description": "Ledde organisatorisk omstrukturering för ett medelstort företag, effektiviserade verksamheten och förbättrade samarbetet mellan avdelningar.",
+        "category": "Projektledning",
+        "image": "/images/projects/digital-transformation.jpg",
+        "tags": ["Organisationsdesign", "Förändringsledning", "Processförbättring"],
+        "featured": false,
+        "outcomes": [
+          "30% minskning av driftskostnader",
+          "Förbättrad medarbetarnöjdhet med 45%",
+          "Effektiviserade 12 kärnaffärsprocesser"
+        ]
+      },
+      {
+        "id": "athletic-performance-optimization",
+        "title": "Idrottsprestandaoptimering",
+        "description": "Utvecklade mentala prestationsramverk för individuella idrottare, kombinerade psykologisk coaching med strategisk planering.",
+        "category": "Idrottsledarskap",
+        "image": "/images/projects/sports-consulting.jpg",
+        "tags": ["Mental prestation", "Individuell coaching", "Måluppfyllelse"],
+        "featured": false,
+        "outcomes": [
+          "8 idrottare uppnådde personliga rekord",
+          "3 idrottare kvalificerade sig för internationell tävling",
+          "100% förbättring av mental motståndskraft"
+        ]
       }
     ]
   },
@@ -196,6 +238,23 @@
       "Flyt i engelska och svenska",
       "Baserad i Stockholm, Sverige"
     ]
+  },
+  "impact": {
+    "title": "Skapa varaktig påverkan",
+    "subtitle": "Transformerar organisationer genom autentiskt ledarskap och beprövade metoder",
+    "statement": "Det som verkligen skiljer Chrish åt är inte bara hans tekniska expertis eller imponerande track record—det är hans genuina engagemang för att låsa upp potentialen inom varje individ och team han arbetar med. Hans approach går bortom traditionell konsultation; han skapar varaktig transformation genom att bygga autentiska relationer, främja förtroende och utveckla hållbara ramverk som fortsätter leverera resultat långt efter att engagemanget avslutas.",
+    "cta": {
+      "text": "Upplev skillnaden",
+      "href": "/contact"
+    },
+    "featuredTestimonial": {
+      "name": "Marcus Chen",
+      "role": "Utvecklingsdirektör",
+      "company": "Innovation Labs",
+      "content": "Mentorskapsprogrammet som Chrish designade lyfte hela vårt teams prestation. Hans approach att utveckla individuella styrkor samtidigt som kollektiv framgång byggs är oslagbar. Det som imponerade mig mest var hur han genuint brydde sig om varje teammedlems utveckling, inte bara projektresultaten.",
+      "rating": 5,
+      "highlight": "Hans approach att utveckla individuella styrkor samtidigt som kollektiv framgång byggs är oslagbar."
+    }
   },
   "credentials": {
     "title": "Professionella meriter",

@@ -202,17 +202,27 @@
     @apply mx-auto max-w-[90rem] px-4 sm:px-6 lg:px-8;
   }
   
+  /* Mobile-optimized containers */
+  .container-mobile-friendly {
+    @apply mx-auto max-w-7xl px-3 sm:px-6 lg:px-8;
+  }
+  
   /* Professional section spacing */
   .section-padding {
-    @apply py-16 sm:py-20 lg:py-24;
+    @apply py-12 sm:py-16 lg:py-20;
   }
   
   .section-padding-sm {
-    @apply py-12 sm:py-16;
+    @apply py-8 sm:py-12 lg:py-16;
   }
   
   .section-padding-lg {
-    @apply py-20 sm:py-24 lg:py-32;
+    @apply py-16 sm:py-20 lg:py-28;
+  }
+  
+  /* Professional section spacing with reduced mobile gaps */
+  .section-padding-mobile-sm {
+    @apply py-8 sm:py-16 lg:py-20;
   }
   
   /* Professional card styles */
@@ -283,6 +293,15 @@
   
   .space-y-professional-lg > * + * {
     margin-top: 2.5rem;
+  }
+  
+  /* Mobile-responsive spacing */
+  .space-y-responsive > * + * {
+    @apply mt-4 sm:mt-6 lg:mt-8;
+  }
+  
+  .space-y-responsive-lg > * + * {
+    @apply mt-6 sm:mt-8 lg:mt-12;
   }
   
   /* Professional grid utilities */

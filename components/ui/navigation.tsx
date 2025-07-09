@@ -1,37 +1,38 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useParams, useRouter, usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import Link from 'next/link'
+import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { 
   DropdownMenu, 
   DropdownMenuContent, 
   DropdownMenuItem, 
   DropdownMenuTrigger 
 } from '@/components/ui/dropdown-menu'
-import { Menu, X, Globe, ChevronDown } from 'lucide-react'
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
+import { Globe, Menu, ChevronDown } from 'lucide-react'
 import { useNavigationContent } from '@/hooks/use-content'
-import { type Locale } from '@/lib/i18n'
-import { cn } from '@/lib/utils'
+import { useCurrentLocale } from '@/hooks/use-current-locale'
+import { type Locale } from '@/middleware'
+import { ThemeToggle } from '@/components/theme-toggle'
 
 interface NavigationProps {
   className?: string
 }
 
 export function Navigation({ className }: NavigationProps) {
-  const [isOpen, setIsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
-  
-  const params = useParams()
-  const router = useRouter()
+  const [isOpen, setIsOpen] = useState(false)
   const pathname = usePathname()
+  const router = useRouter()
   const navigationContent = useNavigationContent()
   
-  const currentLocale = (params?.locale as Locale) || 'en'
+  // Use our new useCurrentLocale hook for consistency
+  const currentLocale = useCurrentLocale()
 
-  // Handle scroll effect for navigation styling
+  // Handle scroll effect
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10)
@@ -41,10 +42,19 @@ export function Navigation({ className }: NavigationProps) {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Language switching function
   const switchLanguage = (newLocale: Locale) => {
     const currentPath = pathname.replace(`/${currentLocale}`, '')
-    router.push(`/${newLocale}${currentPath}`)
+    const newPath = `/${newLocale}${currentPath}`
+    
+    // Set the locale preference cookie
+    document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=${60 * 60 * 24 * 365}; SameSite=Strict`
+    
+    // Navigate to new locale
+    router.push(newPath)
+    
+    // Refresh to ensure middleware runs and cookie is properly set
+    // This is important for locale persistence as recommended by next-i18n-router
+    router.refresh()
   }
 
   // Close mobile menu when clicking on links
@@ -95,8 +105,10 @@ export function Navigation({ className }: NavigationProps) {
           ))}
         </div>
 
-        {/* Desktop Language Switcher & CTA */}
+        {/* Desktop Theme Switcher, Language Switcher & CTA */}
         <div className="hidden md:flex items-center space-x-4">
+          <ThemeToggle className="w-12 h-6" />
+          
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="sm" className="gap-2">
@@ -142,6 +154,9 @@ export function Navigation({ className }: NavigationProps) {
 
         {/* Mobile Menu */}
         <div className="md:hidden flex items-center space-x-2">
+          {/* Mobile Theme Switcher */}
+          <ThemeToggle className="w-10 h-5" />
+          
           {/* Mobile Language Switcher */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>

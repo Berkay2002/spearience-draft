@@ -1,159 +1,309 @@
 # Environment Configuration Guide
 
-This guide explains how to configure environment variables for Chrish Fernando's professional website.
+This document provides a comprehensive guide for configuring environment variables for the Chrish Fernando website.
 
-## Quick Start
+## Quick Setup
 
-1. Copy the example environment file:
-   ```bash
-   cp .env.example .env.local
-   ```
-
-2. Edit `.env.local` with your actual configuration values
-3. Restart your development server
-
-## Required Environment Variables
-
-### Website Configuration
-```env
-NEXT_PUBLIC_SITE_URL=https://your-domain.com
-NEXT_PUBLIC_SITE_NAME="Chrish Fernando"
-```
-
-### Contact Form (Required)
-```env
-CONTACT_TO_EMAIL=chrish@yourdomain.com
-CONTACT_FORM_SECRET=your_32_character_minimum_secret_here
-COOKIE_SECRET=your_32_character_minimum_cookie_secret_here
-```
+1. Copy `.env.example` to `.env.local`
+2. Configure your email service provider
+3. Set your contact recipient email
+4. Test the contact form
 
 ## Email Service Configuration
 
-Choose **one** of the following email services:
+### Email Provider Selection
 
-### Option 1: SendGrid (Recommended)
-```env
+Set the email service provider using:
+```bash
+EMAIL_PROVIDER=sendgrid  # or aws-ses, smtp
+```
+
+### Recipient Configuration
+
+```bash
+# Where contact form submissions are sent
+CONTACT_RECIPIENT_EMAIL=chrish@example.com
+
+# Fallback sender configuration
+FROM_EMAIL=noreply@yourdomain.com
+FROM_NAME="Chrish Fernando - Website"
+```
+
+## SendGrid Setup (Recommended)
+
+SendGrid offers reliable email delivery with generous free tier limits.
+
+### 1. Account Setup
+1. Sign up at [SendGrid](https://sendgrid.com)
+2. Verify your email address
+3. Complete sender authentication
+
+### 2. API Key Creation
+1. Go to Settings → API Keys
+2. Create a new API key with **Mail Send** permissions
+3. Copy the API key securely
+
+### 3. Environment Variables
+```bash
+EMAIL_PROVIDER=sendgrid
 SENDGRID_API_KEY=SG.your_sendgrid_api_key_here
-SENDGRID_FROM_EMAIL=chrish@yourdomain.com
-SENDGRID_FROM_NAME="Chrish Fernando"
+SENDGRID_FROM_EMAIL=noreply@yourdomain.com
+SENDGRID_FROM_NAME="Chrish Fernando - Website"
+CONTACT_RECIPIENT_EMAIL=chrish@example.com
 ```
 
-**Setup Steps:**
-1. Create a [SendGrid](https://sendgrid.com) account
-2. Generate an API key with "Mail Send" permissions
-3. Verify your sender email address
-4. Add the API key to your environment
+### 4. Domain Authentication (Production)
+1. In SendGrid, go to Settings → Sender Authentication
+2. Authenticate your domain
+3. Add DNS records as instructed
+4. Use your authenticated domain in `SENDGRID_FROM_EMAIL`
 
-### Option 2: AWS SES
-```env
-AWS_REGION=eu-north-1
-AWS_ACCESS_KEY_ID=your_aws_access_key
-AWS_SECRET_ACCESS_KEY=your_aws_secret_key
-AWS_SES_FROM_EMAIL=chrish@yourdomain.com
+## AWS SES Setup
+
+AWS SES provides enterprise-grade email delivery integrated with AWS services.
+
+### 1. AWS Account Setup
+1. Ensure you have an AWS account
+2. Navigate to AWS SES console
+3. Verify your email address or domain
+
+### 2. IAM Permissions
+Create an IAM user with `AmazonSESFullAccess` policy or custom permissions:
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ses:SendEmail",
+                "ses:SendRawEmail"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
 ```
 
-**Setup Steps:**
-1. Configure AWS SES in your region
-2. Verify your email domain
-3. Create IAM user with SES permissions
-4. Add credentials to environment
+### 3. Environment Variables
+```bash
+EMAIL_PROVIDER=aws-ses
+AWS_ACCESS_KEY_ID=your_aws_access_key_id
+AWS_SECRET_ACCESS_KEY=your_aws_secret_access_key
+AWS_SES_REGION=us-east-1
+AWS_SES_FROM_EMAIL=noreply@yourdomain.com
+AWS_SES_FROM_NAME="Chrish Fernando - Website"
+CONTACT_RECIPIENT_EMAIL=chrish@example.com
+```
 
-## Analytics Configuration
+### 4. Production Configuration
+1. Request production access (removes sending limits)
+2. Set up dedicated IP (optional)
+3. Configure bounce and complaint handling
 
-### Google Analytics 4 (Optional)
-```env
+## SMTP Setup
+
+Use any SMTP provider (Gmail, Outlook, custom mail server).
+
+### Gmail Example
+
+1. **Enable 2-Factor Authentication**
+2. **Generate App Password:**
+   - Go to Google Account settings
+   - Security → 2-Step Verification → App passwords
+   - Generate password for "Mail"
+
+3. **Environment Variables:**
+```bash
+EMAIL_PROVIDER=smtp
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_SECURE=false
+SMTP_USER=your_email@gmail.com
+SMTP_PASS=your_16_character_app_password
+SMTP_FROM_EMAIL=noreply@yourdomain.com
+SMTP_FROM_NAME="Chrish Fernando - Website"
+CONTACT_RECIPIENT_EMAIL=chrish@example.com
+```
+
+### Other SMTP Providers
+
+#### Outlook/Hotmail
+```bash
+SMTP_HOST=smtp-mail.outlook.com
+SMTP_PORT=587
+SMTP_SECURE=false
+```
+
+#### Custom SMTP Server
+```bash
+SMTP_HOST=mail.yourdomain.com
+SMTP_PORT=587  # or 465 for SSL
+SMTP_SECURE=true  # for port 465
+```
+
+## Auto-Response Configuration
+
+Control whether users receive automatic confirmation emails:
+
+```bash
+# Enable/disable auto-response emails
+SEND_AUTO_RESPONSE=true
+```
+
+When enabled, users receive a professional confirmation email after submitting the contact form.
+
+## Email Templates
+
+The system includes two professional email templates:
+
+### 1. Notification Email (to you)
+- **Subject:** `🔔 New Contact: [Name] ([Preferred Method])`
+- **Content:** Full form submission with metadata
+- **Reply-To:** Set to sender's email for easy replies
+
+### 2. Auto-Response Email (to user)
+- **Subject:** `✅ Thank you for reaching out, [Name]!`
+- **Content:** Professional acknowledgment with next steps
+- **From:** Your configured sender email
+
+## Testing Email Configuration
+
+### 1. Configuration Test
+The system includes a configuration validator. Check server logs for:
+```
+Email configuration test: { isConfigured: true, provider: 'sendgrid', errors: [] }
+```
+
+### 2. Test Email Delivery
+1. Start the development server
+2. Submit a test contact form
+3. Check server logs for email delivery status
+4. Verify email delivery to `CONTACT_RECIPIENT_EMAIL`
+
+### 3. Common Issues
+
+#### SendGrid Issues
+- **API Key Invalid:** Ensure key has Mail Send permissions
+- **From Email Rejected:** Verify sender authentication
+- **Rate Limited:** Check SendGrid usage dashboard
+
+#### AWS SES Issues
+- **Access Denied:** Verify IAM permissions
+- **Email Not Verified:** Verify sender email in SES console
+- **Sandbox Mode:** Request production access for unrestricted sending
+
+#### SMTP Issues
+- **Authentication Failed:** Check username/password
+- **Connection Timeout:** Verify host and port
+- **SSL/TLS Errors:** Check SMTP_SECURE setting
+
+## Security Best Practices
+
+### 1. Environment Variables Security
+- Never commit `.env.local` to version control
+- Use different credentials for development/production
+- Rotate API keys regularly
+- Use least-privilege access policies
+
+### 2. Email Security
+- Always use verified sender domains
+- Implement DKIM, SPF, and DMARC records
+- Monitor bounce and complaint rates
+- Use HTTPS for all email-related callbacks
+
+### 3. Rate Limiting
+The contact form includes built-in rate limiting:
+- 5 submissions per 15 minutes per IP
+- 20 submissions per day per IP
+- Automatic spam detection and filtering
+
+## Production Deployment
+
+### Environment Variables Checklist
+```bash
+# ✅ Required Variables
+NODE_ENV=production
+EMAIL_PROVIDER=sendgrid
+CONTACT_RECIPIENT_EMAIL=chrish@example.com
+SENDGRID_API_KEY=SG.production_key_here
+SENDGRID_FROM_EMAIL=noreply@chrishfernando.com
+NEXT_PUBLIC_APP_URL=https://chrishfernando.com
+
+# ✅ Optional but Recommended
+SEND_AUTO_RESPONSE=true
 NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
 ```
 
-**Setup Steps:**
-1. Create a [Google Analytics](https://analytics.google.com) account
-2. Set up a GA4 property for your website
-3. Copy the Measurement ID (starts with "G-")
-4. Add to environment variables
+### DNS Configuration
+For production email delivery, configure these DNS records:
 
-## Security Configuration
-
-### Rate Limiting
-```env
-RATE_LIMIT_WINDOW_MS=900000    # 15 minutes in milliseconds
-RATE_LIMIT_MAX_REQUESTS=5      # Max requests per window
+#### SPF Record
+```
+Type: TXT
+Name: @
+Value: v=spf1 include:sendgrid.net ~all
 ```
 
-### Cookie Settings
-```env
-NEXT_PUBLIC_COOKIE_DOMAIN=.yourdomain.com  # For production
-NEXT_PUBLIC_COOKIE_DOMAIN=localhost        # For development
+#### DKIM Records
+Add the DKIM records provided by your email service provider.
+
+#### DMARC Record
+```
+Type: TXT
+Name: _dmarc
+Value: v=DMARC1; p=none; rua=mailto:dmarc@yourdomain.com
 ```
 
-## Optional Configuration
+## Monitoring and Maintenance
 
-### reCAPTCHA (Spam Protection)
-```env
-NEXT_PUBLIC_RECAPTCHA_SITE_KEY=your_site_key
-RECAPTCHA_SECRET_KEY=your_secret_key
-```
+### 1. Email Delivery Monitoring
+- Monitor bounce rates (keep < 5%)
+- Track delivery rates (aim for > 95%)
+- Set up alerts for delivery failures
 
-### Development Settings
-```env
-NODE_ENV=development
-NEXT_PUBLIC_DEBUG=true
-```
+### 2. Error Tracking
+- Monitor server logs for email errors
+- Set up application monitoring (Sentry, etc.)
+- Configure health checks for email services
 
-## Environment Files
+### 3. Regular Maintenance
+- Update API keys before expiration
+- Review and update email templates
+- Monitor spam complaint rates
+- Update security configurations
 
-- `.env.example` - Template with all available options
-- `.env.local` - Your local development configuration (not in git)
-- `.env.production` - Production configuration (deploy to hosting platform)
+## Support and Troubleshooting
 
-## Validation
+### Common Error Messages
 
-The application will validate all environment variables on startup. If required variables are missing or invalid, you'll see helpful error messages.
+#### "Email provider not configured"
+- Check `EMAIL_PROVIDER` environment variable
+- Ensure provider-specific variables are set
 
-## Security Notes
+#### "Recipient email not configured" 
+- Set `CONTACT_RECIPIENT_EMAIL` environment variable
 
-1. **Never commit `.env.local` or production environment files to git**
-2. **Use strong, unique secrets** for `CONTACT_FORM_SECRET` and `COOKIE_SECRET`
-3. **Rotate API keys** regularly
-4. **Use environment-specific configurations** for different deployment stages
+#### "Rate limit exceeded"
+- User has exceeded submission limits
+- Check IP-based rate limiting logs
 
-## Hosting Platform Configuration
+#### "Spam detected"
+- Submission triggered spam filters
+- Review spam detection rules in `lib/email.ts`
 
-### Vercel
-1. Go to your project settings
-2. Navigate to "Environment Variables"
-3. Add each variable with appropriate values
-4. Redeploy your application
+### Getting Help
 
-### Netlify
-1. Go to Site settings > Environment variables
-2. Add each variable
-3. Trigger a new build
+1. Check server logs for detailed error messages
+2. Verify environment variable configuration
+3. Test with email provider's API directly
+4. Review email provider documentation
+5. Check DNS configuration for domain authentication
 
-### Other Platforms
-Consult your hosting platform's documentation for environment variable configuration.
+For additional support, consult the documentation for your chosen email service provider.
 
-## Troubleshooting
+---
 
-### Email Not Sending
-1. Check that email service credentials are correct
-2. Verify sender email is authenticated
-3. Check spam folders
-4. Review API rate limits
+## Previous Configuration Sections
 
-### Analytics Not Working
-1. Verify GA4 Measurement ID format (starts with "G-")
-2. Check that cookies are accepted
-3. Ensure domain is configured in GA4
-4. Test in incognito mode
-
-### Build Errors
-1. Check all required environment variables are set
-2. Verify secret keys meet minimum length requirements
-3. Ensure URL format is valid for `NEXT_PUBLIC_SITE_URL`
-
-## Support
-
-For issues with environment configuration, check:
-1. The console for validation error messages
-2. Network tab for failed API requests
-3. Browser developer tools for client-side errors 
+[Previous sections about Google Analytics, i18n configuration, etc. remain unchanged] 

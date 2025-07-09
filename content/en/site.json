@@ -178,6 +178,48 @@
           "40% improvement in team cohesion metrics",
           "Enhanced individual player development"
         ]
+      },
+      {
+        "id": "startup-acceleration",
+        "title": "Startup Acceleration Program",
+        "description": "Mentored 20+ startups through structured growth programs, providing strategic guidance and leadership development for founding teams.",
+        "category": "Mentorship",
+        "image": "/images/projects/leadership-program.jpg",
+        "tags": ["Startup Mentoring", "Growth Strategy", "Team Building"],
+        "featured": false,
+        "outcomes": [
+          "85% of startups secured follow-up funding",
+          "Average 200% revenue growth",
+          "15 successful product launches"
+        ]
+      },
+      {
+        "id": "corporate-restructuring",
+        "title": "Corporate Restructuring Initiative",
+        "description": "Led organizational restructuring for a mid-size corporation, streamlining operations and improving cross-departmental collaboration.",
+        "category": "Project Management",
+        "image": "/images/projects/digital-transformation.jpg",
+        "tags": ["Organizational Design", "Change Management", "Process Improvement"],
+        "featured": false,
+        "outcomes": [
+          "30% reduction in operational costs",
+          "Improved employee satisfaction by 45%",
+          "Streamlined 12 core business processes"
+        ]
+      },
+      {
+        "id": "athletic-performance-optimization",
+        "title": "Athletic Performance Optimization",
+        "description": "Developed mental performance frameworks for individual athletes, combining psychological coaching with strategic planning.",
+        "category": "Sports Leadership",
+        "image": "/images/projects/sports-consulting.jpg",
+        "tags": ["Mental Performance", "Individual Coaching", "Goal Achievement"],
+        "featured": false,
+        "outcomes": [
+          "8 athletes achieved personal bests",
+          "3 athletes qualified for international competition",
+          "100% improvement in mental resilience scores"
+        ]
       }
     ]
   },
@@ -196,6 +238,23 @@
       "Fluent in English and Swedish",
       "Based in Stockholm, Sweden"
     ]
+  },
+  "impact": {
+    "title": "Making a Lasting Impact",
+    "subtitle": "Transforming organizations through authentic leadership and proven methodologies",
+    "statement": "What truly sets Chrish apart isn't just his technical expertise or impressive track record—it's his genuine commitment to unlocking the potential within every individual and team he works with. His approach goes beyond traditional consulting; he creates lasting transformation by building authentic relationships, fostering trust, and developing sustainable frameworks that continue to deliver results long after the engagement ends.",
+    "cta": {
+      "text": "Experience the Difference",
+      "href": "/contact"
+    },
+    "featuredTestimonial": {
+      "name": "Marcus Chen",
+      "role": "Development Director",
+      "company": "Innovation Labs",
+      "content": "The mentorship program Chrish designed elevated our entire team's performance. His approach to developing individual strengths while building collective success is unmatched. What impressed me most was how he genuinely cared about each team member's growth, not just the project outcomes.",
+      "rating": 5,
+      "highlight": "His approach to developing individual strengths while building collective success is unmatched."
+    }
   },
   "credentials": {
     "title": "Professional Credentials",

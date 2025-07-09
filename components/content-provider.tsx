@@ -1,12 +1,8 @@
 'use client'
 
-import { createContext, useContext, useEffect, useState, ReactNode } from 'react'
+import { createContext, useContext, ReactNode } from 'react'
 import { type Locale } from '@/lib/i18n'
-import { type SiteContent, getContent, preloadContent } from '@/lib/content'
-
-// Import content directly to ensure it's available synchronously
-import enContent from '@/content/en/site.json'
-import svContent from '@/content/sv/site.json'
+import { type SiteContent } from '@/lib/content'
 
 interface ContentContextValue {
   isLoaded: boolean
@@ -14,7 +10,7 @@ interface ContentContextValue {
 }
 
 const ContentContext = createContext<ContentContextValue>({
-  isLoaded: false,
+  isLoaded: true, // Content is now always loaded (embedded)
   error: null,
 })
 
@@ -27,26 +23,9 @@ interface ContentProviderProps {
 }
 
 export function ContentProvider({ children }: ContentProviderProps) {
-  const [isLoaded, setIsLoaded] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-
-  useEffect(() => {
-    try {
-      // Preload both locales with imported content
-      preloadContent('en', enContent as SiteContent)
-      preloadContent('sv', svContent as SiteContent)
-      
-      setIsLoaded(true)
-      setError(null)
-    } catch (err) {
-      console.error('Failed to preload content:', err)
-      setError(err instanceof Error ? err.message : 'Failed to load content')
-      setIsLoaded(true) // Still set to true so components render with fallback
-    }
-  }, [])
-
+  // Content is now embedded and always available - no async loading needed
   return (
-    <ContentContext.Provider value={{ isLoaded, error }}>
+    <ContentContext.Provider value={{ isLoaded: true, error: null }}>
       {children}
     </ContentContext.Provider>
   )

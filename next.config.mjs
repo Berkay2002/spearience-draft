@@ -9,10 +9,12 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  // i18n configuration
+  // Use modern build optimizations
   experimental: {
-    // Required for middleware to work with app directory
+    // Reserved for future experimental features
   },
+  // Ensure we're using the modern build system
+  swcMinify: true,
 }
 
 export default nextConfig

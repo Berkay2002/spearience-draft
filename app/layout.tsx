@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ContentProvider } from '../components/content-provider';
+import { ThemeProvider } from '@/components/theme-provider';
 import { Navigation } from '@/components/ui/navigation';
+import { Toaster } from '@/components/ui/toaster';
 
 const inter = Inter({
   subsets: ["latin"],
@@ -22,14 +24,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} font-sans antialiased`}>
-        <ContentProvider>
-          <Navigation />
-          <main className="min-h-screen pt-20">
-            {children}
-          </main>
-        </ContentProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <ContentProvider>
+            <Navigation />
+            <main className="min-h-screen pt-20">
+              {children}
+            </main>
+            <Toaster />
+          </ContentProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

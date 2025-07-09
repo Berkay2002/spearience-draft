@@ -25,7 +25,7 @@ export function FeaturedWork({ className }: FeaturedWorkProps) {
     }))
 
   return (
-    <section className={`relative overflow-hidden ${className}`}>
+    <section className={`section-padding relative overflow-hidden ${className}`}>
       {/* Enhanced Gallery4 with custom styling */}
       <div className="relative">
         <Gallery4
@@ -35,69 +35,9 @@ export function FeaturedWork({ className }: FeaturedWorkProps) {
         />
       </div>
 
-      {/* Enhanced Bottom Section */}
-      <div className="container-professional py-16">
+      {/* Call to Action */}
+      <div className="container-professional pt-12">
         <div className="max-w-6xl mx-auto">
-          {/* Featured Projects Stats */}
-          <div className="text-center mb-12">
-            <h3 className="text-2xl font-bold mb-8">Project Impact Overview</h3>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="bg-card border border-border rounded-2xl p-6 hover:shadow-professional-lg transition-all duration-300">
-                <div className="flex items-center justify-center mb-4">
-                  <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
-                    <TrendingUp className="w-6 h-6 text-primary" />
-                  </div>
-                </div>
-                <div className="text-3xl font-bold text-primary mb-2">$2M+</div>
-                <div className="text-sm text-muted-foreground">Annual Cost Savings</div>
-                <p className="text-xs text-muted-foreground mt-2 leading-relaxed">
-                  Delivered through process optimization and digital transformation initiatives
-                </p>
-              </div>
-
-              <div className="bg-card border border-border rounded-2xl p-6 hover:shadow-professional-lg transition-all duration-300">
-                <div className="flex items-center justify-center mb-4">
-                  <div className="w-12 h-12 bg-success/10 rounded-xl flex items-center justify-center">
-                    <Users className="w-6 h-6 text-success" />
-                  </div>
-                </div>
-                <div className="text-3xl font-bold text-success mb-2">50+</div>
-                <div className="text-sm text-muted-foreground">Executives Trained</div>
-                <p className="text-xs text-muted-foreground mt-2 leading-relaxed">
-                  Leadership development programs with 80% internal promotion rate
-                </p>
-              </div>
-
-              <div className="bg-card border border-border rounded-2xl p-6 hover:shadow-professional-lg transition-all duration-300">
-                <div className="flex items-center justify-center mb-4">
-                  <div className="w-12 h-12 bg-chart-3/10 rounded-xl flex items-center justify-center">
-                    <Zap className="w-6 h-6 text-chart-3" />
-                  </div>
-                </div>
-                <div className="text-3xl font-bold text-chart-3 mb-2">60%</div>
-                <div className="text-sm text-muted-foreground">Efficiency Gains</div>
-                <p className="text-xs text-muted-foreground mt-2 leading-relaxed">
-                  Average improvement across all project implementations
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Project Categories */}
-          <div className="mb-12">
-            <h4 className="text-xl font-bold text-center mb-8">Expertise Areas</h4>
-            <div className="flex flex-wrap justify-center gap-3">
-              {['Digital Transformation', 'Leadership Development', 'Sports Consulting', 'Change Management', 'Process Optimization', 'Team Performance'].map((category) => (
-                <div key={category} className="flex items-center gap-2 bg-muted/50 rounded-full px-4 py-2 text-sm">
-                  <Tag className="w-3 h-3 text-primary" />
-                  <span className="text-muted-foreground">{category}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Call to Action */}
           <div className="text-center">
             <div className="bg-gradient-professional rounded-2xl p-8 text-white max-w-3xl mx-auto">
               <div className="space-y-6">

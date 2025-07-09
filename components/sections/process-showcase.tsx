@@ -135,7 +135,7 @@ export function ProcessShowcase({ className }: ProcessShowcaseProps) {
   const processContent = useProcessContent()
 
   return (
-    <section className={`relative ${className}`}>
+    <section className={`section-padding-lg relative ${className}`}>
       {/* MacBook Scroll Component */}
       <MacbookScroll
         title={
@@ -159,75 +159,6 @@ export function ProcessShowcase({ className }: ProcessShowcaseProps) {
           </div>
         }
       />
-
-      {/* Process Steps Below MacBook */}
-      <div className="container-professional py-16">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <h3 className="text-2xl font-bold mb-4">
-              The Four-Phase Framework
-            </h3>
-            <p className="text-muted-foreground">
-              A systematic approach that transforms challenges into sustainable success
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {processContent.steps.map((step, index) => (
-              <div key={step.id} className="group">
-                <div className="relative">
-                  {/* Connection line (except for last item) */}
-                  {index < processContent.steps.length - 1 && (
-                    <div className="hidden lg:block absolute top-8 left-full w-6 h-0.5 bg-gradient-to-r from-primary/40 to-transparent z-10"></div>
-                  )}
-                  
-                  <div className="bg-card border border-border rounded-2xl p-6 hover:shadow-professional-lg transition-all duration-300 group-hover:border-primary/20">
-                    {/* Step number */}
-                    <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                      <span className="text-primary font-bold text-lg">{index + 1}</span>
-                    </div>
-
-                    {/* Step content */}
-                    <h4 className="font-semibold text-lg mb-3 group-hover:text-primary transition-colors">
-                      {step.title}
-                    </h4>
-                    <p className="text-muted-foreground text-sm leading-relaxed">
-                      {step.description}
-                    </p>
-
-                    {/* Action indicator */}
-                    <div className="mt-4 flex items-center gap-2 text-primary text-sm opacity-0 group-hover:opacity-100 transition-opacity">
-                      <ArrowRight className="w-4 h-4" />
-                      <span>Learn more</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Results showcase */}
-          <div className="mt-16 text-center">
-            <div className="bg-gradient-subtle rounded-2xl p-8">
-              <h4 className="text-xl font-bold mb-4">Proven Results</h4>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                <div className="space-y-2">
-                  <div className="text-3xl font-bold text-primary">98%</div>
-                  <div className="text-sm text-muted-foreground">Project Success Rate</div>
-                </div>
-                <div className="space-y-2">
-                  <div className="text-3xl font-bold text-success">40%</div>
-                  <div className="text-sm text-muted-foreground">Efficiency Improvement</div>
-                </div>
-                <div className="space-y-2">
-                  <div className="text-3xl font-bold text-chart-3">60%</div>
-                  <div className="text-sm text-muted-foreground">Faster Delivery</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
       {/* Custom MacBook Screen Content (hidden but rendered) */}
       <div className="hidden">

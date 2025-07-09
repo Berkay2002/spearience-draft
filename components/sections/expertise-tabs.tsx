@@ -95,7 +95,7 @@ export function ExpertiseTabs({ className }: ExpertiseTabsProps) {
   })
 
   return (
-    <section className={`section-padding-lg ${className}`}>
+    <section className={`section-padding relative overflow-hidden ${className}`}>
       <div className="container-professional">
         <div className="text-center space-y-6 mb-12">
           <div className="space-y-4">
@@ -106,22 +106,6 @@ export function ExpertiseTabs({ className }: ExpertiseTabsProps) {
             <p className="section-subtitle max-w-2xl mx-auto">
               Three core pillars of professional excellence, each designed to drive exceptional results and sustainable growth.
             </p>
-          </div>
-
-          {/* Trust indicators */}
-          <div className="flex flex-wrap items-center justify-center gap-8 pt-4 text-sm text-muted-foreground">
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-primary rounded-full"></div>
-              <span>15+ Years Experience</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-success rounded-full"></div>
-              <span>Fortune 500 Clients</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-chart-3 rounded-full"></div>
-              <span>Proven Methodologies</span>
-            </div>
           </div>
         </div>
 
@@ -136,20 +120,6 @@ export function ExpertiseTabs({ className }: ExpertiseTabsProps) {
           </div>
         </div>
 
-        {/* Call to Action */}
-        <div className="text-center pt-12">
-          <div className="bg-gradient-subtle rounded-2xl p-8 max-w-2xl mx-auto">
-            <div className="space-y-4">
-              <div className="flex items-center justify-center gap-2 text-primary">
-                <TrendingUp className="w-5 h-5" />
-                <span className="font-medium">Ready to Transform Your Organization?</span>
-              </div>
-              <p className="text-muted-foreground">
-                Discover how these proven approaches can accelerate your team's success and drive measurable results.
-              </p>
-            </div>
-          </div>
-        </div>
       </div>
 
       {/* Background decorative elements */}

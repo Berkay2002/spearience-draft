@@ -1,5 +1,9 @@
 import { type Locale, defaultLocale } from './i18n'
 
+// Import content directly for build-time availability
+import enSiteContent from '@/content/en/site.json'
+import svSiteContent from '@/content/sv/site.json'
+
 // Content type definitions
 export interface HeroContent {
   title: string
@@ -91,6 +95,24 @@ export interface CredentialsContent {
   }>
 }
 
+export interface ImpactContent {
+  title: string
+  subtitle: string
+  statement: string
+  cta: {
+    text: string
+    href: string
+  }
+  featuredTestimonial: {
+    name: string
+    role: string
+    company: string
+    content: string
+    rating: number
+    highlight: string
+  }
+}
+
 export interface ContactContent {
   title: string
   subtitle: string
@@ -145,48 +167,28 @@ export interface SiteContent {
   featuredWork: FeaturedWorkContent
   bio: BioContent
   credentials: CredentialsContent
+  impact?: ImpactContent
   contact: ContactContent
   footer: FooterContent
 }
 
-// Import content directly (this will be bundled by webpack)
-// We'll use dynamic imports to load the content asynchronously
-const contentLoaders = {
-  en: () => import('@/content/en/site.json').then(m => m.default),
-  sv: () => import('@/content/sv/site.json').then(m => m.default),
-} as const
+// Embedded content that's available at build time
+const embeddedContent: Record<Locale, SiteContent> = {
+  en: enSiteContent as SiteContent,
+  sv: svSiteContent as SiteContent,
+}
 
 // Content cache
 const contentCache = new Map<Locale, SiteContent>()
 
+// Initialize cache with embedded content
+contentCache.set('en', embeddedContent.en)
+contentCache.set('sv', embeddedContent.sv)
+
 // Get content for a specific locale
 export async function getContent(locale: Locale): Promise<SiteContent> {
-  // Check cache first
-  if (contentCache.has(locale)) {
-    return contentCache.get(locale)!
-  }
-  
-  try {
-    // Load content using dynamic import
-    const loader = contentLoaders[locale]
-    if (!loader) {
-      throw new Error(`No content loader for locale: ${locale}`)
-    }
-    
-    const content = await loader()
-    contentCache.set(locale, content as SiteContent)
-    return content as SiteContent
-  } catch (error) {
-    console.warn(`Failed to load content for locale ${locale}, falling back to default`)
-    
-    // Fallback to default locale if current locale fails
-    if (locale !== defaultLocale) {
-      return getContent(defaultLocale)
-    }
-    
-    // If even default locale fails, throw error
-    throw new Error(`Failed to load content for default locale ${defaultLocale}`)
-  }
+  // Return from embedded content (always available)
+  return embeddedContent[locale] || embeddedContent[defaultLocale]
 }
 
 // Get content section by key
@@ -198,34 +200,9 @@ export async function getContentSection<T extends keyof SiteContent>(
   return content[section]
 }
 
-// Synchronous version for client-side usage with pre-loaded content
-// This will be used by the hooks after content is loaded
-let preloadedContent: Record<Locale, SiteContent> = {} as any
-
-export function preloadContent(locale: Locale, content: SiteContent) {
-  preloadedContent[locale] = content
-  contentCache.set(locale, content)
-}
-
+// Synchronous version - now reliably returns embedded content
 export function getContentSync(locale: Locale): SiteContent {
-  // Try cache first
-  if (contentCache.has(locale)) {
-    return contentCache.get(locale)!
-  }
-  
-  // Try preloaded content
-  if (preloadedContent[locale]) {
-    return preloadedContent[locale]
-  }
-  
-  // Fallback to default locale
-  if (locale !== defaultLocale && preloadedContent[defaultLocale]) {
-    return preloadedContent[defaultLocale]
-  }
-  
-  // Return empty content structure if nothing is available
-  console.warn(`No content available for locale ${locale}, using fallback`)
-  return createFallbackContent()
+  return embeddedContent[locale] || embeddedContent[defaultLocale]
 }
 
 export function getContentSectionSync<T extends keyof SiteContent>(
@@ -236,7 +213,12 @@ export function getContentSectionSync<T extends keyof SiteContent>(
   return content[section]
 }
 
-// Create fallback content structure
+// Preload function (now just updates cache, content is already available)
+export function preloadContent(locale: Locale, content: SiteContent) {
+  contentCache.set(locale, content)
+}
+
+// Create fallback content structure (now only used as absolute fallback)
 function createFallbackContent(): SiteContent {
   return {
     navigation: {
@@ -295,10 +277,12 @@ function createFallbackContent(): SiteContent {
 // Clear content cache (useful for development)
 export function clearContentCache(): void {
   contentCache.clear()
-  preloadedContent = {} as any
+  // Re-initialize with embedded content
+  contentCache.set('en', embeddedContent.en)
+  contentCache.set('sv', embeddedContent.sv)
 }
 
 // Get available locales
 export function getAvailableLocales(): Locale[] {
-  return Object.keys(contentLoaders) as Locale[]
+  return Object.keys(embeddedContent) as Locale[]
 } 

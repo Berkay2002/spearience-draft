@@ -74,23 +74,6 @@ export function HeroSection({ className }: HeroSectionProps) {
               </Link>
             </div>
 
-            {/* Professional Credentials/Trust Indicators */}
-            <div className="pt-8 border-t border-border animate-fade-in-up [animation-delay:800ms]">
-              <div className="flex flex-wrap items-center gap-6 text-sm text-muted-foreground">
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-success rounded-full"></div>
-                  <span>15+ Years Experience</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-chart-1 rounded-full"></div>
-                  <span>Fortune 500 Clients</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-chart-3 rounded-full"></div>
-                  <span>Based in Stockholm</span>
-                </div>
-              </div>
-            </div>
           </div>
 
           {/* Image Column */}

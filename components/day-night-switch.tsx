@@ -13,6 +13,7 @@ import { cn } from "@/lib/utils";
 
 type DayNightSwitchProps = {
   defaultChecked?: boolean;
+  checked?: boolean;
   onToggle?: (checked: boolean) => void;
 } & Omit<React.HTMLAttributes<HTMLDivElement>, "onToggle"> &
   MotionProps;
@@ -63,12 +64,19 @@ const createStarVariants = (index: number): Variants => ({
 });
 
 const DayNightSwitch = React.forwardRef<HTMLDivElement, DayNightSwitchProps>(
-  ({ className, defaultChecked = true, onToggle, ...restProps }, ref) => {
+  ({ className, defaultChecked = true, checked: controlledChecked, onToggle, ...restProps }, ref) => {
     const id = React.useId();
-    const [checked, setChecked] = React.useState<boolean>(defaultChecked);
+    const [internalChecked, setInternalChecked] = React.useState<boolean>(defaultChecked);
+    
+    // Use controlled value if provided, otherwise use internal state
+    const isControlled = controlledChecked !== undefined;
+    const checked = isControlled ? controlledChecked : internalChecked;
 
     const handleToggle = (newValue: boolean) => {
-      setChecked(newValue);
+      // Only update internal state if not controlled
+      if (!isControlled) {
+        setInternalChecked(newValue);
+      }
       onToggle?.(newValue);
     };
 
