@@ -1,0 +1,296 @@
+{
+  "navigation": {
+    "logo": "Chrish Fernando",
+    "menu": [
+      {
+        "label": "Home",
+        "href": "/"
+      },
+      {
+        "label": "About",
+        "href": "/about"
+      },
+      {
+        "label": "Projects",
+        "href": "/projects"
+      },
+      {
+        "label": "Contact",
+        "href": "/contact"
+      }
+    ],
+    "languageSwitcher": {
+      "label": "Language"
+    }
+  },
+  "hero": {
+    "title": "Chrish Fernando",
+    "subtitle": "Project Management Expert, Mentor & Sports Leadership Consultant",
+    "description": "Transforming teams and projects through proven leadership methodologies, strategic mentorship, and innovative sports-inspired approaches to professional development.",
+    "primaryCta": "View My Work",
+    "secondaryCta": "Get In Touch",
+    "headshot": {
+      "src": "/images/chrish/profile-hero.jpg",
+      "alt": "Chrish Fernando - Professional headshot"
+    }
+  },
+  "expertise": {
+    "title": "Areas of Expertise",
+    "tabs": [
+      {
+        "id": "project-management",
+        "label": "Project Management",
+        "title": "Strategic Project Leadership",
+        "description": "Expert project management with proven methodologies that drive results and exceed expectations.",
+        "features": [
+          "Agile & Waterfall Methodologies",
+          "Risk Assessment & Mitigation",
+          "Stakeholder Management",
+          "Budget & Timeline Optimization",
+          "Cross-functional Team Leadership"
+        ]
+      },
+      {
+        "id": "mentorship",
+        "label": "Mentorship",
+        "title": "Professional Development",
+        "description": "Empowering individuals and teams to reach their full potential through personalized guidance and strategic coaching.",
+        "features": [
+          "Individual Career Coaching",
+          "Team Development Programs",
+          "Leadership Skill Building",
+          "Performance Optimization",
+          "Goal Setting & Achievement"
+        ]
+      },
+      {
+        "id": "sports-leadership",
+        "label": "Sports Leadership",
+        "title": "Sports-Inspired Leadership",
+        "description": "Applying winning strategies from sports to create high-performing teams and achieve breakthrough results.",
+        "features": [
+          "Team Dynamics & Psychology",
+          "Performance Under Pressure",
+          "Competitive Strategy Development",
+          "Resilience & Mental Toughness",
+          "Victory Mindset Cultivation"
+        ]
+      }
+    ]
+  },
+  "process": {
+    "title": "My Approach",
+    "subtitle": "A proven methodology that delivers exceptional results",
+    "steps": [
+      {
+        "id": "assess",
+        "title": "Assess & Analyze",
+        "description": "Deep dive into current state, identify opportunities, and understand unique challenges and goals."
+      },
+      {
+        "id": "strategize",
+        "title": "Strategize & Plan",
+        "description": "Develop comprehensive strategies tailored to your specific needs and organizational culture."
+      },
+      {
+        "id": "implement",
+        "title": "Implement & Execute",
+        "description": "Put plans into action with hands-on guidance, monitoring progress, and making real-time adjustments."
+      },
+      {
+        "id": "optimize",
+        "title": "Optimize & Scale",
+        "description": "Continuously improve processes, measure results, and scale successful approaches across the organization."
+      }
+    ]
+  },
+  "testimonials": {
+    "title": "What Clients Say",
+    "testimonials": [
+      {
+        "id": "client-1",
+        "name": "Sarah Johnson",
+        "role": "CEO",
+        "company": "TechStart Solutions",
+        "content": "Chrish's project management expertise transformed our delivery capabilities. His sports-inspired leadership approach created a winning culture that drove 40% faster project completion.",
+        "rating": 5
+      },
+      {
+        "id": "client-2",
+        "name": "Marcus Chen",
+        "role": "Development Director",
+        "company": "Innovation Labs",
+        "content": "The mentorship program Chrish designed elevated our entire team's performance. His approach to developing individual strengths while building collective success is unmatched.",
+        "rating": 5
+      },
+      {
+        "id": "client-3",
+        "name": "Anna Lindberg",
+        "role": "Project Manager",
+        "company": "Nordic Ventures",
+        "content": "Working with Chrish changed my perspective on leadership. His combination of strategic thinking and practical execution helped me advance my career significantly.",
+        "rating": 5
+      }
+    ]
+  },
+  "featuredWork": {
+    "title": "Featured Projects",
+    "subtitle": "Showcasing impactful work across diverse industries",
+    "projects": [
+      {
+        "id": "digital-transformation",
+        "title": "Digital Transformation Initiative",
+        "description": "Led comprehensive digital transformation for a Fortune 500 company, improving efficiency by 60% and reducing costs by $2M annually.",
+        "category": "Project Management",
+        "image": "/images/projects/digital-transformation.jpg",
+        "tags": ["Digital Transformation", "Change Management", "Process Optimization"],
+        "featured": true,
+        "outcomes": [
+          "60% improvement in operational efficiency",
+          "$2M annual cost reduction",
+          "95% employee adoption rate"
+        ]
+      },
+      {
+        "id": "leadership-development",
+        "title": "Executive Leadership Program",
+        "description": "Designed and implemented a leadership development program that prepared 50+ executives for senior roles across multiple organizations.",
+        "category": "Mentorship",
+        "image": "/images/projects/leadership-program.jpg",
+        "tags": ["Leadership Development", "Executive Coaching", "Talent Management"],
+        "featured": true,
+        "outcomes": [
+          "50+ executives trained",
+          "80% internal promotion rate",
+          "25% improvement in leadership effectiveness scores"
+        ]
+      },
+      {
+        "id": "sports-team-consulting",
+        "title": "Professional Sports Team Consulting",
+        "description": "Applied business strategy principles to optimize team performance, resulting in championship victory and improved team culture.",
+        "category": "Sports Leadership",
+        "image": "/images/projects/sports-consulting.jpg",
+        "tags": ["Sports Psychology", "Team Performance", "Strategic Planning"],
+        "featured": true,
+        "outcomes": [
+          "Championship victory",
+          "40% improvement in team cohesion metrics",
+          "Enhanced individual player development"
+        ]
+      }
+    ]
+  },
+  "bio": {
+    "title": "About Chrish Fernando",
+    "biography": "With over 15 years of experience in project management, leadership development, and sports consulting, Chrish Fernando has established himself as a transformative force in professional development. His unique approach combines rigorous project management methodologies with the psychological insights and competitive strategies derived from elite sports environments.\n\nChrish's journey began in the corporate world, where he quickly distinguished himself by delivering complex projects on time and under budget while fostering exceptional team dynamics. His natural ability to mentor and develop talent led him to expand his practice into executive coaching and leadership development.\n\nWhat sets Chrish apart is his innovative integration of sports psychology and competitive strategies into business environments. Having worked with professional athletes and sports organizations, he understands the mental frameworks that drive peak performance under pressure – insights he successfully applies to help business teams achieve breakthrough results.",
+    "mission": "My mission is to unlock the championship potential that exists within every individual and organization. By combining proven project management excellence with sports-inspired leadership principles, I help teams not just succeed, but dominate their fields while maintaining sustainable, fulfilling careers.",
+    "headshot": {
+      "src": "/images/chrish/profile-about.jpg",
+      "alt": "Chrish Fernando - Professional portrait"
+    },
+    "highlights": [
+      "15+ years in project management and leadership",
+      "Worked with Fortune 500 companies and professional sports teams",
+      "Certified in multiple project management methodologies",
+      "Fluent in English and Swedish",
+      "Based in Stockholm, Sweden"
+    ]
+  },
+  "credentials": {
+    "title": "Professional Credentials",
+    "credentials": [
+      {
+        "id": "initiative-leader",
+        "role": "Initiative Leader",
+        "organization": "Various Fortune 500 Companies",
+        "description": "Leading strategic initiatives and large-scale transformations across multiple industries, consistently delivering results that exceed expectations.",
+        "period": "2015 - Present",
+        "achievements": [
+          "Led $50M+ digital transformation projects",
+          "Managed cross-functional teams of 100+ professionals",
+          "Achieved 95% project success rate",
+          "Delivered projects 25% faster than industry average"
+        ]
+      },
+      {
+        "id": "sports-consultant",
+        "role": "Sports Consultant",
+        "organization": "Professional Sports Organizations",
+        "description": "Providing strategic consulting and performance optimization services to professional sports teams and individual athletes.",
+        "period": "2018 - Present",
+        "achievements": [
+          "Consulted for 5+ professional sports teams",
+          "Improved team performance metrics by 40% average",
+          "Developed winning mental frameworks for athletes",
+          "Created sustainable performance improvement systems"
+        ]
+      },
+      {
+        "id": "pedagogue",
+        "role": "Pedagogue & Mentor",
+        "organization": "Executive Education & Corporate Training",
+        "description": "Designing and delivering educational programs that develop next-generation leaders and transform organizational cultures.",
+        "period": "2012 - Present",
+        "achievements": [
+          "Trained 500+ executives and managers",
+          "Designed curricula for leadership development programs",
+          "Achieved 90% participant satisfaction ratings",
+          "Created mentorship frameworks adopted organization-wide"
+        ]
+      }
+    ]
+  },
+  "contact": {
+    "title": "Let's Work Together",
+    "subtitle": "Ready to transform your team's performance? Get in touch to discuss how we can achieve your goals.",
+    "email": "chrish@example.com",
+    "location": "Stockholm, Sweden",
+    "socialMedia": [
+      {
+        "platform": "LinkedIn",
+        "url": "https://linkedin.com/in/chrish-fernando",
+        "icon": "linkedin"
+      },
+      {
+        "platform": "Twitter",
+        "url": "https://twitter.com/chrish_fernando",
+        "icon": "twitter"
+      }
+    ],
+    "form": {
+      "nameLabel": "Full Name",
+      "emailLabel": "Email Address",
+      "messageLabel": "Message",
+      "methodLabel": "Preferred Contact Method",
+      "submitButton": "Send Message",
+      "successMessage": "Thank you for your message! I'll get back to you within 24 hours.",
+      "errorMessage": "There was an error sending your message. Please try again or contact me directly."
+    }
+  },
+  "footer": {
+    "copyright": "© 2024 Chrish Fernando. All rights reserved.",
+    "links": [
+      {
+        "label": "Privacy Policy",
+        "href": "/privacy"
+      },
+      {
+        "label": "Terms of Service",
+        "href": "/terms"
+      }
+    ],
+    "socialMedia": [
+      {
+        "platform": "LinkedIn",
+        "url": "https://linkedin.com/in/chrish-fernando",
+        "icon": "linkedin"
+      },
+      {
+        "platform": "Twitter",
+        "url": "https://twitter.com/chrish_fernando",
+        "icon": "twitter"
+      }
+    ]
+  }
+} 

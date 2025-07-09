@@ -1,0 +1,296 @@
+{
+  "navigation": {
+    "logo": "Chrish Fernando",
+    "menu": [
+      {
+        "label": "Hem",
+        "href": "/"
+      },
+      {
+        "label": "Om mig",
+        "href": "/about"
+      },
+      {
+        "label": "Projekt",
+        "href": "/projects"
+      },
+      {
+        "label": "Kontakt",
+        "href": "/contact"
+      }
+    ],
+    "languageSwitcher": {
+      "label": "Språk"
+    }
+  },
+  "hero": {
+    "title": "Chrish Fernando",
+    "subtitle": "Projektledningsexpert, Mentor & Idrottsledarskapskonsult",
+    "description": "Transformerar team och projekt genom beprövade ledarskapsmetoder, strategisk mentorskap och innovativa idrottsinspirerade tillvägagångssätt för professionell utveckling.",
+    "primaryCta": "Se mitt arbete",
+    "secondaryCta": "Kontakta mig",
+    "headshot": {
+      "src": "/images/chrish/profile-hero.jpg",
+      "alt": "Chrish Fernando - Professionellt porträtt"
+    }
+  },
+  "expertise": {
+    "title": "Expertområden",
+    "tabs": [
+      {
+        "id": "project-management",
+        "label": "Projektledning",
+        "title": "Strategisk projektledning",
+        "description": "Expert projektledning med beprövade metoder som driver resultat och överträffar förväntningar.",
+        "features": [
+          "Agila & vattenfallsmetoder",
+          "Riskbedömning & reducering",
+          "Intressenthantering",
+          "Budget- & tidsoptimering",
+          "Tvärfunktionell teamledning"
+        ]
+      },
+      {
+        "id": "mentorship",
+        "label": "Mentorskap",
+        "title": "Professionell utveckling",
+        "description": "Ger individer och team möjlighet att nå sin fulla potential genom personlig vägledning och strategisk coaching.",
+        "features": [
+          "Individuell karriärcoaching",
+          "Teamutvecklingsprogram",
+          "Ledarskapsutbildning",
+          "Prestandaoptimering",
+          "Målsättning & uppnående"
+        ]
+      },
+      {
+        "id": "sports-leadership",
+        "label": "Idrottsledarskap",
+        "title": "Idrottsinspirerat ledarskap",
+        "description": "Tillämpar vinnande strategier från idrotten för att skapa högpresterande team och uppnå genombrott.",
+        "features": [
+          "Teamdynamik & psykologi",
+          "Prestation under press",
+          "Utveckling av konkurrensstrategier",
+          "Motståndskraft & mental styrka",
+          "Kultivering av vinnartänk"
+        ]
+      }
+    ]
+  },
+  "process": {
+    "title": "Min approach",
+    "subtitle": "En beprövad metod som levererar exceptionella resultat",
+    "steps": [
+      {
+        "id": "assess",
+        "title": "Bedöm & analysera",
+        "description": "Djupdyk i nuvarande tillstånd, identifiera möjligheter och förstå unika utmaningar och mål."
+      },
+      {
+        "id": "strategize",
+        "title": "Strategisera & planera",
+        "description": "Utveckla omfattande strategier skräddarsydda för dina specifika behov och organisationskultur."
+      },
+      {
+        "id": "implement",
+        "title": "Implementera & genomföra",
+        "description": "Sätt planer i verket med praktisk vägledning, övervaka framsteg och gör realtidsjusteringar."
+      },
+      {
+        "id": "optimize",
+        "title": "Optimera & skala",
+        "description": "Förbättra processer kontinuerligt, mät resultat och skala framgångsrika tillvägagångssätt över organisationen."
+      }
+    ]
+  },
+  "testimonials": {
+    "title": "Vad kunder säger",
+    "testimonials": [
+      {
+        "id": "client-1",
+        "name": "Sarah Johnson",
+        "role": "VD",
+        "company": "TechStart Solutions",
+        "content": "Chrishs projektledningsexpertis transformerade våra leveranskapaciteter. Hans idrottsinspirerade ledarskapsapproach skapade en vinnarkultur som drev 40% snabbare projektgenomförande.",
+        "rating": 5
+      },
+      {
+        "id": "client-2",
+        "name": "Marcus Chen",
+        "role": "Utvecklingsdirektör",
+        "company": "Innovation Labs",
+        "content": "Mentorskapsprogrammet som Chrish designade lyfte hela vårt teams prestation. Hans approach att utveckla individuella styrkor samtidigt som kollektiv framgång byggs är oslagbar.",
+        "rating": 5
+      },
+      {
+        "id": "client-3",
+        "name": "Anna Lindberg",
+        "role": "Projektledare",
+        "company": "Nordic Ventures",
+        "content": "Att arbeta med Chrish förändrade mitt perspektiv på ledarskap. Hans kombination av strategiskt tänkande och praktisk genomförande hjälpte mig avancera min karriär betydligt.",
+        "rating": 5
+      }
+    ]
+  },
+  "featuredWork": {
+    "title": "Utvalda projekt",
+    "subtitle": "Visar påverkansfullt arbete inom olika branscher",
+    "projects": [
+      {
+        "id": "digital-transformation",
+        "title": "Digital transformationsinitiativ",
+        "description": "Ledde omfattande digital transformation för ett Fortune 500-företag, förbättrade effektiviteten med 60% och reducerade kostnaderna med $2M årligen.",
+        "category": "Projektledning",
+        "image": "/images/projects/digital-transformation.jpg",
+        "tags": ["Digital transformation", "Förändringsledning", "Processoptimering"],
+        "featured": true,
+        "outcomes": [
+          "60% förbättring av operativ effektivitet",
+          "$2M årlig kostnadsminskning",
+          "95% medarbetaracceptans"
+        ]
+      },
+      {
+        "id": "leadership-development",
+        "title": "Ledarskapsutvecklingsprogram",
+        "description": "Designade och implementerade ett ledarskapsutvecklingsprogram som förberedde 50+ chefer för seniorroller inom flera organisationer.",
+        "category": "Mentorskap",
+        "image": "/images/projects/leadership-program.jpg",
+        "tags": ["Ledarskapsutveckling", "Chefsstöd", "Talanghantering"],
+        "featured": true,
+        "outcomes": [
+          "50+ chefer utbildade",
+          "80% intern befordringsgrad",
+          "25% förbättring av ledarskapseffektivitet"
+        ]
+      },
+      {
+        "id": "sports-team-consulting",
+        "title": "Professionell idrottsteamkonsultation",
+        "description": "Tillämpade affärsstrategi för att optimera teamprestation, resulterade i mästerskapsseger och förbättrad teamkultur.",
+        "category": "Idrottsledarskap",
+        "image": "/images/projects/sports-consulting.jpg",
+        "tags": ["Idrottspsykologi", "Teamprestation", "Strategisk planering"],
+        "featured": true,
+        "outcomes": [
+          "Mästerskapsseger",
+          "40% förbättring av teamsamhörighetsmått",
+          "Förstärkt individuell spelarutveckling"
+        ]
+      }
+    ]
+  },
+  "bio": {
+    "title": "Om Chrish Fernando",
+    "biography": "Med över 15 års erfarenhet inom projektledning, ledarskapsutveckling och idrottskonsultation har Chrish Fernando etablerat sig som en transformativ kraft inom professionell utveckling. Hans unika approach kombinerar rigorösa projektledningsmetoder med psykologiska insikter och konkurrensstrategier från elitidrottsmiljöer.\n\nChrishs resa började i företagsvärlden, där han snabbt utmärkte sig genom att leverera komplexa projekt i tid och under budget samtidigt som han främjade exceptionell teamdynamik. Hans naturliga förmåga att mentorera och utveckla talang ledde till att han utvidgade sin praktik till chef-coaching och ledarskapsutveckling.\n\nDet som skiljer Chrish åt är hans innovativa integration av idrottspsykologi och konkurrensstrategier i affärsmiljöer. Genom att ha arbetat med professionella idrottare och idrottsorganisationer förstår han de mentala ramverk som driver topprestationer under press – insikter han framgångsrikt tillämpar för att hjälpa affärsteam uppnå genombrott.",
+    "mission": "Min mission är att låsa upp mästarskapspotentialen som finns inom varje individ och organisation. Genom att kombinera beprövad projektledningsexcellens med idrottsinspirerade ledarskapsprinciper hjälper jag team att inte bara lyckas, utan dominera sina områden samtidigt som de upprätthåller hållbara, givande karriärer.",
+    "headshot": {
+      "src": "/images/chrish/profile-about.jpg",
+      "alt": "Chrish Fernando - Professionellt porträtt"
+    },
+    "highlights": [
+      "15+ års erfarenhet inom projektledning och ledarskap",
+      "Arbetat med Fortune 500-företag och professionella idrottslag",
+      "Certifierad inom flera projektledningsmetoder",
+      "Flyt i engelska och svenska",
+      "Baserad i Stockholm, Sverige"
+    ]
+  },
+  "credentials": {
+    "title": "Professionella meriter",
+    "credentials": [
+      {
+        "id": "initiative-leader",
+        "role": "Initiativledare",
+        "organization": "Olika Fortune 500-företag",
+        "description": "Leder strategiska initiativ och storskaliga transformationer inom flera branscher, levererar konsekvent resultat som överträffar förväntningar.",
+        "period": "2015 - Nuvarande",
+        "achievements": [
+          "Lett digitala transformationsprojekt värt $50M+",
+          "Hanterat tvärfunktionella team med 100+ proffs",
+          "Uppnått 95% projektframgångsgrad",
+          "Levererat projekt 25% snabbare än branschgenomsnittet"
+        ]
+      },
+      {
+        "id": "sports-consultant",
+        "role": "Idrottskonsult",
+        "organization": "Professionella idrottsorganisationer",
+        "description": "Tillhandahåller strategisk konsultation och prestationsoptimeringstjänster till professionella idrottslag och individuella idrottare.",
+        "period": "2018 - Nuvarande",
+        "achievements": [
+          "Konsulterat för 5+ professionella idrottslag",
+          "Förbättrat teamprestationsmått med 40% i genomsnitt",
+          "Utvecklat vinnande mentala ramverk för idrottare",
+          "Skapat hållbara prestationsförbättringssystem"
+        ]
+      },
+      {
+        "id": "pedagogue",
+        "role": "Pedagog & Mentor",
+        "organization": "Chefstutbildning & Företagsutbildning",
+        "description": "Designar och levererar utbildningsprogram som utvecklar nästa generations ledare och transformerar organisationskulturer.",
+        "period": "2012 - Nuvarande",
+        "achievements": [
+          "Utbildat 500+ chefer och ledare",
+          "Designat kursplaner för ledarskapsutvecklingsprogram",
+          "Uppnått 90% deltagarbelåtenhet",
+          "Skapat mentorskapsramverk som antagits organisationsövergripande"
+        ]
+      }
+    ]
+  },
+  "contact": {
+    "title": "Låt oss arbeta tillsammans",
+    "subtitle": "Redo att transformera ditt teams prestation? Kontakta mig för att diskutera hur vi kan uppnå dina mål.",
+    "email": "chrish@example.com",
+    "location": "Stockholm, Sverige",
+    "socialMedia": [
+      {
+        "platform": "LinkedIn",
+        "url": "https://linkedin.com/in/chrish-fernando",
+        "icon": "linkedin"
+      },
+      {
+        "platform": "Twitter",
+        "url": "https://twitter.com/chrish_fernando",
+        "icon": "twitter"
+      }
+    ],
+    "form": {
+      "nameLabel": "Fullständigt namn",
+      "emailLabel": "E-postadress",
+      "messageLabel": "Meddelande",
+      "methodLabel": "Föredragen kontaktmetod",
+      "submitButton": "Skicka meddelande",
+      "successMessage": "Tack för ditt meddelande! Jag återkommer till dig inom 24 timmar.",
+      "errorMessage": "Det uppstod ett fel när meddelandet skulle skickas. Försök igen eller kontakta mig direkt."
+    }
+  },
+  "footer": {
+    "copyright": "© 2024 Chrish Fernando. Alla rättigheter förbehållna.",
+    "links": [
+      {
+        "label": "Integritetspolicy",
+        "href": "/privacy"
+      },
+      {
+        "label": "Användarvillkor",
+        "href": "/terms"
+      }
+    ],
+    "socialMedia": [
+      {
+        "platform": "LinkedIn",
+        "url": "https://linkedin.com/in/chrish-fernando",
+        "icon": "linkedin"
+      },
+      {
+        "platform": "Twitter",
+        "url": "https://twitter.com/chrish_fernando",
+        "icon": "twitter"
+      }
+    ]
+  }
+} 
