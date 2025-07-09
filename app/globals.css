@@ -209,20 +209,20 @@
   
   /* Professional section spacing */
   .section-padding {
-    @apply py-12 sm:py-16 lg:py-20;
+    @apply py-8 sm:py-12 md:py-16 lg:py-20;
   }
   
   .section-padding-sm {
-    @apply py-8 sm:py-12 lg:py-16;
+    @apply py-6 sm:py-8 md:py-12 lg:py-16;
   }
   
   .section-padding-lg {
-    @apply py-16 sm:py-20 lg:py-28;
+    @apply py-12 sm:py-16 md:py-20 lg:py-28;
   }
   
   /* Professional section spacing with reduced mobile gaps */
   .section-padding-mobile-sm {
-    @apply py-8 sm:py-16 lg:py-20;
+    @apply py-6 sm:py-8 md:py-16 lg:py-20;
   }
   
   /* Professional card styles */
@@ -297,16 +297,16 @@
   
   /* Mobile-responsive spacing */
   .space-y-responsive > * + * {
-    @apply mt-4 sm:mt-6 lg:mt-8;
+    @apply mt-3 sm:mt-4 md:mt-6 lg:mt-8;
   }
   
   .space-y-responsive-lg > * + * {
-    @apply mt-6 sm:mt-8 lg:mt-12;
+    @apply mt-4 sm:mt-6 md:mt-8 lg:mt-12;
   }
   
   /* Professional grid utilities */
   .grid-professional {
-    @apply grid gap-6 sm:gap-8;
+    @apply grid gap-4 sm:gap-6 lg:gap-8;
   }
   
   .grid-professional-2 {
@@ -314,11 +314,29 @@
   }
   
   .grid-professional-3 {
-    @apply grid-professional grid-cols-1 md:grid-cols-2 lg:grid-cols-3;
+    @apply grid-professional grid-cols-1 sm:grid-cols-2 lg:grid-cols-3;
   }
   
   .grid-professional-4 {
     @apply grid-professional grid-cols-1 sm:grid-cols-2 lg:grid-cols-4;
+  }
+  
+  /* Mobile-first touch targets */
+  .touch-target {
+    @apply min-h-[44px] min-w-[44px];
+  }
+  
+  .touch-target-large {
+    @apply min-h-[48px] min-w-[48px];
+  }
+  
+  /* Mobile typography */
+  .text-mobile-friendly {
+    @apply text-base leading-relaxed;
+  }
+  
+  .heading-mobile-friendly {
+    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl;
   }
   
   /* Focus utilities */
@@ -329,5 +347,45 @@
   /* Professional scroll behavior */
   .scroll-smooth {
     scroll-behavior: smooth;
+  }
+  
+  /* Mobile performance optimizations */
+  .will-change-transform {
+    will-change: transform;
+  }
+  
+  .hardware-accelerated {
+    transform: translateZ(0);
+  }
+  
+  /* Touch device optimizations */
+  .touch-device .hover\:scale-105:hover {
+    transform: none;
+  }
+  
+  .touch-device .hover\:shadow-lg:hover {
+    box-shadow: inherit;
+  }
+  
+  .touch-device .group:hover .group-hover\:translate-x-1 {
+    transform: none;
+  }
+  
+  /* High contrast and reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+  
+  @media (prefers-contrast: high) {
+    .border {
+      border-width: 2px;
+    }
   }
 }

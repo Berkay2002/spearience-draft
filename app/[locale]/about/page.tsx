@@ -4,6 +4,7 @@ import { CredentialsSection } from '@/components/sections/credentials-section'
 import { ImpactStatementSection } from '@/components/sections/impact-statement-section'
 import { Footer } from '@/components/sections/footer'
 import { type Locale } from '@/lib/i18n'
+import { generateMetadata as generateSEOMetadata, generateStructuredData, SEOUtils, getStructuredDataScript } from '@/lib/seo'
 
 interface AboutPageProps {
   params: {
@@ -13,35 +14,25 @@ interface AboutPageProps {
 
 export async function generateMetadata({ params }: AboutPageProps): Promise<Metadata> {
   const { locale } = params
-  
-  const title = locale === 'sv' 
-    ? 'Om Chrish Fernando - Projektledningsexpert & Mentor' 
-    : 'About Chrish Fernando - Project Management Expert & Mentor'
-  
-  const description = locale === 'sv'
-    ? 'Lär känna Chrish Fernando, en erfaren projektledningsexpert med över 15 års erfarenhet av att transformera team och organisationer genom proven ledarskapsmetoder.'
-    : 'Get to know Chrish Fernando, an experienced project management expert with over 15 years of transforming teams and organizations through proven leadership methodologies.'
-
-  return {
-    title,
-    description,
-    openGraph: {
-      title,
-      description,
-      type: 'profile',
-      locale: locale === 'sv' ? 'sv_SE' : 'en_US',
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title,
-      description,
-    },
-  }
+  const seoData = SEOUtils.about(locale)
+  return generateSEOMetadata(seoData)
 }
 
 export default function AboutPage({ params }: AboutPageProps) {
+  const { locale } = params
+  const seoData = SEOUtils.about(locale)
+  const personStructuredData = generateStructuredData(seoData, 'person')
+
   return (
     <>
+      {/* SEO Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: getStructuredDataScript(personStructuredData)
+        }}
+      />
+
       {/* Professional Bio Section */}
       <BioSection />
       

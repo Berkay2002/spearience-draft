@@ -30,21 +30,21 @@ export function HeroSection({ className }: HeroSectionProps) {
   return (
     <section className={`section-padding-lg overflow-hidden ${className}`}>
       <div className="container-professional">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-16 items-center">
           {/* Content Column */}
-          <div className="order-2 lg:order-1 space-y-8">
+          <div className="order-2 lg:order-1 space-y-6 sm:space-y-8">
             {/* Hero Title */}
-            <div className="space-y-6">
-              <h1 className="hero-text animate-fade-in-up">
+            <div className="space-y-4 sm:space-y-6">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground animate-fade-in-up">
                 {heroContent.title}
               </h1>
               
-              <div className="space-y-4">
-                <h2 className="text-2xl sm:text-3xl font-semibold text-primary gradient-text animate-fade-in-up [animation-delay:200ms]">
+              <div className="space-y-3 sm:space-y-4">
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-primary gradient-text animate-fade-in-up [animation-delay:200ms]">
                   {heroContent.subtitle}
                 </h2>
                 
-                <p className="hero-subtitle max-w-2xl animate-fade-in-up [animation-delay:400ms]">
+                <p className="text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl animate-fade-in-up [animation-delay:400ms]">
                   {heroContent.description}
                 </p>
               </div>
@@ -96,6 +96,7 @@ export function HeroSection({ className }: HeroSectionProps) {
                       priority
                       placeholder="blur"
                       blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 500px"
                     />
                     
                     {/* Floating elements for visual interest */}

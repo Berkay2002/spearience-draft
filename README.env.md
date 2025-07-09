@@ -218,6 +218,44 @@ The contact form includes built-in rate limiting:
 - 20 submissions per day per IP
 - Automatic spam detection and filtering
 
+## Search Engine Verification
+
+Configure search engine verification for Google Search Console, Bing Webmaster Tools, and Yandex Webmaster:
+
+```bash
+# Google Search Console verification
+NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=your_google_verification_code
+
+# Bing Webmaster Tools verification  
+NEXT_PUBLIC_BING_SITE_VERIFICATION=your_bing_verification_code
+
+# Yandex Webmaster verification
+NEXT_PUBLIC_YANDEX_SITE_VERIFICATION=your_yandex_verification_code
+```
+
+### Getting Verification Codes
+
+#### Google Search Console
+1. Go to [Google Search Console](https://search.google.com/search-console)
+2. Add your property (website)
+3. Choose "HTML tag" verification method
+4. Copy the `content` value from the meta tag
+5. Add to `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION`
+
+#### Bing Webmaster Tools
+1. Go to [Bing Webmaster Tools](https://www.bing.com/webmasters)
+2. Add your site
+3. Choose "Meta tag" verification
+4. Copy the `content` value
+5. Add to `NEXT_PUBLIC_BING_SITE_VERIFICATION`
+
+#### Yandex Webmaster
+1. Go to [Yandex Webmaster](https://webmaster.yandex.com/)
+2. Add your site
+3. Choose "Meta tag" verification
+4. Copy the `content` value  
+5. Add to `NEXT_PUBLIC_YANDEX_SITE_VERIFICATION`
+
 ## Production Deployment
 
 ### Environment Variables Checklist
@@ -233,6 +271,8 @@ NEXT_PUBLIC_APP_URL=https://chrishfernando.com
 # ✅ Optional but Recommended
 SEND_AUTO_RESPONSE=true
 NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
+NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=your_google_verification_code
+NEXT_PUBLIC_BING_SITE_VERIFICATION=your_bing_verification_code
 ```
 
 ### DNS Configuration

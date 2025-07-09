@@ -757,7 +757,7 @@ export function ContactForm({ className }: ContactFormProps) {
             <Button
               type="submit"
               disabled={isSubmitting || !isFormValid}
-              className={`w-full py-3 text-base font-medium transition-all duration-200 ${
+              className={`w-full py-4 min-h-[56px] text-base font-medium transition-all duration-200 touch-target-large ${
                 isSubmitting 
                   ? 'bg-blue-500 text-white cursor-wait' 
                   : isFormValid 
@@ -805,7 +805,7 @@ export function ContactForm({ className }: ContactFormProps) {
               <Button
                 variant="outline"
                 onClick={(e) => handleSubmit(e)}
-                className="w-full border-red-300 text-red-700 hover:bg-red-50 dark:border-red-600 dark:text-red-300"
+                className="w-full min-h-[48px] border-red-300 text-red-700 hover:bg-red-50 dark:border-red-600 dark:text-red-300 touch-target"
               >
                 <RefreshCw className="mr-2 h-4 w-4" />
                 {locale === 'sv' ? 'Försök skicka igen' : 'Try sending again'}

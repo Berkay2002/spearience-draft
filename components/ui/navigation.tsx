@@ -78,7 +78,7 @@ export function Navigation({ className }: NavigationProps) {
         className
       )}
     >
-      <nav className="container-professional flex items-center justify-between py-4">
+      <nav className="container-professional flex items-center justify-between py-3 sm:py-4">
         {/* Logo */}
         <Link 
           href={`/${currentLocale}`}
@@ -153,14 +153,14 @@ export function Navigation({ className }: NavigationProps) {
         </div>
 
         {/* Mobile Menu */}
-        <div className="md:hidden flex items-center space-x-2">
+        <div className="md:hidden flex items-center space-x-1">
           {/* Mobile Theme Switcher */}
           <ThemeToggle className="w-10 h-5" />
           
           {/* Mobile Language Switcher */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="sm" className="gap-1">
+              <Button variant="ghost" size="sm" className="gap-1 min-h-[44px] min-w-[44px]">
                 <Globe className="w-4 h-4" />
                 <span className="text-xs">
                   {currentLocale === 'en' ? 'EN' : 'SV'}
@@ -192,7 +192,7 @@ export function Navigation({ className }: NavigationProps) {
           {/* Mobile Menu Trigger */}
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="sm" className="p-2">
+              <Button variant="ghost" size="sm" className="p-2 min-h-[44px] min-w-[44px]">
                 <Menu className="w-5 h-5" />
                 <span className="sr-only">Toggle menu</span>
               </Button>
@@ -207,17 +207,17 @@ export function Navigation({ className }: NavigationProps) {
                 </div>
 
                 {/* Mobile Navigation Links */}
-                <nav className="flex flex-col space-y-6 py-6 flex-1">
+                <nav className="flex flex-col space-y-2 py-6 flex-1">
                   {navigationItems.map((item) => (
                     <Link
                       key={item.href}
                       href={item.href}
                       onClick={handleLinkClick}
                       className={cn(
-                        "text-base font-medium transition-colors hover:text-primary",
+                        "text-base font-medium transition-colors hover:text-primary p-3 rounded-lg min-h-[44px] flex items-center",
                         pathname === item.href 
-                          ? "text-primary" 
-                          : "text-muted-foreground"
+                          ? "text-primary bg-primary/10" 
+                          : "text-muted-foreground hover:bg-accent"
                       )}
                     >
                       {item.label}
