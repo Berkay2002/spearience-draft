@@ -135,7 +135,7 @@ export function ProcessShowcase({ className }: ProcessShowcaseProps) {
   const processContent = useProcessContent()
 
   return (
-    <section className={`section-padding-lg relative -mt-32 sm:-mt-24 md:-mt-16 py-0 sm:py-2 md:py-24 ${className}`}>
+    <section className={`section-padding-lg relative -mt-32 sm:-mt-24 md:-mt-16 py-0 sm:py-2 md:py-24 overflow-hidden ${className}`}>
       {/* MacBook Scroll Component */}
       <MacbookScroll
         title={
