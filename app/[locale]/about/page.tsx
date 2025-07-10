@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { BioSection } from '@/components/sections/bio-section'
 import { CredentialsSection } from '@/components/sections/credentials-section'
-import { ImpactStatementSection } from '@/components/sections/impact-statement-section'
 import { Footer } from '@/components/sections/footer'
 import { type Locale } from '@/lib/i18n'
 import { generateMetadata as generateSEOMetadata, generateStructuredData, SEOUtils, getStructuredDataScript } from '@/lib/seo'
@@ -38,9 +37,6 @@ export default function AboutPage({ params }: AboutPageProps) {
       
       {/* Professional Credentials Section */}
       <CredentialsSection />
-      
-      {/* Impact Statement Section */}
-      <ImpactStatementSection />
       
       {/* Site Footer */}
       <Footer />

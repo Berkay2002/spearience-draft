@@ -7,6 +7,9 @@ import { Navigation } from '@/components/ui/navigation';
 import { Toaster } from '@/components/ui/toaster';
 import { SEO_CONFIG } from '@/lib/seo';
 import { PerformanceProvider } from '@/components/performance-provider';
+import { PerformanceDashboardProvider } from '@/components/performance-dashboard';
+import { SkipLinks } from '@/components/accessibility/skip-links';
+import { AccessibilityProvider } from '@/components/accessibility/accessibility-provider';
 
 const inter = Inter({
   subsets: ["latin"],
@@ -94,20 +97,30 @@ export default function RootLayout({
       </head>
       <body className={`${inter.variable} font-sans antialiased`}>
         <PerformanceProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <ContentProvider>
-              <Navigation />
-              <main className="min-h-screen pt-16 sm:pt-20">
-                {children}
-              </main>
-              <Toaster />
-            </ContentProvider>
-          </ThemeProvider>
+          <PerformanceDashboardProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <AccessibilityProvider>
+                <ContentProvider>
+                  <SkipLinks />
+                  <Navigation />
+                  <main 
+                    id="main-content" 
+                    role="main" 
+                    className="min-h-screen pt-16 sm:pt-20"
+                    tabIndex={-1}
+                  >
+                    {children}
+                  </main>
+                  <Toaster />
+                </ContentProvider>
+              </AccessibilityProvider>
+            </ThemeProvider>
+          </PerformanceDashboardProvider>
         </PerformanceProvider>
       </body>
     </html>

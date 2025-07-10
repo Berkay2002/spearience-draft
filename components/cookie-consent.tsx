@@ -71,7 +71,7 @@ export function CookieConsent({ className }: CookieConsentProps) {
     }
   }
 
-  const t = content[locale] || content.en
+  const t = content[locale as keyof typeof content] || content.en
 
   // Check existing consent on mount
   useEffect(() => {

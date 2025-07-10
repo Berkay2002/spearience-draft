@@ -113,6 +113,45 @@ export interface ImpactContent {
   }
 }
 
+export interface ProjectCaseStudyContent {
+  navigation: {
+    backToProjects: string
+  }
+  labels: {
+    featured: string
+    overview: string
+    challenge: string
+    solution: string
+    results: string
+    projectDetails: string
+    category: string
+    status: string
+    type: string
+    completed: string
+    featuredProject: string
+    caseStudy: string
+  }
+  content: {
+    challengeDescription: string
+    solutionDescription: string
+    methodologyHighlights: Array<{
+      title: string
+      description: string
+    }>
+  }
+  callToAction: {
+    title: string
+    subtitle: string
+    buttonText: string
+  }
+  bottomSection: {
+    title: string
+    subtitle: string
+    viewAllButton: string
+    contactButton: string
+  }
+}
+
 export interface ContactContent {
   title: string
   subtitle: string
@@ -142,6 +181,21 @@ export interface NavigationContent {
   }>
   languageSwitcher: {
     label: string
+    changeLanguageLabel?: string
+    english?: string
+    swedish?: string
+    languageChangedTo?: string
+  }
+  cta?: {
+    text: string
+  }
+}
+
+export interface AccessibilityContent {
+  skipLinks: {
+    skipToMain: string
+    skipToNavigation: string
+    skipToFooter: string
   }
 }
 
@@ -160,6 +214,7 @@ export interface FooterContent {
 
 export interface SiteContent {
   navigation: NavigationContent
+  accessibility?: AccessibilityContent
   hero: HeroContent
   expertise: ExpertiseContent
   process: ProcessContent
@@ -168,6 +223,7 @@ export interface SiteContent {
   bio: BioContent
   credentials: CredentialsContent
   impact?: ImpactContent
+  projectCaseStudy?: ProjectCaseStudyContent
   contact: ContactContent
   footer: FooterContent
 }
@@ -222,7 +278,7 @@ export function preloadContent(locale: Locale, content: SiteContent) {
 function createFallbackContent(): SiteContent {
   return {
     navigation: {
-      logo: "Chrish Fernando",
+      logo: "Spearience",
       menu: [
         { label: "Home", href: "/" },
         { label: "About", href: "/about" },
@@ -232,9 +288,9 @@ function createFallbackContent(): SiteContent {
       languageSwitcher: { label: "Language" }
     },
     hero: {
-      title: "Chrish Fernando",
-      subtitle: "Project Management Expert, Mentor & Sports Leadership Consultant",
-      description: "Transforming teams and projects through proven leadership methodologies.",
+      title: "Spearience",
+      subtitle: "Founded by Chrish Fernando - Concept Development, Project Management & Youth-Focused Consulting",
+      description: "Empowering young people through innovative concept development, strategic project management, and personalized mentorship experiences.",
       primaryCta: "View My Work",
       secondaryCta: "Get In Touch",
       headshot: {
@@ -243,7 +299,7 @@ function createFallbackContent(): SiteContent {
       }
     },
     expertise: { title: "Areas of Expertise", tabs: [] },
-    process: { title: "My Approach", subtitle: "", steps: [] },
+    process: { title: "My Venture", subtitle: "", steps: [] },
     testimonials: { title: "What Clients Say", testimonials: [] },
     featuredWork: { title: "Featured Projects", subtitle: "", projects: [] },
     bio: { 

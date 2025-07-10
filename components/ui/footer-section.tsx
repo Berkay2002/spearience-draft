@@ -13,144 +13,117 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { Facebook, Instagram, Linkedin, Send, Twitter } from "lucide-react"
+import { SocialShare } from '@/components/social-share'
+import { useContent } from '@/hooks/useContent'
+import Link from 'next/link'
+import { Separator } from '@/components/ui/separator'
+import { Mail, MapPin } from 'lucide-react'
 
-function Footerdemo() {
+export function FooterSection() {
+  const { content } = useContent()
+  
+  if (!content) {
+    return null
+  }
 
+  const year = new Date().getFullYear()
+  
   return (
-    <footer className="relative border-t bg-background text-foreground transition-colors duration-300">
-      <div className="container mx-auto px-4 py-12 md:px-6 lg:px-8">
-        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
-          <div className="relative">
-            <h2 className="mb-4 text-3xl font-bold tracking-tight">Stay Connected</h2>
-            <p className="mb-6 text-muted-foreground">
-              Join our newsletter for the latest updates and exclusive offers.
-            </p>
-            <form className="relative">
-              <Input
-                type="email"
-                placeholder="Enter your email"
-                className="pr-12 backdrop-blur-sm"
-              />
-              <Button
-                type="submit"
-                size="icon"
-                className="absolute right-1 top-1 h-8 w-8 rounded-full bg-primary text-primary-foreground transition-transform hover:scale-105"
-              >
-                <Send className="h-4 w-4" />
-                <span className="sr-only">Subscribe</span>
-              </Button>
-            </form>
-            <div className="absolute -right-4 top-0 h-24 w-24 rounded-full bg-primary/10 blur-2xl" />
-          </div>
-          <div>
-            <h3 className="mb-4 text-lg font-semibold">Quick Links</h3>
-            <nav className="space-y-2 text-sm">
-              <a href="#" className="block transition-colors hover:text-primary">
-                Home
-              </a>
-              <a href="#" className="block transition-colors hover:text-primary">
-                About Us
-              </a>
-              <a href="#" className="block transition-colors hover:text-primary">
-                Services
-              </a>
-              <a href="#" className="block transition-colors hover:text-primary">
-                Products
-              </a>
-              <a href="#" className="block transition-colors hover:text-primary">
-                Contact
-              </a>
-            </nav>
-          </div>
-          <div>
-            <h3 className="mb-4 text-lg font-semibold">Contact Us</h3>
-            <address className="space-y-2 text-sm not-italic">
-              <p>123 Innovation Street</p>
-              <p>Tech City, TC 12345</p>
-              <p>Phone: (123) 456-7890</p>
-              <p>Email: hello@example.com</p>
-            </address>
-          </div>
-          <div className="relative">
-            <h3 className="mb-4 text-lg font-semibold">Follow Us</h3>
-            <div className="mb-6 flex space-x-4">
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button variant="outline" size="icon" className="rounded-full">
-                      <Facebook className="h-4 w-4" />
-                      <span className="sr-only">Facebook</span>
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Follow us on Facebook</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button variant="outline" size="icon" className="rounded-full">
-                      <Twitter className="h-4 w-4" />
-                      <span className="sr-only">Twitter</span>
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Follow us on Twitter</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button variant="outline" size="icon" className="rounded-full">
-                      <Instagram className="h-4 w-4" />
-                      <span className="sr-only">Instagram</span>
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Follow us on Instagram</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button variant="outline" size="icon" className="rounded-full">
-                      <Linkedin className="h-4 w-4" />
-                      <span className="sr-only">LinkedIn</span>
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Connect with us on LinkedIn</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            </div>
+    <footer className="bg-muted/50 border-t">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          {/* Brand */}
+          <div className="space-y-4">
             <div className="flex items-center space-x-2">
-              <ThemeToggle />
+              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                <span className="text-primary-foreground font-bold text-sm">CF</span>
+              </div>
+              <span className="font-semibold text-foreground">Chrish Fernando</span>
+            </div>
+            <p className="text-sm text-muted-foreground max-w-xs">
+              {content.footer.description}
+            </p>
+            
+            {/* Social sharing */}
+            <div className="pt-2">
+              <SocialShare 
+                variant="minimal" 
+                platforms={['linkedin', 'twitter', 'facebook']}
+                showCopyLink={false}
+                className="justify-start"
+              />
+            </div>
+          </div>
+
+          {/* Quick Links */}
+          <div className="space-y-4">
+            <h3 className="font-semibold text-foreground">{content.footer.sections.quickLinks.title}</h3>
+            <ul className="space-y-2">
+              {content.footer.sections.quickLinks.links.map((link) => (
+                <li key={link.href}>
+                  <Link 
+                    href={link.href}
+                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Services */}
+          <div className="space-y-4">
+            <h3 className="font-semibold text-foreground">{content.footer.sections.services.title}</h3>
+            <ul className="space-y-2">
+              {content.footer.sections.services.links.map((link) => (
+                <li key={link.href}>
+                  <Link 
+                    href={link.href}
+                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Contact */}
+          <div className="space-y-4">
+            <h3 className="font-semibold text-foreground">{content.footer.sections.contact.title}</h3>
+            <div className="space-y-3">
+              <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+                <Mail className="w-4 h-4" />
+                <span>{content.footer.sections.contact.email}</span>
+              </div>
+              <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+                <MapPin className="w-4 h-4" />
+                <span>{content.footer.sections.contact.location}</span>
+              </div>
             </div>
           </div>
         </div>
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t pt-8 text-center md:flex-row">
+
+        <Separator className="my-8" />
+
+        <div className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
           <p className="text-sm text-muted-foreground">
-            © 2024 Your Company. All rights reserved.
+            © {year} Chrish Fernando. {content.footer.copyright}
           </p>
-          <nav className="flex gap-4 text-sm">
-            <a href="#" className="transition-colors hover:text-primary">
-              Privacy Policy
-            </a>
-            <a href="#" className="transition-colors hover:text-primary">
-              Terms of Service
-            </a>
-            <a href="#" className="transition-colors hover:text-primary">
-              Cookie Settings
-            </a>
-          </nav>
+          <div className="flex space-x-6">
+            {content.footer.legalLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </footer>
   )
 }
-
-export { Footerdemo }

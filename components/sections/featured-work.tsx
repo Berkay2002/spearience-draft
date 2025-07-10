@@ -64,13 +64,6 @@ export function FeaturedWork({ className }: FeaturedWorkProps) {
                   </Link>
                 </div>
 
-                {/* Trust badges */}
-                <div className="flex flex-wrap items-center justify-center gap-6 pt-4 text-sm text-white/60">
-                  <span>✓ Fortune 500 Trusted</span>
-                  <span>✓ 15+ Years Experience</span>
-                  <span>✓ 98% Success Rate</span>
-                  <span>✓ Stockholm Based</span>
-                </div>
               </div>
             </div>
           </div>

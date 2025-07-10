@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import { useBioContent } from '@/hooks/use-content'
 import { CheckCircle, Award, Globe, Users, Target, Briefcase } from 'lucide-react'
+import { imagePresets } from '@/lib/image-optimization'
 
 interface BioSectionProps {
   className?: string
@@ -21,67 +22,40 @@ export function BioSection({ className }: BioSectionProps) {
       <div className="container-professional">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <h1 className="section-title mb-6">
-            {bioContent.title}
-          </h1>
+                  <h2 className="section-title mb-6">
+          {bioContent.title}
+        </h2>
           <div className="w-24 h-1 bg-gradient-professional mx-auto rounded-full"></div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           {/* Left Column - Professional Headshot */}
-          <div className="relative">
-            <div className="relative group">
+          <div className="relative h-full flex items-stretch">
+            <div className="relative group flex-1 flex items-stretch">
               {/* Background decoration */}
               <div className="absolute -inset-4 bg-gradient-professional rounded-3xl opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
               <div className="absolute -inset-2 bg-gradient-to-br from-primary/20 to-transparent rounded-2xl"></div>
               
               {/* Main image container */}
-              <div className="relative bg-card border border-border rounded-2xl p-6 shadow-professional">
-                <div className="relative aspect-[4/5] rounded-xl overflow-hidden">
+              <div className="relative bg-card border border-border rounded-2xl p-6 shadow-professional flex h-full">
+                <div className="relative aspect-[4/5] rounded-xl overflow-hidden w-full h-full min-h-[400px] max-h-[700px]">
                   <Image
                     src={bioContent.headshot.src}
                     alt={bioContent.headshot.alt}
                     fill
                     className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
-                    priority
+                    priority={false}
+                    placeholder="blur"
+                    blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
+                    sizes="(max-width: 768px) 300px, (max-width: 1024px) 400px, 600px"
                   />
-                  
-                  {/* Professional overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
                 </div>
-
-                {/* Professional badge */}
-                <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2">
-                  <div className="bg-background border border-border rounded-full px-6 py-3 shadow-lg">
-                    <div className="flex items-center gap-2">
-                      <Award className="w-5 h-5 text-primary" />
-                      <span className="text-sm font-medium">15+ Years Experience</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Key Highlights */}
-            <div className="mt-12 bg-card border border-border rounded-2xl p-6">
-              <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                <Target className="w-5 h-5 text-primary" />
-                Key Highlights
-              </h3>
-              <div className="space-y-3">
-                {bioContent.highlights.map((highlight, index) => (
-                  <div key={index} className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
-                    <span className="text-sm text-muted-foreground leading-relaxed">
-                      {highlight}
-                    </span>
-                  </div>
-                ))}
               </div>
             </div>
           </div>
 
-          {/* Right Column - Biography & Mission */}
+          {/* Right Column - Biography & Key Highlights */}
           <div className="space-y-8">
             {/* Professional Biography */}
             <div>
@@ -98,42 +72,23 @@ export function BioSection({ className }: BioSectionProps) {
               </div>
             </div>
 
-            {/* Mission Statement */}
-            <div className="bg-gradient-professional rounded-2xl p-8 text-white relative overflow-hidden">
-              {/* Background decoration */}
-              <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
-              <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full blur-xl"></div>
-              
-              <div className="relative z-10">
-                <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
-                  <Globe className="w-6 h-6 text-white" />
-                  My Mission
-                </h3>
-                <p className="text-white/90 leading-relaxed text-lg italic">
-                  "{bioContent.mission}"
-                </p>
+            {/* Key Highlights */}
+            <div className="bg-card border border-border rounded-2xl p-6">
+              <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                <Target className="w-5 h-5 text-primary" />
+                Key Highlights
+              </h3>
+              <div className="space-y-3">
+                {bioContent.highlights.map((highlight, index) => (
+                  <div key={index} className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
+                    <span className="text-sm text-muted-foreground leading-relaxed">
+                      {highlight}
+                    </span>
+                  </div>
+                ))}
               </div>
             </div>
-
-            {/* Impact Metrics */}
-            <div className="grid grid-cols-2 gap-4">
-              <div className="bg-card border border-border rounded-xl p-6 text-center">
-                <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-3">
-                  <Users className="w-6 h-6 text-primary" />
-                </div>
-                <div className="text-2xl font-bold text-foreground mb-1">50+</div>
-                <div className="text-sm text-muted-foreground">Clients Served</div>
-              </div>
-              
-              <div className="bg-card border border-border rounded-xl p-6 text-center">
-                <div className="w-12 h-12 bg-success/10 rounded-xl flex items-center justify-center mx-auto mb-3">
-                  <Target className="w-6 h-6 text-success" />
-                </div>
-                <div className="text-2xl font-bold text-foreground mb-1">98%</div>
-                <div className="text-sm text-muted-foreground">Success Rate</div>
-              </div>
-            </div>
-
 
           </div>
         </div>

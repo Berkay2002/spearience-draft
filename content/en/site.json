@@ -1,6 +1,6 @@
 {
   "navigation": {
-    "logo": "Chrish Fernando",
+    "logo": "Spearience",
     "menu": [
       {
         "label": "Home",
@@ -20,13 +20,27 @@
       }
     ],
     "languageSwitcher": {
-      "label": "Language"
+      "label": "Language",
+      "changeLanguageLabel": "Change language",
+      "english": "English",
+      "swedish": "Svenska",
+      "languageChangedTo": "Language changed to"
+    },
+    "cta": {
+      "text": "Get In Touch"
+    }
+  },
+  "accessibility": {
+    "skipLinks": {
+      "skipToMain": "Skip to main content",
+      "skipToNavigation": "Skip to navigation", 
+      "skipToFooter": "Skip to footer"
     }
   },
   "hero": {
-    "title": "Chrish Fernando",
-    "subtitle": "Project Management Expert, Mentor & Sports Leadership Consultant",
-    "description": "Transforming teams and projects through proven leadership methodologies, strategic mentorship, and innovative sports-inspired approaches to professional development.",
+    "title": "Spearience",
+    "subtitle": "Founded by Chrish Fernando - Concept Development, Project Management & Youth-Focused Consulting",
+    "description": "Empowering young people through innovative concept development, strategic project management, and personalized mentorship experiences that drive meaningful results.",
     "primaryCta": "View My Work",
     "secondaryCta": "Get In Touch",
     "headshot": {
@@ -38,13 +52,26 @@
     "title": "Areas of Expertise",
     "tabs": [
       {
+        "id": "concept-development",
+        "label": "Concept Development",
+        "title": "Innovative Concept Creation",
+        "description": "Transforming ideas into actionable concepts that resonate with young audiences and drive engagement.",
+        "features": [
+          "Youth-Centered Design Thinking",
+          "Creative Ideation & Brainstorming",
+          "Concept Validation & Testing",
+          "Market Research & Analysis",
+          "Innovation Strategy Development"
+        ]
+      },
+      {
         "id": "project-management",
         "label": "Project Management",
         "title": "Strategic Project Leadership",
-        "description": "Expert project management with proven methodologies that drive results and exceed expectations.",
+        "description": "Expert project management with proven methodologies that deliver results for youth-focused initiatives.",
         "features": [
           "Agile & Waterfall Methodologies",
-          "Risk Assessment & Mitigation",
+          "Youth Program Development",
           "Stakeholder Management",
           "Budget & Timeline Optimization",
           "Cross-functional Team Leadership"
@@ -53,54 +80,41 @@
       {
         "id": "mentorship",
         "label": "Mentorship",
-        "title": "Professional Development",
-        "description": "Empowering individuals and teams to reach their full potential through personalized guidance and strategic coaching.",
+        "title": "Goal-Oriented Youth Development",
+        "description": "Empowering young people through personalized mentorship and goal-oriented experiences that unlock their potential.",
         "features": [
-          "Individual Career Coaching",
-          "Team Development Programs",
+          "Individual Youth Coaching",
+          "Goal Setting & Achievement",
           "Leadership Skill Building",
-          "Performance Optimization",
-          "Goal Setting & Achievement"
-        ]
-      },
-      {
-        "id": "sports-leadership",
-        "label": "Sports Leadership",
-        "title": "Sports-Inspired Leadership",
-        "description": "Applying winning strategies from sports to create high-performing teams and achieve breakthrough results.",
-        "features": [
-          "Team Dynamics & Psychology",
-          "Performance Under Pressure",
-          "Competitive Strategy Development",
-          "Resilience & Mental Toughness",
-          "Victory Mindset Cultivation"
+          "Personal Development Programs",
+          "Sports-Inspired Mentorship"
         ]
       }
     ]
   },
   "process": {
-    "title": "My Approach",
-    "subtitle": "A proven methodology that delivers exceptional results",
+    "title": "Our Approach",
+    "subtitle": "How we create impactful experiences for young people",
     "steps": [
       {
-        "id": "assess",
-        "title": "Assess & Analyze",
-        "description": "Deep dive into current state, identify opportunities, and understand unique challenges and goals."
+        "id": "discover",
+        "title": "Discover & Understand",
+        "description": "Deep dive into youth needs, aspirations, and challenges to create meaningful and relevant solutions."
       },
       {
-        "id": "strategize",
-        "title": "Strategize & Plan",
-        "description": "Develop comprehensive strategies tailored to your specific needs and organizational culture."
+        "id": "develop",
+        "title": "Develop & Design",
+        "description": "Create innovative concepts and strategies tailored to engage and inspire young people effectively."
       },
       {
-        "id": "implement",
-        "title": "Implement & Execute",
-        "description": "Put plans into action with hands-on guidance, monitoring progress, and making real-time adjustments."
+        "id": "deliver",
+        "title": "Deliver & Execute",
+        "description": "Implement goal-oriented programs and experiences with hands-on mentorship and project management."
       },
       {
-        "id": "optimize",
-        "title": "Optimize & Scale",
-        "description": "Continuously improve processes, measure results, and scale successful approaches across the organization."
+        "id": "drive",
+        "title": "Drive & Sustain",
+        "description": "Ensure lasting impact through continuous improvement, measurement, and sustainable development practices."
       }
     ]
   },
@@ -109,27 +123,30 @@
     "testimonials": [
       {
         "id": "client-1",
-        "name": "Sarah Johnson",
-        "role": "CEO",
-        "company": "TechStart Solutions",
-        "content": "Chrish's project management expertise transformed our delivery capabilities. His sports-inspired leadership approach created a winning culture that drove 40% faster project completion.",
-        "rating": 5
+        "name": "Lorem Ipsum",
+        "role": "Lorem Director",
+        "company": "Lorem Solutions",
+        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.",
+        "rating": 5,
+        "avatar": "/images/chrish/profile-about.jpg"
       },
       {
         "id": "client-2",
-        "name": "Marcus Chen",
-        "role": "Development Director",
-        "company": "Innovation Labs",
-        "content": "The mentorship program Chrish designed elevated our entire team's performance. His approach to developing individual strengths while building collective success is unmatched.",
-        "rating": 5
+        "name": "Dolor Sit",
+        "role": "Lorem Manager",
+        "company": "Amet Corp",
+        "content": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit.",
+        "rating": 5,
+        "avatar": "/images/chrish/profile-about.jpg"
       },
       {
         "id": "client-3",
-        "name": "Anna Lindberg",
-        "role": "Project Manager",
-        "company": "Nordic Ventures",
-        "content": "Working with Chrish changed my perspective on leadership. His combination of strategic thinking and practical execution helped me advance my career significantly.",
-        "rating": 5
+        "name": "Consectetur Elit",
+        "role": "Lorem Executive",
+        "company": "Adipiscing Ltd",
+        "content": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis.",
+        "rating": 5,
+        "avatar": "/images/chrish/profile-about.jpg"
       }
     ]
   },
@@ -138,171 +155,214 @@
     "subtitle": "Showcasing impactful work across diverse industries",
     "projects": [
       {
-        "id": "digital-transformation",
-        "title": "Digital Transformation Initiative",
-        "description": "Led comprehensive digital transformation for a Fortune 500 company, improving efficiency by 60% and reducing costs by $2M annually.",
+        "id": "lorem-project-1",
+        "title": "Lorem Ipsum Initiative",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
         "category": "Project Management",
-        "image": "/images/projects/digital-transformation.jpg",
-        "tags": ["Digital Transformation", "Change Management", "Process Optimization"],
+        "image": "/images/chrish/profile-about.jpg",
+        "tags": ["Lorem", "Ipsum", "Dolor"],
         "featured": true,
         "outcomes": [
-          "60% improvement in operational efficiency",
-          "$2M annual cost reduction",
-          "95% employee adoption rate"
+          "Lorem ipsum dolor sit amet",
+          "Consectetur adipiscing elit",
+          "Sed do eiusmod tempor"
         ]
       },
       {
-        "id": "leadership-development",
-        "title": "Executive Leadership Program",
-        "description": "Designed and implemented a leadership development program that prepared 50+ executives for senior roles across multiple organizations.",
+        "id": "lorem-project-2",
+        "title": "Dolor Sit Amet Program",
+        "description": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit voluptate velit esse.",
         "category": "Mentorship",
-        "image": "/images/projects/leadership-program.jpg",
-        "tags": ["Leadership Development", "Executive Coaching", "Talent Management"],
+        "image": "/images/chrish/profile-about.jpg",
+        "tags": ["Consectetur", "Adipiscing", "Elit"],
         "featured": true,
         "outcomes": [
-          "50+ executives trained",
-          "80% internal promotion rate",
-          "25% improvement in leadership effectiveness scores"
+          "Duis aute irure dolor",
+          "Excepteur sint occaecat",
+          "Cupidatat non proident"
         ]
       },
-      {
-        "id": "sports-team-consulting",
-        "title": "Professional Sports Team Consulting",
-        "description": "Applied business strategy principles to optimize team performance, resulting in championship victory and improved team culture.",
-        "category": "Sports Leadership",
-        "image": "/images/projects/sports-consulting.jpg",
-        "tags": ["Sports Psychology", "Team Performance", "Strategic Planning"],
-        "featured": true,
-        "outcomes": [
-          "Championship victory",
-          "40% improvement in team cohesion metrics",
-          "Enhanced individual player development"
-        ]
-      },
-      {
-        "id": "startup-acceleration",
-        "title": "Startup Acceleration Program",
-        "description": "Mentored 20+ startups through structured growth programs, providing strategic guidance and leadership development for founding teams.",
-        "category": "Mentorship",
-        "image": "/images/projects/leadership-program.jpg",
-        "tags": ["Startup Mentoring", "Growth Strategy", "Team Building"],
-        "featured": false,
-        "outcomes": [
-          "85% of startups secured follow-up funding",
-          "Average 200% revenue growth",
-          "15 successful product launches"
-        ]
-      },
-      {
-        "id": "corporate-restructuring",
-        "title": "Corporate Restructuring Initiative",
-        "description": "Led organizational restructuring for a mid-size corporation, streamlining operations and improving cross-departmental collaboration.",
-        "category": "Project Management",
-        "image": "/images/projects/digital-transformation.jpg",
-        "tags": ["Organizational Design", "Change Management", "Process Improvement"],
-        "featured": false,
-        "outcomes": [
-          "30% reduction in operational costs",
-          "Improved employee satisfaction by 45%",
-          "Streamlined 12 core business processes"
-        ]
-      },
-      {
-        "id": "athletic-performance-optimization",
-        "title": "Athletic Performance Optimization",
-        "description": "Developed mental performance frameworks for individual athletes, combining psychological coaching with strategic planning.",
-        "category": "Sports Leadership",
-        "image": "/images/projects/sports-consulting.jpg",
-        "tags": ["Mental Performance", "Individual Coaching", "Goal Achievement"],
-        "featured": false,
-        "outcomes": [
-          "8 athletes achieved personal bests",
-          "3 athletes qualified for international competition",
-          "100% improvement in mental resilience scores"
-        ]
-      }
-    ]
+              {
+          "id": "lorem-project-3",
+          "title": "Consectetur Adipiscing Consulting",
+          "description": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error.",
+          "category": "Sports Leadership",
+          "image": "/images/chrish/profile-about.jpg",
+          "tags": ["Sed", "Tempor", "Incididunt"],
+          "featured": true,
+          "outcomes": [
+            "Sunt in culpa qui officia",
+            "Deserunt mollit anim",
+            "Id est laborum sed"
+          ]
+        },
+        {
+          "id": "lorem-project-4",
+          "title": "Magna Aliqua Development",
+          "description": "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.",
+          "category": "Project Management",
+          "image": "/images/chrish/profile-about.jpg",
+          "tags": ["Voluptatem", "Sequi", "Nesciunt"],
+          "featured": false,
+          "outcomes": [
+            "Neque porro quisquam est",
+            "Qui dolorem ipsum quia",
+            "Dolor sit amet consectetur"
+          ]
+        },
+        {
+          "id": "lorem-project-5",
+          "title": "Ut Labore Et Dolore Framework",
+          "description": "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias.",
+          "category": "Mentorship",
+          "image": "/images/chrish/profile-about.jpg",
+          "tags": ["Accusamus", "Dignissimos", "Voluptatum"],
+          "featured": false,
+          "outcomes": [
+            "Excepturi sint occaecati",
+            "Cupiditate non provident",
+            "Similique sunt in culpa"
+          ]
+        }
+      ]
+  },
+  "projectCaseStudy": {
+    "navigation": {
+      "backToProjects": "Back to Projects"
+    },
+    "labels": {
+      "featured": "Featured",
+      "overview": "Overview",
+      "challenge": "Challenge",
+      "solution": "Solution",
+      "results": "Key Results",
+      "projectDetails": "Project Details",
+      "category": "Category",
+      "status": "Status",
+      "type": "Type",
+      "completed": "Completed",
+      "featuredProject": "Featured Project",
+      "caseStudy": "Case Study"
+    },
+    "content": {
+      "challengeDescription": "Every successful project starts with understanding the core challenges. This project required navigating complex stakeholder requirements, tight deadlines, and the need for innovative solutions that would deliver measurable impact while ensuring sustainable long-term results.",
+      "solutionDescription": "Our approach combined proven methodologies with innovative thinking, focusing on sustainable change and measurable outcomes. We implemented a phased strategy that prioritized quick wins while building toward long-term transformation.",
+      "methodologyHighlights": [
+        {
+          "title": "Strategic Planning",
+          "description": "Comprehensive roadmap development with clear milestones and success metrics."
+        },
+        {
+          "title": "Team Development",
+          "description": "Focused on building capabilities and fostering collaborative excellence."
+        }
+      ]
+    },
+    "callToAction": {
+      "title": "Interested in Similar Results?",
+      "subtitle": "Let's discuss how I can help achieve your project goals.",
+      "buttonText": "Get in Touch"
+    },
+    "bottomSection": {
+      "title": "Explore More Projects",
+      "subtitle": "Discover how proven methodologies can transform your organization.",
+      "viewAllButton": "View All Projects",
+      "contactButton": "Get in Touch"
+    }
   },
   "bio": {
     "title": "About Chrish Fernando",
-    "biography": "With over 15 years of experience in project management, leadership development, and sports consulting, Chrish Fernando has established himself as a transformative force in professional development. His unique approach combines rigorous project management methodologies with the psychological insights and competitive strategies derived from elite sports environments.\n\nChrish's journey began in the corporate world, where he quickly distinguished himself by delivering complex projects on time and under budget while fostering exceptional team dynamics. His natural ability to mentor and develop talent led him to expand his practice into executive coaching and leadership development.\n\nWhat sets Chrish apart is his innovative integration of sports psychology and competitive strategies into business environments. Having worked with professional athletes and sports organizations, he understands the mental frameworks that drive peak performance under pressure – insights he successfully applies to help business teams achieve breakthrough results.",
-    "mission": "My mission is to unlock the championship potential that exists within every individual and organization. By combining proven project management excellence with sports-inspired leadership principles, I help teams not just succeed, but dominate their fields while maintaining sustainable, fulfilling careers.",
+    "biography": "Chrish Fernando is the founder of Spearience, a consulting company dedicated to empowering young people through innovative concept development, strategic project management, and personalized mentorship experiences.\n\nAs a licensed recreation educator and the initiative leader behind Spear IF, Chrish combines his educational background with practical project management expertise to create meaningful, goal-oriented experiences for youth. His work as a sports consultant at RFS in Stockholm and as a recreation leader at Parkhem demonstrates his commitment to developing and supporting young people in diverse environments.\n\nThrough Spearience, Chrish transforms ideas into actionable concepts that resonate with young audiences, delivering consulting services that drive real impact and sustainable development.",
+    "mission": "My mission is to empower young people through innovative concept development, strategic project management, and personalized mentorship that creates lasting positive impact in their lives and communities.",
     "headshot": {
       "src": "/images/chrish/profile-about.jpg",
-      "alt": "Chrish Fernando - Professional portrait"
+      "alt": "Chrish Fernando - Founder of Spearience"
     },
     "highlights": [
-      "15+ years in project management and leadership",
-      "Worked with Fortune 500 companies and professional sports teams",
-      "Certified in multiple project management methodologies",
-      "Fluent in English and Swedish",
+      "Founder of Spearience Consulting",
+      "Concept Development & Innovation",
+      "Youth-Focused Project Management",
+      "Goal-Oriented Mentorship Programs",
+      "Initiative Leader at Spear IF",
+      "Sports Consultant at RFS Stockholm",
+      "Recreation Leader at Parkhem",
+      "Licensed Recreation Educator",
       "Based in Stockholm, Sweden"
     ]
   },
   "impact": {
-    "title": "Making a Lasting Impact",
-    "subtitle": "Transforming organizations through authentic leadership and proven methodologies",
-    "statement": "What truly sets Chrish apart isn't just his technical expertise or impressive track record—it's his genuine commitment to unlocking the potential within every individual and team he works with. His approach goes beyond traditional consulting; he creates lasting transformation by building authentic relationships, fostering trust, and developing sustainable frameworks that continue to deliver results long after the engagement ends.",
+    "title": "Empowering Young People",
+    "subtitle": "Creating lasting impact through innovative concept development and goal-oriented mentorship",
+    "statement": "At Spearience, we believe in the potential of young people to create meaningful change. Through our unique approach combining concept development, strategic project management, and personalized mentorship, we help youth turn their ideas into reality while building essential life skills for their future success.",
     "cta": {
       "text": "Experience the Difference",
       "href": "/contact"
     },
     "featuredTestimonial": {
-      "name": "Marcus Chen",
-      "role": "Development Director",
-      "company": "Innovation Labs",
-      "content": "The mentorship program Chrish designed elevated our entire team's performance. His approach to developing individual strengths while building collective success is unmatched. What impressed me most was how he genuinely cared about each team member's growth, not just the project outcomes.",
+      "name": "Lorem Ipsum",
+      "role": "Lorem Director",
+      "company": "Dolor Sit Amet",
+      "content": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.",
       "rating": 5,
-      "highlight": "His approach to developing individual strengths while building collective success is unmatched."
+      "highlight": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium."
     }
   },
   "credentials": {
     "title": "Professional Credentials",
     "credentials": [
       {
-        "id": "initiative-leader",
-        "role": "Initiative Leader",
-        "organization": "Various Fortune 500 Companies",
-        "description": "Leading strategic initiatives and large-scale transformations across multiple industries, consistently delivering results that exceed expectations.",
-        "period": "2015 - Present",
+        "id": "spear-if-founder",
+        "role": "Initiative Founder",
+        "organization": "Spear IF",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "period": "Present",
         "achievements": [
-          "Led $50M+ digital transformation projects",
-          "Managed cross-functional teams of 100+ professionals",
-          "Achieved 95% project success rate",
-          "Delivered projects 25% faster than industry average"
+          "Lorem ipsum dolor sit amet",
+          "Consectetur adipiscing elit",
+          "Sed do eiusmod tempor incididunt"
         ]
       },
       {
         "id": "sports-consultant",
         "role": "Sports Consultant",
-        "organization": "Professional Sports Organizations",
-        "description": "Providing strategic consulting and performance optimization services to professional sports teams and individual athletes.",
-        "period": "2018 - Present",
+        "organization": "RFS Stockholm",
+        "description": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        "period": "Present",
         "achievements": [
-          "Consulted for 5+ professional sports teams",
-          "Improved team performance metrics by 40% average",
-          "Developed winning mental frameworks for athletes",
-          "Created sustainable performance improvement systems"
+          "Duis aute irure dolor",
+          "Excepteur sint occaecat cupidatat",
+          "Non proident sunt in culpa"
         ]
       },
       {
-        "id": "pedagogue",
-        "role": "Pedagogue & Mentor",
-        "organization": "Executive Education & Corporate Training",
-        "description": "Designing and delivering educational programs that develop next-generation leaders and transform organizational cultures.",
-        "period": "2012 - Present",
+        "id": "recreation-leader",
+        "role": "Recreation Leader",
+        "organization": "Parkhem",
+        "description": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "period": "Present",
         "achievements": [
-          "Trained 500+ executives and managers",
-          "Designed curricula for leadership development programs",
-          "Achieved 90% participant satisfaction ratings",
-          "Created mentorship frameworks adopted organization-wide"
+          "Sed ut perspiciatis unde omnis",
+          "Iste natus error sit voluptatem",
+          "Accusantium doloremque laudantium"
+        ]
+      },
+      {
+        "id": "licensed-educator",
+        "role": "Licensed Recreation Educator",
+        "organization": "Education Sector",
+        "description": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.",
+        "period": "Present",
+        "achievements": [
+          "Totam rem aperiam eaque",
+          "Ipsa quae ab illo inventore",
+          "Veritatis et quasi architecto"
         ]
       }
     ]
   },
   "contact": {
-    "title": "Let's Work Together",
-    "subtitle": "Ready to transform your team's performance? Get in touch to discuss how we can achieve your goals.",
+    "title": "Let's Create Something Amazing",
+    "subtitle": "Ready to empower young people through innovative concepts and mentorship? Let's discuss how Spearience can help achieve your goals.",
     "email": "chrish@example.com",
     "location": "Stockholm, Sweden",
     "socialMedia": [
@@ -328,7 +388,7 @@
     }
   },
   "footer": {
-    "copyright": "© 2024 Chrish Fernando. All rights reserved.",
+    "copyright": "© 2024 Spearience. All rights reserved.",
     "links": [
       {
         "label": "Privacy Policy",

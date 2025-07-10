@@ -135,7 +135,7 @@ export function ProcessShowcase({ className }: ProcessShowcaseProps) {
   const processContent = useProcessContent()
 
   return (
-    <section className={`section-padding-lg relative ${className}`}>
+    <section className={`section-padding-lg relative -mt-32 sm:-mt-24 md:-mt-16 py-0 sm:py-2 md:py-24 ${className}`}>
       {/* MacBook Scroll Component */}
       <MacbookScroll
         title={
@@ -148,7 +148,7 @@ export function ProcessShowcase({ className }: ProcessShowcaseProps) {
             </p>
           </div>
         }
-        src={<ProcessWorkflowScreen />}
+        src="/images/projects/macbook-image.png"
         showGradient={true}
         badge={
           <div className="bg-primary/10 backdrop-blur-sm border border-primary/20 rounded-xl px-4 py-2">

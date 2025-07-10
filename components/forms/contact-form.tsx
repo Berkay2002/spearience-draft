@@ -418,13 +418,13 @@ export function ContactForm({ className }: ContactFormProps) {
   }
 
   return (
-    <Card className={`border-0 shadow-xl bg-white dark:bg-slate-800 ${className}`}>
+    <Card className={`border-0 shadow-professional bg-card border border-border ${className}`}>
       <CardContent className="p-8">
         <div className="mb-6">
-          <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
+          <h3 className="text-2xl font-bold text-foreground mb-2">
             {locale === 'sv' ? 'Skicka ett meddelande' : 'Send a Message'}
           </h3>
-          <p className="text-slate-600 dark:text-slate-300">
+          <p className="text-muted-foreground leading-relaxed">
             {locale === 'sv' 
               ? 'Fyll i formuläret nedan så återkommer jag inom 24 timmar.' 
               : 'Fill out the form below and I\'ll get back to you within 24 hours.'}
@@ -433,19 +433,19 @@ export function ContactForm({ className }: ContactFormProps) {
 
         {/* Enhanced Success Alert */}
         {submitStatus === 'success' && (
-          <Alert className="mb-6 border-green-200 bg-green-50 dark:bg-green-900/20">
-            <CheckCircle className="h-4 w-4 text-green-600" />
-            <AlertDescription className="text-green-800 dark:text-green-200">
+          <Alert className="mb-6 border-success/20 bg-success/5">
+            <CheckCircle className="h-4 w-4 text-success" />
+            <AlertDescription className="text-success-foreground">
               <div className="space-y-3">
                 <p className="font-medium">{contactContent.form.successMessage}</p>
                 <div className="space-y-2">
-                  <div className="flex items-center gap-2 text-sm text-green-700 dark:text-green-300">
+                  <div className="flex items-center gap-2 text-sm text-success/80">
                     <Mail className="h-3 w-3" />
                     {locale === 'sv' 
                       ? 'Automatisk bekräftelse skickad till din e-post' 
                       : 'Auto-confirmation sent to your email'}
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-green-700 dark:text-green-300">
+                  <div className="flex items-center gap-2 text-sm text-success/80">
                     <Clock className="h-3 w-3" />
                     {locale === 'sv' 
                       ? 'Personlig svarstid: Inom 24 timmar' 
@@ -459,9 +459,9 @@ export function ContactForm({ className }: ContactFormProps) {
 
         {/* Enhanced Error Alert with Recovery Options */}
         {submitStatus === 'error' && (
-          <Alert className="mb-6 border-red-200 bg-red-50 dark:bg-red-900/20">
-            <AlertCircle className="h-4 w-4 text-red-600" />
-            <AlertDescription className="text-red-800 dark:text-red-200">
+          <Alert className="mb-6 border-destructive/20 bg-destructive/5">
+            <AlertCircle className="h-4 w-4 text-destructive" />
+            <AlertDescription className="text-destructive-foreground">
               <div className="space-y-3">
                 <p className="font-medium">
                   {lastError || contactContent.form.errorMessage}
@@ -479,7 +479,7 @@ export function ContactForm({ className }: ContactFormProps) {
                     size="sm" 
                     onClick={(e) => handleSubmit(e)}
                     disabled={isSubmitting}
-                    className="text-red-700 border-red-300 hover:bg-red-100 dark:text-red-300 dark:border-red-600"
+                    className="border-destructive/30 text-destructive hover:bg-destructive/10"
                   >
                     <RefreshCw className="w-3 h-3 mr-1" />
                     {locale === 'sv' ? 'Försök igen' : 'Try Again'}
@@ -488,7 +488,7 @@ export function ContactForm({ className }: ContactFormProps) {
                     variant="outline" 
                     size="sm" 
                     onClick={() => window.open(`mailto:${contactContent.email}`, '_blank')}
-                    className="text-red-700 border-red-300 hover:bg-red-100 dark:text-red-300 dark:border-red-600"
+                    className="border-destructive/30 text-destructive hover:bg-destructive/10"
                   >
                     <Mail className="w-3 h-3 mr-1" />
                     {locale === 'sv' ? 'E-posta direkt' : 'Email Directly'}
@@ -503,10 +503,10 @@ export function ContactForm({ className }: ContactFormProps) {
         {showValidationHints && (
           <div className="mb-6">
             <div className="flex justify-between items-center mb-2">
-              <span className="text-sm text-slate-600 dark:text-slate-400">
+              <span className="text-sm text-muted-foreground">
                 {locale === 'sv' ? 'Formulärstatus' : 'Form Progress'}
               </span>
-              <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
+              <span className="text-sm font-medium text-foreground">
                 {Math.round(getFormProgress())}%
               </span>
             </div>
@@ -529,7 +529,7 @@ export function ContactForm({ className }: ContactFormProps) {
           
           {/* Name Field */}
           <div className="space-y-2">
-            <Label htmlFor="name" className="text-sm font-medium text-slate-700 dark:text-slate-300">
+            <Label htmlFor="name" className="text-sm font-medium text-foreground">
               {contactContent.form.nameLabel}
               {getFieldState('name').showValidating && (
                 <Loader2 className="inline-block ml-2 h-3 w-3 animate-spin" />
@@ -545,9 +545,9 @@ export function ContactForm({ className }: ContactFormProps) {
                 placeholder={locale === 'sv' ? 'Ditt fullständiga namn' : 'Your full name'}
                 className={`pr-10 ${
                   getFieldState('name').showError 
-                    ? 'border-red-500 focus-visible:ring-red-500' 
+                    ? 'border-destructive focus-visible:ring-destructive' 
                     : getFieldState('name').showSuccess 
-                    ? 'border-green-500 focus-visible:ring-green-500'
+                    ? 'border-success focus-visible:ring-success'
                     : ''
                 }`}
                 disabled={isSubmitting}
@@ -555,15 +555,15 @@ export function ContactForm({ className }: ContactFormProps) {
               {/* Validation Status Icon */}
               <div className="absolute inset-y-0 right-0 flex items-center pr-3">
                 {getFieldState('name').showSuccess && (
-                  <Check className="h-4 w-4 text-green-500" />
+                  <Check className="h-4 w-4 text-success" />
                 )}
                 {getFieldState('name').showError && (
-                  <X className="h-4 w-4 text-red-500" />
+                  <X className="h-4 w-4 text-destructive" />
                 )}
               </div>
             </div>
             {getFieldState('name').showError && getFieldState('name').error && (
-              <p className="text-sm text-red-600 dark:text-red-400 flex items-center gap-1">
+              <p className="text-sm text-destructive flex items-center gap-1">
                 <AlertCircle className="h-3 w-3" />
                 {getFieldState('name').error}
               </p>
@@ -572,7 +572,7 @@ export function ContactForm({ className }: ContactFormProps) {
 
           {/* Email Field */}
           <div className="space-y-2">
-            <Label htmlFor="email" className="text-sm font-medium text-slate-700 dark:text-slate-300">
+            <Label htmlFor="email" className="text-sm font-medium text-foreground">
               {contactContent.form.emailLabel}
               {getFieldState('email').showValidating && (
                 <Loader2 className="inline-block ml-2 h-3 w-3 animate-spin" />
@@ -588,9 +588,9 @@ export function ContactForm({ className }: ContactFormProps) {
                 placeholder={locale === 'sv' ? 'din@email.com' : 'your@email.com'}
                 className={`pr-10 ${
                   getFieldState('email').showError 
-                    ? 'border-red-500 focus-visible:ring-red-500' 
+                    ? 'border-destructive focus-visible:ring-destructive' 
                     : getFieldState('email').showSuccess 
-                    ? 'border-green-500 focus-visible:ring-green-500'
+                    ? 'border-success focus-visible:ring-success'
                     : ''
                 }`}
                 disabled={isSubmitting}
@@ -598,15 +598,15 @@ export function ContactForm({ className }: ContactFormProps) {
               {/* Validation Status Icon */}
               <div className="absolute inset-y-0 right-0 flex items-center pr-3">
                 {getFieldState('email').showSuccess && (
-                  <Check className="h-4 w-4 text-green-500" />
+                  <Check className="h-4 w-4 text-success" />
                 )}
                 {getFieldState('email').showError && (
-                  <X className="h-4 w-4 text-red-500" />
+                  <X className="h-4 w-4 text-destructive" />
                 )}
               </div>
             </div>
             {getFieldState('email').showError && getFieldState('email').error && (
-              <p className="text-sm text-red-600 dark:text-red-400 flex items-center gap-1">
+              <p className="text-sm text-destructive flex items-center gap-1">
                 <AlertCircle className="h-3 w-3" />
                 {getFieldState('email').error}
               </p>
@@ -615,7 +615,7 @@ export function ContactForm({ className }: ContactFormProps) {
 
           {/* Preferred Contact Method */}
           <div className="space-y-2">
-            <Label htmlFor="method" className="text-sm font-medium text-slate-700 dark:text-slate-300">
+            <Label htmlFor="method" className="text-sm font-medium text-foreground">
               {contactContent.form.methodLabel}
               {getFieldState('preferredMethod').showValidating && (
                 <Loader2 className="inline-block ml-2 h-3 w-3 animate-spin" />
@@ -629,9 +629,9 @@ export function ContactForm({ className }: ContactFormProps) {
               >
                 <SelectTrigger className={`${
                   getFieldState('preferredMethod').showError 
-                    ? 'border-red-500 focus:ring-red-500' 
+                    ? 'border-destructive focus:ring-destructive' 
                     : getFieldState('preferredMethod').showSuccess 
-                    ? 'border-green-500 focus:ring-green-500'
+                    ? 'border-success focus:ring-success'
                     : ''
                 }`}>
                   <SelectValue 
@@ -656,16 +656,16 @@ export function ContactForm({ className }: ContactFormProps) {
               {(getFieldState('preferredMethod').showSuccess || getFieldState('preferredMethod').showError) && (
                 <div className="absolute inset-y-0 right-8 flex items-center pr-3">
                   {getFieldState('preferredMethod').showSuccess && (
-                    <Check className="h-4 w-4 text-green-500" />
+                    <Check className="h-4 w-4 text-success" />
                   )}
                   {getFieldState('preferredMethod').showError && (
-                    <X className="h-4 w-4 text-red-500" />
+                    <X className="h-4 w-4 text-destructive" />
                   )}
                 </div>
               )}
             </div>
             {getFieldState('preferredMethod').showError && getFieldState('preferredMethod').error && (
-              <p className="text-sm text-red-600 dark:text-red-400 flex items-center gap-1">
+              <p className="text-sm text-destructive flex items-center gap-1">
                 <AlertCircle className="h-3 w-3" />
                 {getFieldState('preferredMethod').error}
               </p>
@@ -675,13 +675,13 @@ export function ContactForm({ className }: ContactFormProps) {
           {/* Message Field */}
           <div className="space-y-2">
             <div className="flex justify-between items-center">
-              <Label htmlFor="message" className="text-sm font-medium text-slate-700 dark:text-slate-300">
+              <Label htmlFor="message" className="text-sm font-medium text-foreground">
                 {contactContent.form.messageLabel}
                 {getFieldState('message').showValidating && (
                   <Loader2 className="inline-block ml-2 h-3 w-3 animate-spin" />
                 )}
               </Label>
-              <span className="text-xs text-slate-500">
+              <span className="text-xs text-muted-foreground">
                 {getFieldState('message').value.length}/5000
               </span>
             </div>
@@ -696,9 +696,9 @@ export function ContactForm({ className }: ContactFormProps) {
                   : 'Tell me about your project or how I can help you...'}
                 className={`min-h-[120px] resize-none ${
                   getFieldState('message').showError 
-                    ? 'border-red-500 focus-visible:ring-red-500' 
+                    ? 'border-destructive focus-visible:ring-destructive' 
                     : getFieldState('message').showSuccess 
-                    ? 'border-green-500 focus-visible:ring-green-500'
+                    ? 'border-success focus-visible:ring-success'
                     : ''
                 }`}
                 disabled={isSubmitting}
@@ -706,10 +706,10 @@ export function ContactForm({ className }: ContactFormProps) {
               {/* Validation Status Icon */}
               <div className="absolute top-3 right-3">
                 {getFieldState('message').showSuccess && (
-                  <Check className="h-4 w-4 text-green-500" />
+                  <Check className="h-4 w-4 text-success" />
                 )}
                 {getFieldState('message').showError && (
-                  <X className="h-4 w-4 text-red-500" />
+                  <X className="h-4 w-4 text-destructive" />
                 )}
               </div>
             </div>
@@ -717,15 +717,15 @@ export function ContactForm({ className }: ContactFormProps) {
             {getFieldState('message').value.length > 0 && (
               <div className="flex items-center gap-2">
                 <div className={`h-1 flex-1 rounded-full ${
-                  getFieldState('message').strength.color === 'red' ? 'bg-red-200' :
-                  getFieldState('message').strength.color === 'yellow' ? 'bg-yellow-200' :
-                  getFieldState('message').strength.color === 'green' ? 'bg-green-200' : 'bg-gray-200'
+                  getFieldState('message').strength.color === 'red' ? 'bg-destructive/20' :
+                  getFieldState('message').strength.color === 'yellow' ? 'bg-accent/20' :
+                  getFieldState('message').strength.color === 'green' ? 'bg-success/20' : 'bg-muted'
                 }`}>
                   <div 
                     className={`h-full rounded-full transition-all duration-300 ${
-                      getFieldState('message').strength.color === 'red' ? 'bg-red-500' :
-                      getFieldState('message').strength.color === 'yellow' ? 'bg-yellow-500' :
-                      getFieldState('message').strength.color === 'green' ? 'bg-green-500' : 'bg-gray-400'
+                      getFieldState('message').strength.color === 'red' ? 'bg-destructive' :
+                      getFieldState('message').strength.color === 'yellow' ? 'bg-accent-foreground' :
+                      getFieldState('message').strength.color === 'green' ? 'bg-success' : 'bg-muted-foreground'
                     }`}
                     style={{
                       width: `${Math.min((getFieldState('message').value.length / 200) * 100, 100)}%`
@@ -733,9 +733,9 @@ export function ContactForm({ className }: ContactFormProps) {
                   />
                 </div>
                 <span className={`text-xs font-medium ${
-                  getFieldState('message').strength.color === 'red' ? 'text-red-600' :
-                  getFieldState('message').strength.color === 'yellow' ? 'text-yellow-600' :
-                  getFieldState('message').strength.color === 'green' ? 'text-green-600' : 'text-gray-600'
+                  getFieldState('message').strength.color === 'red' ? 'text-destructive' :
+                  getFieldState('message').strength.color === 'yellow' ? 'text-accent-foreground' :
+                  getFieldState('message').strength.color === 'green' ? 'text-success' : 'text-muted-foreground'
                 }`}>
                   {getFieldState('message').strength.strength === 'weak' ? (locale === 'sv' ? 'Svag' : 'Weak') :
                    getFieldState('message').strength.strength === 'fair' ? (locale === 'sv' ? 'Okej' : 'Fair') :
@@ -745,7 +745,7 @@ export function ContactForm({ className }: ContactFormProps) {
               </div>
             )}
             {getFieldState('message').showError && getFieldState('message').error && (
-              <p className="text-sm text-red-600 dark:text-red-400 flex items-center gap-1">
+              <p className="text-sm text-destructive flex items-center gap-1">
                 <AlertCircle className="h-3 w-3" />
                 {getFieldState('message').error}
               </p>
@@ -759,10 +759,10 @@ export function ContactForm({ className }: ContactFormProps) {
               disabled={isSubmitting || !isFormValid}
               className={`w-full py-4 min-h-[56px] text-base font-medium transition-all duration-200 touch-target-large ${
                 isSubmitting 
-                  ? 'bg-blue-500 text-white cursor-wait' 
+                  ? 'bg-primary/80 text-primary-foreground cursor-wait' 
                   : isFormValid 
-                  ? 'bg-blue-600 hover:bg-blue-700 text-white shadow-lg hover:shadow-xl transform hover:scale-105' 
-                  : 'bg-slate-300 dark:bg-slate-600 text-slate-500 dark:text-slate-400 cursor-not-allowed'
+                  ? 'bg-primary hover:bg-primary/90 text-primary-foreground shadow-professional hover:shadow-professional-lg transform hover:scale-105' 
+                  : 'bg-muted text-muted-foreground cursor-not-allowed'
               }`}
             >
               {isSubmitting ? (
@@ -791,7 +791,7 @@ export function ContactForm({ className }: ContactFormProps) {
             {/* Loading Progress Indicator */}
             {isSubmitting && (
               <div className="text-center space-y-2">
-                <div className="text-sm text-slate-600 dark:text-slate-400">
+                <div className="text-sm text-muted-foreground">
                   {locale === 'sv' 
                     ? 'Bearbetar din förfrågan...' 
                     : 'Processing your request...'}
@@ -805,7 +805,7 @@ export function ContactForm({ className }: ContactFormProps) {
               <Button
                 variant="outline"
                 onClick={(e) => handleSubmit(e)}
-                className="w-full min-h-[48px] border-red-300 text-red-700 hover:bg-red-50 dark:border-red-600 dark:text-red-300 touch-target"
+                className="w-full min-h-[48px] border-destructive/30 text-destructive hover:bg-destructive/10 touch-target"
               >
                 <RefreshCw className="mr-2 h-4 w-4" />
                 {locale === 'sv' ? 'Försök skicka igen' : 'Try sending again'}
@@ -816,7 +816,7 @@ export function ContactForm({ className }: ContactFormProps) {
           {/* Form Help Text */}
           {!isFormValid && showValidationHints && (
             <div className="text-center">
-              <p className="text-sm text-slate-500 dark:text-slate-400">
+              <p className="text-sm text-muted-foreground">
                 {locale === 'sv' 
                   ? 'Fyll i alla fält korrekt för att skicka meddelandet' 
                   : 'Complete all fields correctly to send your message'}
@@ -826,8 +826,8 @@ export function ContactForm({ className }: ContactFormProps) {
         </form>
 
         {/* Additional Information */}
-        <div className="mt-6 pt-6 border-t border-slate-200 dark:border-slate-700">
-          <p className="text-sm text-slate-500 dark:text-slate-400 text-center">
+        <div className="mt-6 pt-6 border-t border-border">
+          <p className="text-sm text-muted-foreground text-center">
             {locale === 'sv' 
               ? 'Dina uppgifter behandlas konfidentiellt och kommer inte delas med tredje part.' 
               : 'Your information is treated confidentially and will not be shared with third parties.'}

@@ -36,11 +36,21 @@ export function Footer({ className }: FooterProps) {
 
   if (!content) {
     return (
-      <footer className="bg-gray-100 dark:bg-gray-900 py-8">
-        <div className="container mx-auto px-4 text-center">
-          <div className="animate-pulse space-y-4">
-            <div className="h-8 bg-gray-300 dark:bg-gray-700 rounded w-1/3 mx-auto"></div>
-            <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-1/2 mx-auto"></div>
+      <footer className="bg-background py-16">
+        <div className="container-professional">
+          <div className="animate-pulse space-y-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {[1, 2, 3, 4].map((i) => (
+                <div key={i} className="space-y-4">
+                  <div className="h-6 bg-muted rounded w-3/4"></div>
+                  <div className="space-y-2">
+                    {[1, 2, 3].map((j) => (
+                      <div key={j} className="h-4 bg-muted rounded w-full"></div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </footer>
@@ -48,40 +58,53 @@ export function Footer({ className }: FooterProps) {
   }
 
   const { footer, contact, navigation } = content
+  const projects = content?.featuredWork?.projects || []
+  const featuredProjects = projects.filter(project => project.featured)
+  const otherProjects = projects.filter(project => !project.featured)
 
   return (
-    <footer className={`bg-slate-50 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 ${className}`}>
-      <div className="container mx-auto px-4 py-12 max-w-7xl">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+    <footer className={`relative bg-background border-t border-border overflow-hidden ${className}`}>
+      {/* Decorative Background Elements */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary/5 rounded-full blur-3xl"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-secondary/5 rounded-full blur-3xl"></div>
+      </div>
+
+      <div className="relative container-professional section-padding">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16">
           {/* Brand & Contact */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-1">
             <div className="space-y-6">
-              <div>
+              {/* Logo */}
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 bg-gradient-to-br from-primary to-secondary rounded-2xl flex items-center justify-center">
+                  <span className="text-xl font-bold text-primary-foreground">S</span>
+                </div>
                 <Link 
                   href={`/${currentLocale}`}
-                  className="text-2xl font-bold text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  className="text-xl font-bold text-foreground hover:text-primary transition-colors"
                 >
                   {navigation?.logo || 'Chrish Fernando'}
                 </Link>
-                <p className="text-slate-600 dark:text-slate-300 mt-3 max-w-md">
-                  {currentLocale === 'sv' 
-                    ? 'Transformerar team och projekt genom beprövade ledarskapsmetoder, strategisk mentorskap och innovativa idrottsinspirerade tillvägagångssätt för professionell utveckling.'
-                    : 'Transforming teams and projects through proven leadership methodologies, strategic mentorship, and innovative sports-inspired approaches to professional development.'}
-                </p>
               </div>
               
-              <div className="space-y-3">
-                <div className="flex items-center space-x-3 text-slate-600 dark:text-slate-300">
-                  <Mail className="w-5 h-5 text-blue-600" />
+              {/* Contact Info */}
+              <div className="space-y-4">
+                <div className="flex items-center gap-3 text-muted-foreground group">
+                  <div className="w-8 h-8 bg-muted/50 rounded-lg flex items-center justify-center group-hover:bg-primary/10 transition-colors">
+                    <Mail className="w-4 h-4 group-hover:text-primary transition-colors" />
+                  </div>
                   <a 
                     href={`mailto:${contact.email}`}
-                    className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                    className="hover:text-primary transition-colors touch-target-large"
                   >
                     {contact.email}
                   </a>
                 </div>
-                <div className="flex items-center space-x-3 text-slate-600 dark:text-slate-300">
-                  <MapPin className="w-5 h-5 text-green-600" />
+                <div className="flex items-center gap-3 text-muted-foreground">
+                  <div className="w-8 h-8 bg-muted/50 rounded-lg flex items-center justify-center">
+                    <MapPin className="w-4 h-4" />
+                  </div>
                   <span>{contact.location}</span>
                 </div>
               </div>
@@ -90,7 +113,7 @@ export function Footer({ className }: FooterProps) {
 
           {/* Navigation Links */}
           <div>
-            <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">
+            <h3 className="text-lg font-semibold text-foreground mb-6">
               {currentLocale === 'sv' ? 'Navigering' : 'Navigation'}
             </h3>
             <nav className="space-y-3">
@@ -98,7 +121,7 @@ export function Footer({ className }: FooterProps) {
                 <Link
                   key={item.href}
                   href={`/${currentLocale}${item.href === '/' ? '' : item.href}`}
-                  className="block text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  className="block text-muted-foreground hover:text-primary transition-colors touch-target-large"
                 >
                   {item.label}
                 </Link>
@@ -106,15 +129,42 @@ export function Footer({ className }: FooterProps) {
             </nav>
           </div>
 
-          {/* Social Media & Theme */}
+          {/* Featured Projects */}
           <div>
-            <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">
+            <h3 className="text-lg font-semibold text-foreground mb-6">
+              {currentLocale === 'sv' ? 'Utvalda projekt' : 'Featured Projects'}
+            </h3>
+            <nav className="space-y-3">
+              <Link
+                href={`/${currentLocale}/projects`}
+                className="block font-medium text-muted-foreground hover:text-primary transition-colors touch-target-large"
+              >
+                {currentLocale === 'sv' ? 'Visa alla projekt' : 'View All Projects'}
+              </Link>
+              {featuredProjects.slice(0, 4).map((project) => (
+                <Link
+                  key={project.id}
+                  href={`/${currentLocale}/projects/${project.id}`}
+                  className="block text-muted-foreground hover:text-primary transition-colors touch-target-large"
+                >
+                  <div className="space-y-1">
+                    <div className="font-medium">{project.title}</div>
+                    <div className="text-xs text-muted-foreground/70">{project.category}</div>
+                  </div>
+                </Link>
+              ))}
+            </nav>
+          </div>
+
+          {/* Connect & Other Projects */}
+          <div>
+            <h3 className="text-lg font-semibold text-foreground mb-6">
               {currentLocale === 'sv' ? 'Anslut' : 'Connect'}
             </h3>
             
-            <div className="space-y-4">
+            <div className="space-y-6">
               {/* Social Media Links */}
-              <div className="flex space-x-3">
+              <div className="flex gap-3">
                 {contact.socialMedia?.map((social) => {
                   const IconComponent = SocialIcons[social.icon as keyof typeof SocialIcons]
                   if (!IconComponent) return null
@@ -125,7 +175,7 @@ export function Footer({ className }: FooterProps) {
                       href={social.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-10 h-10 bg-slate-200 dark:bg-slate-700 rounded-lg flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 transition-all duration-200 group"
+                      className="w-10 h-10 bg-muted/50 rounded-xl flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-200 group touch-target-large"
                       aria-label={`Follow on ${social.platform}`}
                     >
                       <IconComponent className="w-5 h-5" />
@@ -135,10 +185,30 @@ export function Footer({ className }: FooterProps) {
                 })}
               </div>
 
+              {/* Other Projects */}
+              {otherProjects.length > 0 && (
+                <div>
+                  <h4 className="text-sm font-medium text-muted-foreground mb-3">
+                    {currentLocale === 'sv' ? 'Övriga projekt' : 'Other Projects'}
+                  </h4>
+                  <nav className="space-y-2">
+                    {otherProjects.slice(0, 3).map((project) => (
+                      <Link
+                        key={project.id}
+                        href={`/${currentLocale}/projects/${project.id}`}
+                        className="block text-sm text-muted-foreground/80 hover:text-primary transition-colors touch-target-large"
+                      >
+                        {project.title}
+                      </Link>
+                    ))}
+                  </nav>
+                </div>
+              )}
+
               {/* Theme Toggle */}
               <div className="pt-2">
-                <div className="flex items-center space-x-3">
-                  <span className="text-sm text-slate-600 dark:text-slate-300">
+                <div className="flex items-center gap-3">
+                  <span className="text-sm text-muted-foreground">
                     {currentLocale === 'sv' ? 'Tema:' : 'Theme:'}
                   </span>
                   <ThemeToggle className="w-12 h-6" />
@@ -148,20 +218,20 @@ export function Footer({ className }: FooterProps) {
           </div>
         </div>
 
-        <Separator className="my-8" />
+        <Separator className="my-12" />
 
         {/* Bottom Section */}
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0">
-          <div className="text-sm text-slate-600 dark:text-slate-300">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+          <div className="text-sm text-muted-foreground text-center md:text-left">
             {footer?.copyright || '© 2024 Chrish Fernando. All rights reserved.'}
           </div>
           
-          <div className="flex flex-wrap gap-6">
+          <div className="flex flex-wrap justify-center md:justify-end gap-6">
             {footer?.links?.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-sm text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                className="text-sm text-muted-foreground hover:text-primary transition-colors touch-target-large"
               >
                 {link.label}
               </Link>
@@ -171,7 +241,7 @@ export function Footer({ className }: FooterProps) {
               variant="ghost"
               size="sm"
               asChild
-              className="text-sm h-auto p-0 text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400"
+              className="text-sm h-auto p-0 text-muted-foreground hover:text-primary touch-target-large"
             >
               <Link href={`/${currentLocale}/contact`}>
                 {currentLocale === 'sv' ? 'Kontakt' : 'Contact'}

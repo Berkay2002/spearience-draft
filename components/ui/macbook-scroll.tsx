@@ -2,6 +2,8 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { MotionValue, motion, useScroll, useTransform } from "motion/react";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
+import Link from "next/link";
 import {
   IconBrightnessDown,
   IconBrightnessUp,
@@ -31,7 +33,7 @@ export const MacbookScroll = ({
   title,
   badge,
 }: {
-  src?: string | React.ReactNode;
+  src?: string;
   showGradient?: boolean;
   title?: string | React.ReactNode;
   badge?: React.ReactNode;
@@ -53,14 +55,14 @@ export const MacbookScroll = ({
   const scaleX = useTransform(
     scrollYProgress,
     [0, 0.3],
-    [1.2, isMobile ? 1 : 1.5],
+    [1.2, isMobile ? 1.1 : 1.5],
   );
   const scaleY = useTransform(
     scrollYProgress,
     [0, 0.3],
-    [0.6, isMobile ? 1 : 1.5],
+    [0.6, isMobile ? 1.1 : 1.5],
   );
-  const translate = useTransform(scrollYProgress, [0, 1], [0, 1500]);
+  const translate = useTransform(scrollYProgress, [0.07, isMobile ? 0.7 : 0.7], [0, isMobile ? 1200 : 1500]);
   const rotate = useTransform(scrollYProgress, [0.1, 0.12, 0.3], [-28, -28, 0]);
   const textTransform = useTransform(scrollYProgress, [0, 0.3], [0, 100]);
   const textOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
@@ -68,18 +70,17 @@ export const MacbookScroll = ({
   return (
     <div
       ref={ref}
-      className="flex min-h-[200vh] shrink-0 scale-[0.35] transform flex-col items-center justify-start py-0 [perspective:800px] sm:scale-50 md:scale-100 md:py-80"
+      className="flex min-h-[140vh] sm:min-h-[120vh] md:min-h-[150vh] shrink-0 scale-[0.65] transform flex-col items-center justify-start pt-0 pb-0 [perspective:800px] sm:scale-75 md:scale-100 -mt-40 sm:-mt-24 md:-mt-12"
     >
       <motion.h2
         style={{
           translateY: textTransform,
           opacity: textOpacity,
         }}
-        className="mb-20 text-center text-3xl font-bold text-neutral-800 dark:text-white"
+        className="mb-0 sm:mb-0 md:mb-20 text-center text-lg sm:text-xl md:text-3xl font-bold text-neutral-800 dark:text-white"
       >
         {title || (
           <span>
-            This Macbook is built with Tailwindcss. <br /> No kidding.
           </span>
         )}
       </motion.h2>
@@ -130,9 +131,8 @@ export const Lid = ({
   scaleY: MotionValue<number>;
   rotate: MotionValue<number>;
   translate: MotionValue<number>;
-  src?: string | React.ReactNode;
+  src?: string;
 }) => {
-
   return (
     <div className="relative [perspective:800px]">
       <div
@@ -146,12 +146,22 @@ export const Lid = ({
         <div
           style={{
             boxShadow: "0px 2px 0px 2px #171717 inset",
-          }}
+          }}  
           className="absolute inset-0 flex items-center justify-center rounded-lg bg-[#010101]"
         >
-          <span className="text-white">
-            <AceternityLogo />
-          </span>
+          <Link 
+            href="https://kliv.vercel.app/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="relative w-full h-full cursor-pointer hover:opacity-90 transition-opacity"
+          >
+            <Image
+              src="/images/projects/macbook-image.png"
+              alt="Visit Kliv Idrottsförening website"
+              fill
+              className="object-contain p-4"
+            />
+          </Link>
         </div>
       </div>
       <motion.div
@@ -165,18 +175,20 @@ export const Lid = ({
         }}
         className="absolute inset-0 h-96 w-[32rem] rounded-2xl bg-[#010101] p-2"
       >
-        <div className="absolute inset-0 rounded-lg bg-[#272729]" />
-        {typeof src === 'string' ? (
-          <img
-            src={src}
-            alt="screen content"
-            className="absolute inset-0 h-full w-full rounded-lg object-cover object-left-top"
+        <Link 
+          href="https://kliv.vercel.app/" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="relative w-full h-full cursor-pointer hover:opacity-90 transition-opacity block rounded-lg"
+        >
+          <div className="absolute inset-0 rounded-lg bg-[#272729]" />
+          <Image
+            src={src as string}
+            alt="Visit Kliv Idrottsförening website - macbook screen"
+            fill
+            className="rounded-lg object-cover object-left-top"
           />
-        ) : (
-          <div className="absolute inset-0 h-full w-full rounded-lg overflow-hidden">
-            {src}
-          </div>
-        )}
+        </Link>
       </motion.div>
     </div>
   );

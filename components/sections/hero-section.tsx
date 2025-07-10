@@ -6,6 +6,7 @@ import { useHeroContent, useLocale } from '@/hooks/use-content'
 import { ArrowRight, Mail } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { SocialShare } from '@/components/social-share'
 
 interface HeroSectionProps {
   className?: string
@@ -40,9 +41,9 @@ export function HeroSection({ className }: HeroSectionProps) {
               </h1>
               
               <div className="space-y-3 sm:space-y-4">
-                <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-primary gradient-text animate-fade-in-up [animation-delay:200ms]">
+                <p className="text-xl sm:text-2xl md:text-3xl font-semibold text-primary gradient-text animate-fade-in-up [animation-delay:200ms]">
                   {heroContent.subtitle}
-                </h2>
+                </p>
                 
                 <p className="text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl animate-fade-in-up [animation-delay:400ms]">
                   {heroContent.description}
@@ -74,6 +75,26 @@ export function HeroSection({ className }: HeroSectionProps) {
               </Link>
             </div>
 
+            {/* Social proof & sharing */}
+            <div className="flex items-center justify-between pt-8">
+              <div className="flex items-center space-x-6 text-sm text-muted-foreground">
+
+                <span className="hidden sm:block">Based in Stockholm</span>
+              </div>
+              
+              {/* Social sharing */}
+              <div className="hidden md:block">
+                <SocialShare 
+                  variant="minimal" 
+                  platforms={['linkedin', 'twitter']}
+                  showCopyLink={false}
+                  data={{
+                    title: heroContent.title,
+                    description: heroContent.description,
+                  }}
+                />
+              </div>
+            </div>
           </div>
 
           {/* Image Column */}
@@ -110,13 +131,7 @@ export function HeroSection({ className }: HeroSectionProps) {
                   </div>
                 </div>
                 
-                {/* Professional badge */}
-                <div className="absolute -bottom-4 -right-4 bg-card border border-border rounded-2xl p-3 shadow-professional">
-                  <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 bg-success rounded-full animate-bounce-subtle"></div>
-                    <span className="text-xs font-medium text-foreground">Available</span>
-                  </div>
-                </div>
+
               </div>
             </div>
           </div>

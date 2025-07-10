@@ -144,7 +144,11 @@ const DayNightSwitch = React.forwardRef<HTMLDivElement, DayNightSwitchProps>(
               checked={checked}
               onCheckedChange={handleToggle}
               className={cn(
-                "peer data-[state=unchecked]:bg-transparent data-[state=checked]:bg-transparent absolute inset-0 h-[inherit] w-auto [&_span]:z-10 [&_span]:size-6 [&_span]:border [&_span]:shadow [&_span]:rounded-sm [&_span]:transition-transform [&_span]:duration-500 [&_span]:[transition-timing-function:cubic-bezier(0.16,1,0.3,1)] [&_span]:data-[state=checked]:translate-x-10 [&_span]:data-[state=unchecked]:translate-x-2 [&_span]:bg-white [&_span]:border-gray-300"
+                "peer data-[state=unchecked]:bg-transparent data-[state=checked]:bg-transparent absolute inset-0 h-[inherit] w-auto [&_span]:z-10 [&_span]:size-6 [&_span]:border [&_span]:shadow [&_span]:rounded-sm [&_span]:transition-transform [&_span]:duration-500 [&_span]:[transition-timing-function:cubic-bezier(0.16,1,0.3,1)] [&_span]:data-[state=checked]:translate-x-10 [&_span]:data-[state=unchecked]:translate-x-2 [&_span]:border-gray-300",
+                // Conditionally apply background color based on day/night state
+                checked 
+                  ? "[&_span]:bg-white" // White thumb for day mode
+                  : "[&_span]:bg-transparent [&_span]:border-transparent [&_span]:shadow-none" // Transparent thumb for night mode
               )}
             />
           </div>

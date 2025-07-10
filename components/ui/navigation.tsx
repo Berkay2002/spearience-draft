@@ -9,14 +9,24 @@ import {
   DropdownMenu, 
   DropdownMenuContent, 
   DropdownMenuItem, 
-  DropdownMenuTrigger 
+  DropdownMenuTrigger,
+  DropdownMenuSeparator 
 } from '@/components/ui/dropdown-menu'
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from '@/components/ui/navigation-menu'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { Globe, Menu, ChevronDown } from 'lucide-react'
-import { useNavigationContent } from '@/hooks/use-content'
+import { useNavigationContent, useContent } from '@/hooks/use-content'
 import { useCurrentLocale } from '@/hooks/use-current-locale'
 import { type Locale } from '@/middleware'
 import { ThemeToggle } from '@/components/theme-toggle'
+import { ariaLabels, ariaRoles, useKeyboardNavigation, announceToScreenReader } from '@/lib/accessibility'
 
 interface NavigationProps {
   className?: string
@@ -28,6 +38,7 @@ export function Navigation({ className }: NavigationProps) {
   const pathname = usePathname()
   const router = useRouter()
   const navigationContent = useNavigationContent()
+  const content = useContent()
   
   // Use our new useCurrentLocale hook for consistency
   const currentLocale = useCurrentLocale()
@@ -49,6 +60,17 @@ export function Navigation({ className }: NavigationProps) {
     // Set the locale preference cookie
     document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=${60 * 60 * 24 * 365}; SameSite=Strict`
     
+    // Announce language change to screen readers
+    const languageChangedText = navigationContent?.languageSwitcher?.languageChangedTo || 'Language changed to'
+    const languageName = newLocale === 'en' 
+      ? (navigationContent?.languageSwitcher?.english || 'English')
+      : (navigationContent?.languageSwitcher?.swedish || 'Swedish')
+    
+    announceToScreenReader(
+      `${languageChangedText} ${languageName}`,
+      'polite'
+    )
+    
     // Navigate to new locale
     router.push(newPath)
     
@@ -62,6 +84,11 @@ export function Navigation({ className }: NavigationProps) {
     setIsOpen(false)
   }
 
+  // Get projects from content
+  const projects = content?.featuredWork?.projects || []
+  const featuredProjects = projects.filter(project => project.featured)
+  const allProjects = projects
+
   // Navigation menu items with proper locale routing
   const navigationItems = navigationContent?.menu?.map(item => ({
     ...item,
@@ -70,6 +97,7 @@ export function Navigation({ className }: NavigationProps) {
 
   return (
     <header 
+      role={ariaRoles.banner}
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
         isScrolled 
@@ -78,31 +106,168 @@ export function Navigation({ className }: NavigationProps) {
         className
       )}
     >
-      <nav className="container-professional flex items-center justify-between py-3 sm:py-4">
+      <nav 
+        id="main-navigation"
+        role={ariaRoles.navigation}
+        aria-label={ariaLabels.mainNavigation}
+        className="container-professional flex items-center justify-between py-3 sm:py-4"
+      >
         {/* Logo */}
         <Link 
           href={`/${currentLocale}`}
           className="text-2xl font-bold text-foreground hover:text-primary transition-colors"
         >
-          {navigationContent?.logo || 'Chrish Fernando'}
+          {navigationContent?.logo || 'Spearience'}
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center space-x-8">
-          {navigationItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={cn(
-                "text-sm font-medium transition-colors hover:text-primary",
-                pathname === item.href 
-                  ? "text-primary" 
-                  : "text-muted-foreground"
-              )}
-            >
-              {item.label}
-            </Link>
-          ))}
+        <div className="hidden md:flex items-center" role={ariaRoles.navigation} aria-label="Desktop navigation">
+          <NavigationMenu>
+            <NavigationMenuList className="gap-6 items-center">
+              {navigationItems.map((item) => {
+                // Special handling for Projects menu item
+                if (item.href.endsWith('/projects')) {
+                  return (
+                    <NavigationMenuItem key={item.href}>
+                      <NavigationMenuTrigger 
+                        className={cn(
+                          "text-sm font-medium transition-colors hover:text-primary focus-ring bg-transparent hover:bg-transparent data-[active]:bg-transparent data-[state=open]:bg-transparent h-auto px-0 py-2",
+                          pathname.includes('/projects') 
+                            ? "text-primary" 
+                            : "text-muted-foreground"
+                        )}
+                      >
+                        {item.label}
+                      </NavigationMenuTrigger>
+                      <NavigationMenuContent>
+                        <div className="grid gap-3 p-6 w-[500px] grid-cols-2">
+                          {/* Main Projects Section */}
+                          <div className="space-y-3">
+                            <div>
+                              <h4 className="text-sm font-medium leading-none mb-2">
+                                {currentLocale === 'sv' ? 'Projekt' : 'Projects'}
+                              </h4>
+                              <NavigationMenuLink asChild>
+                                <Link
+                                  href={item.href}
+                                  className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                                >
+                                  <div className="text-sm font-medium leading-none">
+                                    {currentLocale === 'sv' ? 'Visa alla projekt' : 'View All Projects'}
+                                  </div>
+                                  <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                    {currentLocale === 'sv' 
+                                      ? 'Utforska vårt fulla utbud av ungdomsfokuserade projekt och initiativ.'
+                                      : 'Explore our full range of youth-focused projects and initiatives.'}
+                                  </p>
+                                </Link>
+                              </NavigationMenuLink>
+                            </div>
+                            
+                            {/* Featured Projects */}
+                            {featuredProjects.length > 0 && (
+                              <div>
+                                <h4 className="text-sm font-medium leading-none mb-2">
+                                  {currentLocale === 'sv' ? 'Utvalda projekt' : 'Featured Projects'}
+                                </h4>
+                                <div className="space-y-1">
+                                  {featuredProjects.slice(0, 2).map((project) => (
+                                    <NavigationMenuLink key={project.id} asChild>
+                                      <Link
+                                        href={`/${currentLocale}/projects/${project.id}`}
+                                        className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                                      >
+                                        <div className="text-sm font-medium leading-none">
+                                          {project.title}
+                                        </div>
+                                        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                          {project.category}
+                                        </p>
+                                      </Link>
+                                    </NavigationMenuLink>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+                          </div>
+
+                          {/* Categories & Other Projects */}
+                          <div className="space-y-3">
+                            <div>
+                              <h4 className="text-sm font-medium leading-none mb-2">
+                                {currentLocale === 'sv' ? 'Kategorier' : 'Categories'}
+                              </h4>
+                              <div className="space-y-1">
+                                {['Concept Development', 'Project Management', 'Mentorship'].map((category) => (
+                                  <NavigationMenuLink key={category} asChild>
+                                    <Link
+                                      href={`/${currentLocale}/projects?category=${encodeURIComponent(category)}`}
+                                      className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                                    >
+                                      <div className="text-sm font-medium leading-none">
+                                        {currentLocale === 'sv' 
+                                          ? (category === 'Concept Development' ? 'Konceptutveckling' 
+                                             : category === 'Project Management' ? 'Projektledning' 
+                                             : 'Mentorskap')
+                                          : category}
+                                      </div>
+                                    </Link>
+                                  </NavigationMenuLink>
+                                ))}
+                              </div>
+                            </div>
+
+                            {/* More Projects */}
+                            {allProjects.length > featuredProjects.length && (
+                              <div>
+                                <h4 className="text-sm font-medium leading-none mb-2">
+                                  {currentLocale === 'sv' ? 'Övriga projekt' : 'More Projects'}
+                                </h4>
+                                <div className="space-y-1">
+                                  {allProjects.filter(project => !project.featured).slice(0, 2).map((project) => (
+                                    <NavigationMenuLink key={project.id} asChild>
+                                      <Link
+                                        href={`/${currentLocale}/projects/${project.id}`}
+                                        className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                                      >
+                                        <div className="text-sm font-medium leading-none">
+                                          {project.title}
+                                        </div>
+                                        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                          {project.category}
+                                        </p>
+                                      </Link>
+                                    </NavigationMenuLink>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </NavigationMenuContent>
+                    </NavigationMenuItem>
+                  )
+                }
+                
+                return (
+                  <NavigationMenuItem key={item.href}>
+                    <Link
+                      href={item.href}
+                      className={cn(
+                        "text-sm font-medium transition-colors hover:text-primary focus-ring px-0 py-2",
+                        pathname === item.href 
+                          ? "text-primary" 
+                          : "text-muted-foreground"
+                      )}
+                      aria-current={pathname === item.href ? 'page' : undefined}
+                    >
+                      {item.label}
+                    </Link>
+                  </NavigationMenuItem>
+                )
+              })}
+            </NavigationMenuList>
+          </NavigationMenu>
         </div>
 
         {/* Desktop Theme Switcher, Language Switcher & CTA */}
@@ -111,12 +276,19 @@ export function Navigation({ className }: NavigationProps) {
           
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="sm" className="gap-2">
-                <Globe className="w-4 h-4" />
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="gap-2"
+                aria-label={navigationContent?.languageSwitcher?.changeLanguageLabel || "Change language"}
+                aria-haspopup="menu"
+                aria-expanded="false"
+              >
+                <Globe className="w-4 h-4" aria-hidden="true" />
                 <span className="text-sm font-medium">
                   {currentLocale === 'en' ? 'EN' : 'SV'}
                 </span>
-                <ChevronDown className="w-4 h-4" />
+                <ChevronDown className="w-4 h-4" aria-hidden="true" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="min-w-[120px]">
@@ -128,7 +300,7 @@ export function Navigation({ className }: NavigationProps) {
                 )}
               >
                 <span className="flex items-center gap-2">
-                  🇺🇸 English
+                  🇺🇸 {navigationContent?.languageSwitcher?.english || 'English'}
                 </span>
               </DropdownMenuItem>
               <DropdownMenuItem 
@@ -139,7 +311,7 @@ export function Navigation({ className }: NavigationProps) {
                 )}
               >
                 <span className="flex items-center gap-2">
-                  🇸🇪 Svenska
+                  🇸🇪 {navigationContent?.languageSwitcher?.swedish || 'Svenska'}
                 </span>
               </DropdownMenuItem>
             </DropdownMenuContent>
@@ -147,7 +319,7 @@ export function Navigation({ className }: NavigationProps) {
 
           <Button asChild size="sm">
             <Link href={`/${currentLocale}/contact`}>
-              Get In Touch
+              {navigationContent?.cta?.text || 'Get In Touch'}
             </Link>
           </Button>
         </div>
@@ -175,7 +347,7 @@ export function Navigation({ className }: NavigationProps) {
                   currentLocale === 'en' && "bg-accent"
                 )}
               >
-                🇺🇸 English
+                🇺🇸 {navigationContent?.languageSwitcher?.english || 'English'}
               </DropdownMenuItem>
               <DropdownMenuItem 
                 onClick={() => switchLanguage('sv')}
@@ -184,7 +356,7 @@ export function Navigation({ className }: NavigationProps) {
                   currentLocale === 'sv' && "bg-accent"
                 )}
               >
-                🇸🇪 Svenska
+                🇸🇪 {navigationContent?.languageSwitcher?.swedish || 'Svenska'}
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -192,44 +364,102 @@ export function Navigation({ className }: NavigationProps) {
           {/* Mobile Menu Trigger */}
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="sm" className="p-2 min-h-[44px] min-w-[44px]">
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="p-2 min-h-[44px] min-w-[44px]"
+                aria-label={isOpen ? ariaLabels.closeMenu : ariaLabels.openMenu}
+                aria-expanded={isOpen}
+                aria-controls="mobile-menu"
+              >
                 <Menu className="w-5 h-5" />
-                <span className="sr-only">Toggle menu</span>
+                <span className="sr-only">{isOpen ? ariaLabels.closeMenu : ariaLabels.openMenu}</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[300px] sm:w-[400px]">
-              <div className="flex flex-col h-full">
+            <SheetContent 
+              side="right" 
+              className="w-[300px] sm:w-[400px]"
+              aria-labelledby="mobile-menu-heading"
+            >
+              <div className="flex flex-col h-full" id="mobile-menu">
                 {/* Mobile Menu Header */}
                 <div className="flex items-center justify-between pb-6 border-b">
-                  <span className="text-lg font-semibold">
-                    {navigationContent?.logo || 'Chrish Fernando'}
-                  </span>
+                  <h2 id="mobile-menu-heading" className="text-lg font-semibold">
+                    {navigationContent?.logo || 'Spearience'}
+                  </h2>
                 </div>
 
                 {/* Mobile Navigation Links */}
-                <nav className="flex flex-col space-y-2 py-6 flex-1">
-                  {navigationItems.map((item) => (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      onClick={handleLinkClick}
-                      className={cn(
-                        "text-base font-medium transition-colors hover:text-primary p-3 rounded-lg min-h-[44px] flex items-center",
-                        pathname === item.href 
-                          ? "text-primary bg-primary/10" 
-                          : "text-muted-foreground hover:bg-accent"
-                      )}
-                    >
-                      {item.label}
-                    </Link>
-                  ))}
+                <nav 
+                  role={ariaRoles.navigation}
+                  aria-label="Mobile navigation"
+                  className="flex flex-col space-y-2 py-6 flex-1"
+                >
+                  {navigationItems.map((item, index) => {
+                    // Special handling for Projects in mobile menu
+                    if (item.href.endsWith('/projects')) {
+                      return (
+                        <div key={item.href} className="space-y-1">
+                          <Link
+                            href={item.href}
+                            onClick={handleLinkClick}
+                            className={cn(
+                              "text-base font-medium transition-colors hover:text-primary p-3 rounded-lg min-h-[44px] flex items-center",
+                              pathname === item.href 
+                                ? "text-primary bg-primary/10" 
+                                : "text-muted-foreground hover:bg-accent"
+                            )}
+                            aria-current={pathname === item.href ? 'page' : undefined}
+                            tabIndex={isOpen ? 0 : -1}
+                          >
+                            {item.label}
+                          </Link>
+                          
+                          {/* Featured Projects in Mobile */}
+                          {featuredProjects.length > 0 && (
+                            <div className="ml-4 space-y-1">
+                              {featuredProjects.map((project) => (
+                                <Link
+                                  key={project.id}
+                                  href={`/${currentLocale}/projects/${project.id}`}
+                                  onClick={handleLinkClick}
+                                  className="block text-sm text-muted-foreground hover:text-primary p-2 rounded transition-colors"
+                                  tabIndex={isOpen ? 0 : -1}
+                                >
+                                  {project.title}
+                                </Link>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      )
+                    }
+                    
+                    return (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        onClick={handleLinkClick}
+                        className={cn(
+                          "text-base font-medium transition-colors hover:text-primary p-3 rounded-lg min-h-[44px] flex items-center",
+                          pathname === item.href 
+                            ? "text-primary bg-primary/10" 
+                            : "text-muted-foreground hover:bg-accent"
+                        )}
+                        aria-current={pathname === item.href ? 'page' : undefined}
+                        tabIndex={isOpen ? 0 : -1}
+                      >
+                        {item.label}
+                      </Link>
+                    )
+                  })}
                 </nav>
 
                 {/* Mobile CTA */}
                 <div className="pt-6 border-t">
                   <Button asChild className="w-full">
                     <Link href={`/${currentLocale}/contact`} onClick={handleLinkClick}>
-                      Get In Touch
+                      {navigationContent?.cta?.text || 'Get In Touch'}
                     </Link>
                   </Button>
                 </div>

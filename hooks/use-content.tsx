@@ -86,4 +86,12 @@ export function useFooterContent() {
 
 export function useImpactContent() {
   return useContentSection('impact')
+}
+
+export function useProjectCaseStudyContent() {
+  return useContentSection('projectCaseStudy')
+}
+
+export function useAccessibilityContent() {
+  return useContentSection('accessibility')
 } 
