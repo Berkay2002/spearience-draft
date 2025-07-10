@@ -251,18 +251,18 @@ export function Navigation({ className }: NavigationProps) {
                 
                 return (
                   <NavigationMenuItem key={item.href}>
-                    <Link
-                      href={item.href}
-                      className={cn(
+            <Link
+              href={item.href}
+              className={cn(
                         "text-sm font-medium transition-colors hover:text-primary focus-ring px-0 py-2",
-                        pathname === item.href 
-                          ? "text-primary" 
-                          : "text-muted-foreground"
-                      )}
-                      aria-current={pathname === item.href ? 'page' : undefined}
-                    >
-                      {item.label}
-                    </Link>
+                pathname === item.href 
+                  ? "text-primary" 
+                  : "text-muted-foreground"
+              )}
+              aria-current={pathname === item.href ? 'page' : undefined}
+            >
+              {item.label}
+            </Link>
                   </NavigationMenuItem>
                 )
               })}
@@ -436,21 +436,21 @@ export function Navigation({ className }: NavigationProps) {
                     }
                     
                     return (
-                      <Link
-                        key={item.href}
-                        href={item.href}
-                        onClick={handleLinkClick}
-                        className={cn(
-                          "text-base font-medium transition-colors hover:text-primary p-3 rounded-lg min-h-[44px] flex items-center",
-                          pathname === item.href 
-                            ? "text-primary bg-primary/10" 
-                            : "text-muted-foreground hover:bg-accent"
-                        )}
-                        aria-current={pathname === item.href ? 'page' : undefined}
-                        tabIndex={isOpen ? 0 : -1}
-                      >
-                        {item.label}
-                      </Link>
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      onClick={handleLinkClick}
+                      className={cn(
+                        "text-base font-medium transition-colors hover:text-primary p-3 rounded-lg min-h-[44px] flex items-center",
+                        pathname === item.href 
+                          ? "text-primary bg-primary/10" 
+                          : "text-muted-foreground hover:bg-accent"
+                      )}
+                      aria-current={pathname === item.href ? 'page' : undefined}
+                      tabIndex={isOpen ? 0 : -1}
+                    >
+                      {item.label}
+                    </Link>
                     )
                   })}
                 </nav>
