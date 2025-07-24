@@ -1,16 +1,17 @@
 'use client'
 
 import { Gallery4, type Gallery4Item } from '@/components/blocks/gallery4'
-import { useFeaturedWorkContent, useLocale } from '@/hooks/use-content'
+import { useLocale } from '@/hooks/use-content'
+import { type FeaturedWorkContent } from '@/lib/content'
 import { ArrowRight, ExternalLink, Tag, TrendingUp, Users, Zap } from 'lucide-react'
 import Link from 'next/link'
 
 interface FeaturedWorkProps {
+  featuredWork: FeaturedWorkContent
   className?: string
 }
 
-export function FeaturedWork({ className }: FeaturedWorkProps) {
-  const featuredWorkContent = useFeaturedWorkContent()
+export function FeaturedWork({ featuredWork: featuredWorkContent, className }: FeaturedWorkProps) {
   const locale = useLocale()
 
   // Transform our content data to match Gallery4 format
@@ -25,55 +26,73 @@ export function FeaturedWork({ className }: FeaturedWorkProps) {
     }))
 
   return (
-    <section className={`section-padding relative overflow-hidden ${className}`}>
-      {/* Enhanced Gallery4 with custom styling */}
-      <div className="relative">
-        <Gallery4
-          title={featuredWorkContent.title}
-          description={featuredWorkContent.subtitle}
-          items={galleryItems}
-        />
-      </div>
+    <section className={`relative overflow-hidden ${className}`}>
+      <div className="container-professional py-20 sm:py-28 lg:py-36">
+        {/* Mobile-optimized section header */}
+        <div className="text-center space-y-8 mb-16 lg:mb-20">
+          <div className="space-y-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-primary font-medium text-sm sm:text-base">
+              <Zap className="w-4 h-4 sm:w-5 sm:h-5" />
+              <span>Featured Work</span>
+            </div>
+            
+            <h2 className="section-title max-w-4xl mx-auto">
+              {featuredWorkContent.title}
+            </h2>
+            
+            <p className="section-description mx-auto">
+              {featuredWorkContent.subtitle}
+            </p>
+          </div>
+        </div>
 
-      {/* Call to Action */}
-      <div className="container-professional pt-12">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center">
-            <div className="bg-gradient-professional rounded-2xl p-8 text-white max-w-3xl mx-auto">
-              <div className="space-y-6">
-                <div className="space-y-2">
-                  <h4 className="text-2xl font-bold">Explore the Complete Portfolio</h4>
-                  <p className="text-white/80 leading-relaxed">
-                    Dive deeper into detailed case studies, methodologies, and measurable results across diverse industries and project scales.
-                  </p>
-                </div>
+        {/* Enhanced Gallery with mobile-first design */}
+        <div className="relative mb-16">
+          <Gallery4
+            title=""
+            description=""
+            items={galleryItems}
+          />
+        </div>
 
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Link href={`/${locale}/projects`}>
-                    <button className="inline-flex items-center justify-center px-8 py-3 bg-white text-primary rounded-lg font-medium hover:bg-white/90 transition-colors group">
-                      View All Projects
-                      <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
-                    </button>
-                  </Link>
-                  
-                  <Link href={`/${locale}/contact`}>
-                    <button className="inline-flex items-center justify-center px-8 py-3 border border-white/30 text-white rounded-lg font-medium hover:bg-white/10 transition-colors group">
-                      Discuss Your Project
-                      <ExternalLink className="ml-2 w-4 h-4 transition-transform group-hover:scale-110" />
-                    </button>
-                  </Link>
-                </div>
+        {/* Mobile-optimized Call to Action */}
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-gradient-to-br from-secondary/60 to-muted/50 dark:from-secondary/40 dark:to-muted/60 rounded-3xl p-6 sm:p-8 lg:p-12 border border-border/20">
+            <div className="space-y-8 text-center">
+              <div className="space-y-4">
+                <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground leading-tight">
+                  {featuredWorkContent.cta.title}
+                </h3>
+                <p className="text-base sm:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
+                  {featuredWorkContent.cta.subtitle}
+                </p>
+              </div>
 
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link href={`/${locale}/projects`}>
+                  <button className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 bg-primary text-primary-foreground rounded-xl font-semibold hover:bg-primary/90 transition-all duration-200 group shadow-lg">
+                    {featuredWorkContent.cta.primaryButton}
+                    <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
+                  </button>
+                </Link>
+                
+                <Link href={`/${locale}/contact`}>
+                  <button className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 border-2 border-border text-foreground rounded-xl font-semibold hover:bg-card transition-all duration-200 group">
+                    {featuredWorkContent.cta.secondaryButton}
+                    <ExternalLink className="ml-2 w-5 h-5 transition-transform group-hover:scale-110" />
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Background decorative elements */}
+      {/* Enhanced background decorative elements */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute top-1/3 left-0 w-[500px] h-[500px] bg-primary/3 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/3 right-0 w-[400px] h-[400px] bg-brand-blue/3 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/3 left-0 w-[500px] h-[500px] bg-primary/2 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/3 right-0 w-[400px] h-[400px] bg-brand-blue/2 rounded-full blur-3xl"></div>
+        <div className="absolute top-2/3 left-1/2 w-[300px] h-[300px] bg-accent/2 rounded-full blur-2xl"></div>
       </div>
     </section>
   )

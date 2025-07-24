@@ -1,17 +1,17 @@
 'use client'
 
 import { MacbookScroll } from '@/components/ui/macbook-scroll'
-import { useProcessContent } from '@/hooks/use-content'
+import { type ProcessContent } from '@/lib/content'
 import { CheckCircle, ArrowRight, PlayCircle, Target, Users, TrendingUp, Zap } from 'lucide-react'
 import Image from 'next/image'
 
 interface ProcessShowcaseProps {
+  process: ProcessContent
   className?: string
 }
 
 // Process workflow screen content
-function ProcessWorkflowScreen() {
-  const processContent = useProcessContent()
+function ProcessWorkflowScreen({ processContent }: { processContent: ProcessContent }) {
 
   return (
     <div className="w-full h-full bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white relative overflow-hidden">
@@ -131,9 +131,7 @@ function ProcessWorkflowScreen() {
   )
 }
 
-export function ProcessShowcase({ className }: ProcessShowcaseProps) {
-  const processContent = useProcessContent()
-
+export function ProcessShowcase({ process, className }: ProcessShowcaseProps) {
   return (
     <section className={`section-padding-lg relative -mt-32 sm:-mt-24 md:-mt-16 py-0 sm:py-2 md:py-24 ${className}`}>
       {/* MacBook Scroll Component */}
@@ -141,10 +139,10 @@ export function ProcessShowcase({ className }: ProcessShowcaseProps) {
         title={
           <div className="flex flex-col items-center space-y-4">
             <h2 className="section-title text-center">
-              {processContent.title}
+              {process.title}
             </h2>
             <p className="section-subtitle text-center max-w-3xl">
-              {processContent.subtitle}
+              {process.subtitle}
             </p>
           </div>
         }
@@ -163,7 +161,7 @@ export function ProcessShowcase({ className }: ProcessShowcaseProps) {
       {/* Custom MacBook Screen Content (hidden but rendered) */}
       <div className="hidden">
         <div id="process-workflow-screen">
-          <ProcessWorkflowScreen />
+          <ProcessWorkflowScreen processContent={process} />
         </div>
       </div>
     </section>

@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
+import { useTheme } from 'next-themes'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { 
@@ -21,7 +23,7 @@ import {
   NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
-import { Globe, Menu, ChevronDown } from 'lucide-react'
+import { Globe, Menu, ChevronDown, ChevronRight, X } from 'lucide-react'
 import { useNavigationContent, useContent } from '@/hooks/use-content'
 import { useCurrentLocale } from '@/hooks/use-current-locale'
 import { type Locale } from '@/middleware'
@@ -35,13 +37,20 @@ interface NavigationProps {
 export function Navigation({ className }: NavigationProps) {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const pathname = usePathname()
   const router = useRouter()
   const navigationContent = useNavigationContent()
   const content = useContent()
+  const { resolvedTheme } = useTheme()
   
   // Use our new useCurrentLocale hook for consistency
   const currentLocale = useCurrentLocale()
+
+  // Ensure component is mounted before accessing theme
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   // Handle scroll effect
   useEffect(() => {
@@ -105,6 +114,7 @@ export function Navigation({ className }: NavigationProps) {
           : "bg-transparent",
         className
       )}
+      style={{ zIndex: 60 }}
     >
       <nav 
         id="main-navigation"
@@ -115,9 +125,22 @@ export function Navigation({ className }: NavigationProps) {
         {/* Logo */}
         <Link 
           href={`/${currentLocale}`}
-          className="text-2xl font-bold text-foreground hover:text-primary transition-colors"
+          className="flex items-center hover:opacity-80 transition-opacity"
         >
-          {navigationContent?.logo || 'Spearience'}
+          {mounted && resolvedTheme === 'light' ? (
+            <Image
+              src="/images/logo/spearience.png"
+              alt="Spearience"
+              width={180}
+              height={48}
+              className="h-10 w-auto"
+              priority
+            />
+          ) : (
+            <span className="text-3xl font-bold text-foreground hover:text-primary transition-colors">
+              {navigationContent?.logo || 'Spearience'}
+            </span>
+          )}
         </Link>
 
         {/* Desktop Navigation */}
@@ -131,118 +154,49 @@ export function Navigation({ className }: NavigationProps) {
                     <NavigationMenuItem key={item.href}>
                       <NavigationMenuTrigger 
                         className={cn(
-                          "text-sm font-medium transition-colors hover:text-primary focus-ring bg-transparent hover:bg-transparent data-[active]:bg-transparent data-[state=open]:bg-transparent h-auto px-0 py-2",
+                          "text-base font-medium transition-colors hover:text-primary focus-ring bg-transparent hover:bg-transparent data-[active]:bg-transparent data-[state=open]:bg-transparent h-auto px-0 py-2",
                           pathname.includes('/projects') 
                             ? "text-primary" 
                             : "text-muted-foreground"
                         )}
+                        onClick={() => router.push(item.href)}
                       >
                         {item.label}
                       </NavigationMenuTrigger>
                       <NavigationMenuContent>
-                        <div className="grid gap-3 p-6 w-[500px] grid-cols-2">
-                          {/* Main Projects Section */}
-                          <div className="space-y-3">
-                            <div>
-                              <h4 className="text-sm font-medium leading-none mb-2">
-                                {currentLocale === 'sv' ? 'Projekt' : 'Projects'}
-                              </h4>
-                              <NavigationMenuLink asChild>
-                                <Link
-                                  href={item.href}
-                                  className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                                >
-                                  <div className="text-sm font-medium leading-none">
-                                    {currentLocale === 'sv' ? 'Visa alla projekt' : 'View All Projects'}
-                                  </div>
-                                  <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                                    {currentLocale === 'sv' 
-                                      ? 'Utforska vårt fulla utbud av ungdomsfokuserade projekt och initiativ.'
-                                      : 'Explore our full range of youth-focused projects and initiatives.'}
-                                  </p>
-                                </Link>
-                              </NavigationMenuLink>
-                            </div>
-                            
-                            {/* Featured Projects */}
-                            {featuredProjects.length > 0 && (
-                              <div>
-                                <h4 className="text-sm font-medium leading-none mb-2">
-                                  {currentLocale === 'sv' ? 'Utvalda projekt' : 'Featured Projects'}
-                                </h4>
-                                <div className="space-y-1">
-                                  {featuredProjects.slice(0, 2).map((project) => (
-                                    <NavigationMenuLink key={project.id} asChild>
-                                      <Link
-                                        href={`/${currentLocale}/projects/${project.id}`}
-                                        className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                                      >
-                                        <div className="text-sm font-medium leading-none">
-                                          {project.title}
-                                        </div>
-                                        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                                          {project.category}
-                                        </p>
-                                      </Link>
-                                    </NavigationMenuLink>
-                                  ))}
-                                </div>
+                        <div className="grid gap-2 p-4 w-[280px]">
+                          {/* Simplified Menu - Only Essentials */}
+                          <NavigationMenuLink asChild>
+                            <Link
+                              href={item.href}
+                              className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                            >
+                              <div className="text-sm font-medium leading-none">
+                                {currentLocale === 'sv' ? 'Visa alla projekt' : 'View All Projects'}
                               </div>
-                            )}
-                          </div>
-
-                          {/* Categories & Other Projects */}
-                          <div className="space-y-3">
-                            <div>
-                              <h4 className="text-sm font-medium leading-none mb-2">
-                                {currentLocale === 'sv' ? 'Kategorier' : 'Categories'}
-                              </h4>
-                              <div className="space-y-1">
-                                {['Concept Development', 'Project Management', 'Mentorship'].map((category) => (
-                                  <NavigationMenuLink key={category} asChild>
-                                    <Link
-                                      href={`/${currentLocale}/projects?category=${encodeURIComponent(category)}`}
-                                      className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                                    >
-                                      <div className="text-sm font-medium leading-none">
-                                        {currentLocale === 'sv' 
-                                          ? (category === 'Concept Development' ? 'Konceptutveckling' 
-                                             : category === 'Project Management' ? 'Projektledning' 
-                                             : 'Mentorskap')
-                                          : category}
-                                      </div>
-                                    </Link>
-                                  </NavigationMenuLink>
-                                ))}
+                              <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                {currentLocale === 'sv' 
+                                  ? 'Se alla våra projekt och initiativ'
+                                  : 'View all our projects and initiatives'}
+                              </p>
+                            </Link>
+                          </NavigationMenuLink>
+                          
+                          <NavigationMenuLink asChild>
+                            <Link
+                              href={`/${currentLocale}/projects?featured=true`}
+                              className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                            >
+                              <div className="text-sm font-medium leading-none">
+                                {currentLocale === 'sv' ? 'Utvalda projekt' : 'Featured Projects'}
                               </div>
-                            </div>
-
-                            {/* More Projects */}
-                            {allProjects.length > featuredProjects.length && (
-                              <div>
-                                <h4 className="text-sm font-medium leading-none mb-2">
-                                  {currentLocale === 'sv' ? 'Övriga projekt' : 'More Projects'}
-                                </h4>
-                                <div className="space-y-1">
-                                  {allProjects.filter(project => !project.featured).slice(0, 2).map((project) => (
-                                    <NavigationMenuLink key={project.id} asChild>
-                                      <Link
-                                        href={`/${currentLocale}/projects/${project.id}`}
-                                        className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                                      >
-                                        <div className="text-sm font-medium leading-none">
-                                          {project.title}
-                                        </div>
-                                        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                                          {project.category}
-                                        </p>
-                                      </Link>
-                                    </NavigationMenuLink>
-                                  ))}
-                                </div>
-                              </div>
-                            )}
-                          </div>
+                              <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                {currentLocale === 'sv' 
+                                  ? 'Våra mest framstående projekt'
+                                  : 'Our most prominent projects'}
+                              </p>
+                            </Link>
+                          </NavigationMenuLink>
                         </div>
                       </NavigationMenuContent>
                     </NavigationMenuItem>
@@ -254,7 +208,7 @@ export function Navigation({ className }: NavigationProps) {
             <Link
               href={item.href}
               className={cn(
-                        "text-sm font-medium transition-colors hover:text-primary focus-ring px-0 py-2",
+                        "text-base font-medium transition-colors hover:text-primary focus-ring px-0 py-2",
                 pathname === item.href 
                   ? "text-primary" 
                   : "text-muted-foreground"
@@ -271,21 +225,21 @@ export function Navigation({ className }: NavigationProps) {
         </div>
 
         {/* Desktop Theme Switcher, Language Switcher & CTA */}
-        <div className="hidden md:flex items-center space-x-4">
-          <ThemeToggle className="w-12 h-6" />
+        <div className="hidden md:flex items-center space-x-5">
+          <ThemeToggle className="w-14 h-7" />
           
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button 
                 variant="ghost" 
-                size="sm" 
-                className="gap-2"
+                size="default" 
+                className="gap-2 px-3 py-2"
                 aria-label={navigationContent?.languageSwitcher?.changeLanguageLabel || "Change language"}
                 aria-haspopup="menu"
                 aria-expanded="false"
               >
-                <Globe className="w-4 h-4" aria-hidden="true" />
-                <span className="text-sm font-medium">
+                <Globe className="w-5 h-5" aria-hidden="true" />
+                <span className="text-base font-medium">
                   {currentLocale === 'en' ? 'EN' : 'SV'}
                 </span>
                 <ChevronDown className="w-4 h-4" aria-hidden="true" />
@@ -317,7 +271,7 @@ export function Navigation({ className }: NavigationProps) {
             </DropdownMenuContent>
           </DropdownMenu>
 
-          <Button asChild size="sm">
+          <Button asChild size="default" className="px-6 py-2 text-base">
             <Link href={`/${currentLocale}/contact`}>
               {navigationContent?.cta?.text || 'Get In Touch'}
             </Link>
@@ -325,16 +279,16 @@ export function Navigation({ className }: NavigationProps) {
         </div>
 
         {/* Mobile Menu */}
-        <div className="md:hidden flex items-center space-x-1">
+        <div className="md:hidden flex items-center space-x-2">
           {/* Mobile Theme Switcher */}
-          <ThemeToggle className="w-10 h-5" />
+          <ThemeToggle className="w-12 h-6" />
           
           {/* Mobile Language Switcher */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="sm" className="gap-1 min-h-[44px] min-w-[44px]">
-                <Globe className="w-4 h-4" />
-                <span className="text-xs">
+              <Button variant="ghost" size="default" className="gap-1 min-h-[48px] min-w-[48px] px-3">
+                <Globe className="w-5 h-5" />
+                <span className="text-sm font-medium">
                   {currentLocale === 'en' ? 'EN' : 'SV'}
                 </span>
               </Button>
@@ -361,108 +315,56 @@ export function Navigation({ className }: NavigationProps) {
             </DropdownMenuContent>
           </DropdownMenu>
 
-          {/* Mobile Menu Trigger */}
-          <Sheet open={isOpen} onOpenChange={setIsOpen}>
+          {/* Premium Full-Screen Mobile Menu */}
+          <Sheet open={isOpen} onOpenChange={setIsOpen} modal={false}>
             <SheetTrigger asChild>
               <Button 
                 variant="ghost" 
                 size="sm" 
-                className="p-2 min-h-[44px] min-w-[44px]"
+                className="p-2 min-h-[44px] min-w-[44px] md:hidden"
                 aria-label={isOpen ? ariaLabels.closeMenu : ariaLabels.openMenu}
                 aria-expanded={isOpen}
                 aria-controls="mobile-menu"
               >
-                <Menu className="w-5 h-5" />
+                {isOpen ? (
+                  <X className="w-6 h-6 transition-transform duration-300" />
+                ) : (
+                  <Menu className="w-6 h-6 transition-transform duration-300" />
+                )}
                 <span className="sr-only">{isOpen ? ariaLabels.closeMenu : ariaLabels.openMenu}</span>
               </Button>
             </SheetTrigger>
             <SheetContent 
-              side="right" 
-              className="w-[300px] sm:w-[400px]"
+              side="left" 
+              className="w-screen p-0 border-none mt-16 sm:mt-20"
+              style={{ zIndex: 40 }}
               aria-labelledby="mobile-menu-heading"
             >
-              <div className="flex flex-col h-full" id="mobile-menu">
-                {/* Mobile Menu Header */}
-                <div className="flex items-center justify-between pb-6 border-b">
-                  <h2 id="mobile-menu-heading" className="text-lg font-semibold">
-                    {navigationContent?.logo || 'Spearience'}
-                  </h2>
-                </div>
-
-                {/* Mobile Navigation Links */}
+              <div className="bg-background min-h-screen" id="mobile-menu">
+                {/* Premium Navigation Links */}
                 <nav 
                   role={ariaRoles.navigation}
                   aria-label="Mobile navigation"
-                  className="flex flex-col space-y-2 py-6 flex-1"
+                  className="px-6 py-8"
                 >
                   {navigationItems.map((item, index) => {
-                    // Special handling for Projects in mobile menu
-                    if (item.href.endsWith('/projects')) {
-                      return (
-                        <div key={item.href} className="space-y-1">
-                          <Link
-                            href={item.href}
-                            onClick={handleLinkClick}
-                            className={cn(
-                              "text-base font-medium transition-colors hover:text-primary p-3 rounded-lg min-h-[44px] flex items-center",
-                              pathname === item.href 
-                                ? "text-primary bg-primary/10" 
-                                : "text-muted-foreground hover:bg-accent"
-                            )}
-                            aria-current={pathname === item.href ? 'page' : undefined}
-                            tabIndex={isOpen ? 0 : -1}
-                          >
-                            {item.label}
-                          </Link>
-                          
-                          {/* Featured Projects in Mobile */}
-                          {featuredProjects.length > 0 && (
-                            <div className="ml-4 space-y-1">
-                              {featuredProjects.map((project) => (
-                                <Link
-                                  key={project.id}
-                                  href={`/${currentLocale}/projects/${project.id}`}
-                                  onClick={handleLinkClick}
-                                  className="block text-sm text-muted-foreground hover:text-primary p-2 rounded transition-colors"
-                                  tabIndex={isOpen ? 0 : -1}
-                                >
-                                  {project.title}
-                                </Link>
-                              ))}
-                            </div>
-                          )}
-                        </div>
-                      )
-                    }
+                    const hasSubpages = item.href.endsWith('/projects')
                     
                     return (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      onClick={handleLinkClick}
-                      className={cn(
-                        "text-base font-medium transition-colors hover:text-primary p-3 rounded-lg min-h-[44px] flex items-center",
-                        pathname === item.href 
-                          ? "text-primary bg-primary/10" 
-                          : "text-muted-foreground hover:bg-accent"
-                      )}
-                      aria-current={pathname === item.href ? 'page' : undefined}
-                      tabIndex={isOpen ? 0 : -1}
-                    >
-                      {item.label}
-                    </Link>
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        onClick={handleLinkClick}
+                        className="flex items-center justify-between border-b border-border py-6 text-2xl font-medium text-foreground hover:text-primary transition-colors"
+                      >
+                        <span>{item.label}</span>
+                        {hasSubpages && (
+                          <ChevronRight className="h-6 w-6 text-muted-foreground" />
+                        )}
+                      </Link>
                     )
                   })}
                 </nav>
-
-                {/* Mobile CTA */}
-                <div className="pt-6 border-t">
-                  <Button asChild className="w-full">
-                    <Link href={`/${currentLocale}/contact`} onClick={handleLinkClick}>
-                      {navigationContent?.cta?.text || 'Get In Touch'}
-                    </Link>
-                  </Button>
-                </div>
               </div>
             </SheetContent>
           </Sheet>

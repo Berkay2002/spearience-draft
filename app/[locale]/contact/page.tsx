@@ -3,6 +3,7 @@ import { ContactSection } from '@/components/sections/contact-section'
 import { Footer } from '@/components/sections/footer'
 import { type Locale } from '@/lib/i18n'
 import { generateMetadata as generateSEOMetadata, generateStructuredData, SEOUtils, getStructuredDataScript } from '@/lib/seo'
+import { getContentSync } from '@/lib/content'
 
 interface ContactPageProps {
   params: {
@@ -20,6 +21,10 @@ export default function ContactPage({ params }: ContactPageProps) {
   const { locale } = params
   const seoData = SEOUtils.contact(locale)
   const serviceStructuredData = generateStructuredData(seoData, 'service')
+  
+  // Get content for components
+  const content = getContentSync(locale)
+  const { contact } = content
 
   return (
     <>
@@ -32,7 +37,7 @@ export default function ContactPage({ params }: ContactPageProps) {
       />
 
       {/* Contact Section with Form and Information */}
-      <ContactSection />
+      <ContactSection contact={contact} />
       
       {/* Site Footer */}
       <Footer />

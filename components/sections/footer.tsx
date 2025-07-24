@@ -2,6 +2,8 @@
 
 import * as React from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
+import { useTheme } from 'next-themes'
 import { useContent } from '@/hooks/use-content'
 import { useCurrentLocale } from '@/hooks/use-current-locale'
 import { ThemeToggle } from '@/components/theme-toggle'
@@ -33,6 +35,13 @@ interface FooterProps {
 export function Footer({ className }: FooterProps) {
   const content = useContent()
   const currentLocale = useCurrentLocale()
+  const { resolvedTheme } = useTheme()
+  const [mounted, setMounted] = React.useState(false)
+
+  // Ensure component is mounted before accessing theme
+  React.useEffect(() => {
+    setMounted(true)
+  }, [])
 
   if (!content) {
     return (
@@ -63,190 +72,161 @@ export function Footer({ className }: FooterProps) {
   const otherProjects = projects.filter(project => !project.featured)
 
   return (
-    <footer className={`relative bg-background border-t border-border overflow-hidden ${className}`}>
-      {/* Decorative Background Elements */}
+    <footer className={`relative bg-secondary/30 border-t border-border/50 overflow-hidden ${className}`}>
+      {/* Subtle Background Elements */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary/5 rounded-full blur-3xl"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-secondary/5 rounded-full blur-3xl"></div>
+        <div className="absolute -top-32 -right-32 w-64 h-64 bg-primary/3 rounded-full blur-3xl"></div>
+        <div className="absolute -bottom-32 -left-32 w-64 h-64 bg-secondary/3 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="relative container-professional section-padding">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16">
-          {/* Brand & Contact */}
-          <div className="lg:col-span-1">
-            <div className="space-y-6">
-              {/* Logo */}
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-gradient-to-br from-primary to-secondary rounded-2xl flex items-center justify-center">
-                  <span className="text-xl font-bold text-primary-foreground">S</span>
-                </div>
+      <div className="relative container-professional">
+        {/* Main Footer Content */}
+        <div className="section-padding-lg">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-16">
+            {/* Logo & Social - Left Anchor */}
+            <div className="lg:col-span-1 space-y-8">
+              {/* Theme-aware Logo */}
+              <div className="space-y-6">
                 <Link 
                   href={`/${currentLocale}`}
-                  className="text-xl font-bold text-foreground hover:text-primary transition-colors"
+                  className="block group flex justify-center lg:justify-start"
                 >
-                  {navigation?.logo || 'Chrish Fernando'}
+                  {mounted && resolvedTheme === 'light' ? (
+                    <Image
+                      src="/images/logo/spearience.png"
+                      alt="Spearience"
+                      width={128}
+                      height={64}
+                      className="h-16 w-auto hover:opacity-80 transition-opacity"
+                    />
+                  ) : (
+                    <div className="w-32 h-16 bg-gradient-to-br from-primary/10 to-secondary/10 border-2 border-dashed border-primary/30 rounded-xl flex items-center justify-center group-hover:border-primary/50 transition-colors">
+                      <span className="text-xs font-medium text-primary/70 text-center">
+                        Logo<br />Placeholder
+                      </span>
+                    </div>
+                  )}
                 </Link>
               </div>
               
-              {/* Contact Info */}
+              {/* Social Media Links */}
+              <div className="space-y-6">
+                <div className="flex gap-3 justify-center lg:justify-start">
+                  {contact.socialMedia?.map((social) => {
+                    const IconComponent = SocialIcons[social.icon as keyof typeof SocialIcons]
+                    if (!IconComponent) return null
+                    
+                    return (
+                      <a
+                        key={social.platform}
+                        href={social.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center text-primary hover:bg-primary hover:text-primary-foreground transition-colors group"
+                        aria-label={`Follow on ${social.platform}`}
+                      >
+                        <IconComponent className="w-5 h-5" />
+                      </a>
+                    )
+                  })}
+                </div>
+              </div>
+
+              {/* Theme Toggle */}
+              <div className="flex justify-center lg:justify-start">
+                <ThemeToggle />
+              </div>
+            </div>
+
+            {/* Navigation Links */}
+            <div className="lg:col-span-1 space-y-6 text-center lg:text-left">
+              <h3 className="text-lg font-bold text-foreground uppercase tracking-wide">
+                {currentLocale === 'sv' ? 'Navigering' : 'Navigation'}
+              </h3>
+              <nav className="space-y-4">
+                {navigation?.menu?.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={`/${currentLocale}${item.href === '/' ? '' : item.href}`}
+                    className="block text-sm text-muted-foreground hover:text-primary transition-colors hover:translate-x-1 duration-200"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </nav>
+            </div>
+
+            {/* Information Section - Right */}
+            <div className="lg:col-span-1 space-y-6 text-center lg:text-left">
+              <h3 className="text-lg font-bold text-foreground uppercase tracking-wide">
+                {currentLocale === 'sv' ? 'Information' : 'Information'}
+              </h3>
               <div className="space-y-4">
-                <div className="flex items-center gap-3 text-muted-foreground group">
-                  <div className="w-8 h-8 bg-muted/50 rounded-lg flex items-center justify-center group-hover:bg-primary/10 transition-colors">
-                    <Mail className="w-4 h-4 group-hover:text-primary transition-colors" />
+                {/* E-post */}
+                <div className="space-y-2">
+                  <div className="text-sm font-semibold text-foreground">
+                    {currentLocale === 'sv' ? 'E-post' : 'Email'}
                   </div>
                   <a 
                     href={`mailto:${contact.email}`}
-                    className="hover:text-primary transition-colors touch-target-large"
+                    className="text-sm text-muted-foreground hover:text-primary transition-colors block"
                   >
                     {contact.email}
                   </a>
                 </div>
-                <div className="flex items-center gap-3 text-muted-foreground">
-                  <div className="w-8 h-8 bg-muted/50 rounded-lg flex items-center justify-center">
-                    <MapPin className="w-4 h-4" />
+                
+                {/* Plats */}
+                <div className="space-y-2">
+                  <div className="text-sm font-semibold text-foreground">
+                    {currentLocale === 'sv' ? 'Plats' : 'Location'}
                   </div>
-                  <span>{contact.location}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Navigation Links */}
-          <div>
-            <h3 className="text-lg font-semibold text-foreground mb-6">
-              {currentLocale === 'sv' ? 'Navigering' : 'Navigation'}
-            </h3>
-            <nav className="space-y-3">
-              {navigation?.menu?.map((item) => (
-                <Link
-                  key={item.href}
-                  href={`/${currentLocale}${item.href === '/' ? '' : item.href}`}
-                  className="block text-muted-foreground hover:text-primary transition-colors touch-target-large"
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </nav>
-          </div>
-
-          {/* Featured Projects */}
-          <div>
-            <h3 className="text-lg font-semibold text-foreground mb-6">
-              {currentLocale === 'sv' ? 'Utvalda projekt' : 'Featured Projects'}
-            </h3>
-            <nav className="space-y-3">
-              <Link
-                href={`/${currentLocale}/projects`}
-                className="block font-medium text-muted-foreground hover:text-primary transition-colors touch-target-large"
-              >
-                {currentLocale === 'sv' ? 'Visa alla projekt' : 'View All Projects'}
-              </Link>
-              {featuredProjects.slice(0, 4).map((project) => (
-                <Link
-                  key={project.id}
-                  href={`/${currentLocale}/projects/${project.id}`}
-                  className="block text-muted-foreground hover:text-primary transition-colors touch-target-large"
-                >
-                  <div className="space-y-1">
-                    <div className="font-medium">{project.title}</div>
-                    <div className="text-xs text-muted-foreground/70">{project.category}</div>
+                  <div className="text-sm text-muted-foreground">
+                    {contact.location}
                   </div>
-                </Link>
-              ))}
-            </nav>
-          </div>
-
-          {/* Connect & Other Projects */}
-          <div>
-            <h3 className="text-lg font-semibold text-foreground mb-6">
-              {currentLocale === 'sv' ? 'Anslut' : 'Connect'}
-            </h3>
-            
-            <div className="space-y-6">
-              {/* Social Media Links */}
-              <div className="flex gap-3">
-                {contact.socialMedia?.map((social) => {
-                  const IconComponent = SocialIcons[social.icon as keyof typeof SocialIcons]
-                  if (!IconComponent) return null
-                  
-                  return (
-                    <a
-                      key={social.platform}
-                      href={social.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-10 h-10 bg-muted/50 rounded-xl flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-200 group touch-target-large"
-                      aria-label={`Follow on ${social.platform}`}
-                    >
-                      <IconComponent className="w-5 h-5" />
-                      <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 absolute translate-x-2 -translate-y-2 transition-opacity" />
-                    </a>
-                  )
-                })}
-              </div>
-
-              {/* Other Projects */}
-              {otherProjects.length > 0 && (
-                <div>
-                  <h4 className="text-sm font-medium text-muted-foreground mb-3">
-                    {currentLocale === 'sv' ? 'Övriga projekt' : 'Other Projects'}
-                  </h4>
-                  <nav className="space-y-2">
-                    {otherProjects.slice(0, 3).map((project) => (
-                      <Link
-                        key={project.id}
-                        href={`/${currentLocale}/projects/${project.id}`}
-                        className="block text-sm text-muted-foreground/80 hover:text-primary transition-colors touch-target-large"
-                      >
-                        {project.title}
-                      </Link>
-                    ))}
-                  </nav>
                 </div>
-              )}
-
-              {/* Theme Toggle */}
-              <div className="pt-2">
-                <div className="flex items-center gap-3">
-                  <span className="text-sm text-muted-foreground">
-                    {currentLocale === 'sv' ? 'Tema:' : 'Theme:'}
-                  </span>
-                  <ThemeToggle className="w-12 h-6" />
+                
+                {/* Organization Number */}
+                <div className="space-y-2">
+                  <div className="text-sm font-semibold text-foreground">
+                    {currentLocale === 'sv' ? 'Org. nummer' : 'Org. Number'}
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    {currentLocale === 'sv' ? '123456-7890' : '123456-7890'}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <Separator className="my-12" />
+        {/* Horizontal Divider */}
+        <div className="w-full h-px bg-gradient-to-r from-transparent via-border to-transparent my-8"></div>
 
-        {/* Bottom Section */}
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-          <div className="text-sm text-muted-foreground text-center md:text-left">
-            {footer?.copyright || '© 2024 Chrish Fernando. All rights reserved.'}
-          </div>
-          
-          <div className="flex flex-wrap justify-center md:justify-end gap-6">
-            {footer?.links?.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-sm text-muted-foreground hover:text-primary transition-colors touch-target-large"
-              >
-                {link.label}
-              </Link>
-            ))}
+        {/* Sub-Footer - Integrated Bottom Section */}
+        <div className="pb-6">
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+            <div className="text-sm text-muted-foreground text-center lg:text-left">
+              {footer?.copyright || '© 2024 Chrish Fernando. All rights reserved.'}
+            </div>
             
-            <Button
-              variant="ghost"
-              size="sm"
-              asChild
-              className="text-sm h-auto p-0 text-muted-foreground hover:text-primary touch-target-large"
-            >
-              <Link href={`/${currentLocale}/contact`}>
+            <div className="flex flex-wrap justify-center lg:justify-end gap-6">
+              {footer?.links?.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                >
+                  {link.label}
+                </Link>
+              ))}
+              
+              <Link 
+                href={`/${currentLocale}/contact`}
+                className="text-sm text-muted-foreground hover:text-primary transition-colors font-medium"
+              >
                 {currentLocale === 'sv' ? 'Kontakt' : 'Contact'}
               </Link>
-            </Button>
+            </div>
           </div>
         </div>
       </div>

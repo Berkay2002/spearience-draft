@@ -50,6 +50,10 @@
   },
   "expertise": {
     "title": "Areas of Expertise",
+    "badge": "Core Expertise",
+    "keyCaps": "Key Capabilities",
+    "professionalExcellence": "Professional Excellence",
+    "excellenceDescription": "Proven methodologies that deliver exceptional results through strategic implementation and continuous improvement.",
     "tabs": [
       {
         "id": "concept-development",
@@ -120,6 +124,8 @@
   },
   "testimonials": {
     "title": "What Clients Say",
+    "subtitle": "Real experiences from leaders who've transformed their teams and achieved exceptional results through our collaborative approach.",
+    "badge": "Client Stories",
     "testimonials": [
       {
         "id": "client-1",
@@ -224,7 +230,13 @@
             "Similique sunt in culpa"
           ]
         }
-      ]
+      ],
+    "cta": {
+      "title": "Explore the Complete Portfolio",
+      "subtitle": "Dive deeper into detailed case studies, methodologies, and measurable results across diverse industries and project scales.",
+      "primaryButton": "View All Projects",
+      "secondaryButton": "Discuss Your Project"
+    }
   },
   "projectCaseStudy": {
     "navigation": {

@@ -1,15 +1,15 @@
 'use client'
 
 import { AnimatedTestimonials } from '@/components/ui/animated-testimonials'
-import { useTestimonialsContent } from '@/hooks/use-content'
-import { Star, Quote, Users, TrendingUp } from 'lucide-react'
+import { type TestimonialContent } from '@/lib/content'
+import { Quote } from 'lucide-react'
 
 interface TestimonialsSectionProps {
+  testimonials: TestimonialContent
   className?: string
 }
 
-export function TestimonialsSection({ className }: TestimonialsSectionProps) {
-  const testimonialsContent = useTestimonialsContent()
+export function TestimonialsSection({ testimonials: testimonialsContent, className }: TestimonialsSectionProps) {
 
   // Transform our content data to match AnimatedTestimonials format
   // Add safety check for testimonials array
@@ -26,27 +26,46 @@ export function TestimonialsSection({ className }: TestimonialsSectionProps) {
   }
 
   return (
-    <section className={`section-padding relative overflow-hidden ${className}`}>
-      <div className="container-professional">
-        {/* Animated Testimonials Component */}
+    <section className={`relative overflow-hidden ${className}`}>
+      <div className="container-professional py-20 sm:py-28 lg:py-36">
+        {/* Mobile-optimized section header */}
+        <div className="text-center space-y-8 mb-16 lg:mb-20">
+          <div className="space-y-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-primary font-medium text-sm sm:text-base">
+              <Quote className="w-4 h-4 sm:w-5 sm:h-5" />
+              <span>{testimonialsContent.badge}</span>
+            </div>
+            
+            <h2 className="section-title max-w-4xl mx-auto">
+              {testimonialsContent.title}
+            </h2>
+            
+            <p className="section-description mx-auto">
+              {testimonialsContent.subtitle}
+            </p>
+          </div>
+        </div>
+
+        {/* Enhanced testimonials with mobile-first design */}
         <div className="relative">
-          {/* Background decoration for testimonials */}
-          <div className="absolute inset-0 bg-gradient-subtle rounded-3xl opacity-50"></div>
+          {/* Subtle backdrop for testimonials */}
+          <div className="absolute inset-0 bg-card/30 backdrop-blur-sm rounded-3xl border border-border/30"></div>
           
-          <div className="relative z-10">
+          <div className="relative z-10 p-4 sm:p-6 lg:p-8">
             <AnimatedTestimonials 
               testimonials={testimonials}
               autoplay={true}
             />
           </div>
         </div>
+
       </div>
 
-      {/* Background decorative elements */}
+      {/* Enhanced background decorative elements */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute top-1/4 left-0 w-[400px] h-[400px] bg-primary/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/4 right-0 w-[300px] h-[300px] bg-brand-blue/5 rounded-full blur-3xl"></div>
-        <div className="absolute top-3/4 left-1/3 w-[200px] h-[200px] bg-success/5 rounded-full blur-2xl"></div>
+        <div className="absolute top-1/4 left-0 w-[400px] h-[400px] bg-primary/3 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/4 right-0 w-[300px] h-[300px] bg-brand-blue/3 rounded-full blur-3xl"></div>
+        <div className="absolute top-3/4 left-1/3 w-[200px] h-[200px] bg-success/3 rounded-full blur-2xl"></div>
       </div>
     </section>
   )

@@ -122,17 +122,24 @@ export function ContactSection({ className }: ContactSectionProps) {
               </CardContent>
             </Card>
 
-            {/* Social Media Links */}
-            <Card className="border-0 shadow-professional bg-gradient-professional text-white relative overflow-hidden">
-              {/* Background decoration */}
-              <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
-              <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full blur-xl"></div>
+            {/* Social Media Links - Theme Aware */}
+            <Card className="border-0 shadow-professional relative overflow-hidden
+              bg-gradient-professional text-white 
+              dark:bg-gradient-professional dark:text-white
+              light:bg-gradient-to-br light:from-secondary light:to-muted light:text-foreground">
+              {/* Background decoration - Theme aware */}
+              <div className="absolute top-0 right-0 w-32 h-32 rounded-full blur-2xl
+                bg-white/10 dark:bg-white/10 light:bg-foreground/5"></div>
+              <div className="absolute bottom-0 left-0 w-24 h-24 rounded-full blur-xl
+                bg-white/5 dark:bg-white/5 light:bg-foreground/3"></div>
               
               <CardContent className="p-8 relative z-10">
-                <h3 className="text-xl font-bold mb-4">
+                <h3 className="text-xl font-bold mb-4
+                  text-white dark:text-white light:text-foreground">
                   {locale === 'sv' ? 'Följ mig på sociala medier' : 'Connect on Social Media'}
                 </h3>
-                <p className="text-white/90 mb-6 leading-relaxed">
+                <p className="mb-6 leading-relaxed
+                  text-white/90 dark:text-white/90 light:text-muted-foreground">
                   {locale === 'sv' 
                     ? 'Håll dig uppdaterad med de senaste insikterna och projekten.'
                     : 'Stay updated with the latest insights and projects.'}
@@ -146,7 +153,10 @@ export function ContactSection({ className }: ContactSectionProps) {
                         <Button 
                           variant="ghost" 
                           size="lg"
-                          className="bg-white/10 hover:bg-white/20 text-white border-white/20 hover:border-white/30 transition-all duration-200"
+                          className="transition-all duration-200
+                            bg-white/10 hover:bg-white/20 text-white border-white/20 hover:border-white/30
+                            dark:bg-white/10 dark:hover:bg-white/20 dark:text-white dark:border-white/20 dark:hover:border-white/30
+                            light:bg-foreground/10 light:hover:bg-foreground/20 light:text-foreground light:border-foreground/20 light:hover:border-foreground/30"
                         >
                           <IconComponent className="h-5 w-5 mr-2" />
                           {social.platform}
@@ -158,29 +168,6 @@ export function ContactSection({ className }: ContactSectionProps) {
               </CardContent>
             </Card>
 
-            {/* Call to Action */}
-            <Card className="border-0 shadow-professional bg-card border border-border">
-              <CardContent className="p-8 text-center">
-                <h3 className="text-xl font-bold text-foreground mb-3">
-                  {locale === 'sv' ? 'Föredrar du ett direktsamtal?' : 'Prefer a Direct Call?'}
-                </h3>
-                <p className="text-muted-foreground mb-6 leading-relaxed">
-                  {locale === 'sv' 
-                    ? 'Boka ett 30-minuters strategisamtal för att diskutera ditt projekt.'
-                    : 'Book a 30-minute strategy call to discuss your project directly.'}
-                </p>
-                <Button 
-                  size="lg" 
-                  className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 font-medium transition-all duration-200"
-                  asChild
-                >
-                  <Link href="https://calendly.com/chrish-fernando" target="_blank" rel="noopener noreferrer">
-                    <Phone className="mr-2 h-4 w-4" />
-                    {locale === 'sv' ? 'Boka ett samtal' : 'Schedule a Call'}
-                  </Link>
-                </Button>
-              </CardContent>
-            </Card>
           </div>
         </div>
       </div>

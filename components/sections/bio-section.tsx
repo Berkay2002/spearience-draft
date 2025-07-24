@@ -1,16 +1,16 @@
 'use client'
 
 import Image from 'next/image'
-import { useBioContent } from '@/hooks/use-content'
+import { type BioContent } from '@/lib/content'
 import { CheckCircle, Award, Globe, Users, Target, Briefcase } from 'lucide-react'
 import { imagePresets } from '@/lib/image-optimization'
 
 interface BioSectionProps {
+  bio: BioContent
   className?: string
 }
 
-export function BioSection({ className }: BioSectionProps) {
-  const bioContent = useBioContent()
+export function BioSection({ bio: bioContent, className }: BioSectionProps) {
 
   // If no content is loaded yet, show loading skeleton
   if (!bioContent || !bioContent.biography) {
@@ -28,7 +28,74 @@ export function BioSection({ className }: BioSectionProps) {
           <div className="w-24 h-1 bg-gradient-professional mx-auto rounded-full"></div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+        {/* Mobile/Tablet: Stacked Layout - Image Above Text */}
+        <div className="space-y-12 xl:hidden">
+          {/* Professional Headshot */}
+          <div className="flex justify-center">
+            <div className="relative group max-w-sm">
+              {/* Background decoration */}
+              <div className="absolute -inset-4 bg-gradient-professional rounded-3xl opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
+              <div className="absolute -inset-2 bg-gradient-to-br from-primary/20 to-transparent rounded-2xl"></div>
+              
+              {/* Main image container */}
+              <div className="relative bg-card border border-border rounded-2xl p-4 shadow-professional">
+                <div className="relative aspect-[4/5] rounded-xl overflow-hidden w-full">
+                  <Image
+                    src={bioContent.headshot.src}
+                    alt={bioContent.headshot.alt}
+                    width={400}
+                    height={500}
+                    className="object-cover object-center transition-transform duration-500 group-hover:scale-105 w-full h-full"
+                    priority={false}
+                    placeholder="blur"
+                    blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
+                    sizes="(max-width: 768px) 320px, 400px"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Biography & Key Highlights */}
+          <div className="max-w-4xl mx-auto space-y-8">
+            {/* Professional Biography */}
+            <div>
+              <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
+                <Briefcase className="w-6 h-6 text-primary" />
+                Professional Journey
+              </h2>
+              <div className="prose prose-lg max-w-none">
+                {bioContent.biography.split('\n\n').map((paragraph, index) => (
+                  <p key={index} className="text-muted-foreground leading-relaxed mb-6">
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+            </div>
+
+            {/* Key Highlights */}
+            <div className="bg-card border border-border rounded-2xl p-6">
+              <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                <Target className="w-5 h-5 text-primary" />
+                Key Highlights
+              </h3>
+              <div className="space-y-3">
+                {bioContent.highlights.map((highlight, index) => (
+                  <div key={index} className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
+                    <span className="text-sm text-muted-foreground leading-relaxed">
+                      {highlight}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Desktop: Two-Column Layout */}
+        <div className="hidden xl:grid xl:grid-cols-2 xl:gap-24 xl:items-start">
           {/* Left Column - Professional Headshot */}
           <div className="relative h-full flex items-stretch">
             <div className="relative group flex-1 flex items-stretch">
@@ -115,11 +182,25 @@ export function BioSectionSkeleton() {
           <div className="w-24 h-1 bg-muted rounded-full mx-auto animate-pulse"></div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-          {/* Left column skeleton */}
-          <div className="space-y-8">
-            <div className="aspect-[4/5] bg-muted rounded-2xl animate-pulse"></div>
-            <div className="bg-muted rounded-2xl p-6 animate-pulse">
+        {/* Mobile/Tablet: Stacked skeleton layout */}
+        <div className="space-y-12 xl:hidden">
+          {/* Image skeleton */}
+          <div className="flex justify-center">
+            <div className="aspect-[4/5] bg-muted rounded-2xl animate-pulse max-w-sm w-full"></div>
+          </div>
+
+          {/* Text content skeleton */}
+          <div className="max-w-4xl mx-auto space-y-8">
+            <div>
+              <div className="h-8 bg-muted rounded mb-6 w-48 animate-pulse"></div>
+              <div className="space-y-4">
+                {[1, 2, 3, 4].map((i) => (
+                  <div key={i} className="h-4 bg-muted rounded animate-pulse"></div>
+                ))}
+              </div>
+            </div>
+            
+            <div className="bg-muted rounded-2xl p-8 animate-pulse">
               <div className="h-6 bg-muted-foreground/20 rounded mb-4 w-32"></div>
               <div className="space-y-3">
                 {[1, 2, 3, 4].map((i) => (
@@ -127,6 +208,14 @@ export function BioSectionSkeleton() {
                 ))}
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* Desktop: Two-column skeleton layout */}
+        <div className="hidden xl:grid xl:grid-cols-2 xl:gap-24">
+          {/* Left column skeleton */}
+          <div className="space-y-8">
+            <div className="aspect-[4/5] bg-muted rounded-2xl animate-pulse"></div>
           </div>
 
           {/* Right column skeleton */}
@@ -143,19 +232,10 @@ export function BioSectionSkeleton() {
             <div className="bg-muted rounded-2xl p-8 animate-pulse">
               <div className="h-6 bg-muted-foreground/20 rounded mb-4 w-32"></div>
               <div className="space-y-3">
-                <div className="h-4 bg-muted-foreground/20 rounded"></div>
-                <div className="h-4 bg-muted-foreground/20 rounded w-4/5"></div>
+                {[1, 2, 3, 4].map((i) => (
+                  <div key={i} className="h-4 bg-muted-foreground/20 rounded animate-pulse"></div>
+                ))}
               </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              {[1, 2].map((i) => (
-                <div key={i} className="bg-muted rounded-xl p-6 animate-pulse">
-                  <div className="w-12 h-12 bg-muted-foreground/20 rounded-xl mx-auto mb-3"></div>
-                  <div className="h-6 bg-muted-foreground/20 rounded mx-auto mb-1 w-12"></div>
-                  <div className="h-4 bg-muted-foreground/20 rounded mx-auto w-20"></div>
-                </div>
-              ))}
             </div>
           </div>
         </div>

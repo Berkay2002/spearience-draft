@@ -1,21 +1,31 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { useHeroContent, useLocale } from '@/hooks/use-content'
+import { useLocale } from '@/hooks/use-content'
+import { type HeroContent } from '@/lib/content'
 // import { useAnalytics } from '@/lib/analytics'
 import { ArrowRight, Mail } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { SocialShare } from '@/components/social-share'
+import { useTheme } from 'next-themes'
+import { useEffect, useState } from 'react'
 
 interface HeroSectionProps {
+  hero: HeroContent
   className?: string
 }
 
-export function HeroSection({ className }: HeroSectionProps) {
-  const heroContent = useHeroContent()
+export function HeroSection({ hero, className }: HeroSectionProps) {
   const locale = useLocale()
+  const { theme, resolvedTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
   // const { analytics } = useAnalytics()
+
+  // Ensure component is mounted before accessing theme
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   // Handle CTA clicks with analytics
   const handlePrimaryCTA = () => {
@@ -28,37 +38,46 @@ export function HeroSection({ className }: HeroSectionProps) {
     console.log('Secondary CTA clicked')
   }
 
+  // Get theme-aware image source
+  const getThemeAwareImageSrc = () => {
+    if (!mounted) return '/images/chrish/chrish-light-theme.png' // Default fallback
+    const isDark = resolvedTheme === 'dark'
+    return isDark 
+      ? '/images/chrish/chrish-dark-theme.png'
+      : '/images/chrish/chrish-light-theme.png'
+  }
+
   return (
-    <section className={`section-padding-lg overflow-hidden ${className}`}>
-      <div className="container-professional">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-16 items-center">
-          {/* Content Column */}
-          <div className="order-2 lg:order-1 space-y-6 sm:space-y-8">
-            {/* Hero Title */}
-            <div className="space-y-4 sm:space-y-6">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground animate-fade-in-up">
-                {heroContent.title}
+    <section className={`relative overflow-hidden ${className}`}>
+      <div className="container-professional pt-8 pb-16 sm:pt-12 sm:pb-24 lg:pt-16 lg:pb-32">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          {/* Content Column - Mobile-First, appears second on mobile */}
+          <div className="lg:col-span-7 space-y-8 text-center lg:text-left order-2 lg:order-1">
+            {/* Hero Title with mobile-optimized typography */}
+            <div className="space-y-6">
+              <h1 className="hero-title-mobile text-balance animate-fade-in-up mx-auto lg:mx-0">
+                {hero.title}
               </h1>
               
-              <div className="space-y-3 sm:space-y-4">
-                <p className="text-xl sm:text-2xl md:text-3xl font-semibold text-primary gradient-text animate-fade-in-up [animation-delay:200ms]">
-                  {heroContent.subtitle}
+              <div className="space-y-5">
+                <p className="hero-subtitle-mobile animate-fade-in-up [animation-delay:200ms] mx-auto lg:mx-0">
+                  {hero.subtitle}
                 </p>
                 
-                <p className="text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl animate-fade-in-up [animation-delay:400ms]">
-                  {heroContent.description}
+                <p className="hero-description-mobile animate-fade-in-up [animation-delay:400ms] mx-auto lg:mx-0">
+                  {hero.description}
                 </p>
               </div>
             </div>
 
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up [animation-delay:600ms]">
+            {/* CTA Buttons - Mobile-centered, desktop left-aligned */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-fade-in-up [animation-delay:600ms]">
               <Link href={`/${locale}/projects`} onClick={handlePrimaryCTA}>
                 <Button 
                   size="lg" 
                   className="btn-professional-primary group w-full sm:w-auto"
                 >
-                  {heroContent.primaryCta}
+                  {hero.primaryCta}
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Button>
               </Link>
@@ -70,54 +89,28 @@ export function HeroSection({ className }: HeroSectionProps) {
                   className="btn-professional-secondary group w-full sm:w-auto"
                 >
                   <Mail className="mr-2 h-4 w-4" />
-                  {heroContent.secondaryCta}
+                  {hero.secondaryCta}
                 </Button>
               </Link>
             </div>
-
-            {/* Social proof & sharing */}
-            <div className="flex items-center justify-between pt-8">
-              <div className="flex items-center space-x-6 text-sm text-muted-foreground">
-
-                <span className="hidden sm:block">Based in Stockholm</span>
-              </div>
-              
-              {/* Social sharing */}
-              <div className="hidden md:block">
-                <SocialShare 
-                  variant="minimal" 
-                  platforms={['linkedin', 'twitter']}
-                  showCopyLink={false}
-                  data={{
-                    title: heroContent.title,
-                    description: heroContent.description,
-                  }}
-                />
-              </div>
-            </div>
           </div>
 
-          {/* Image Column */}
-          <div className="order-1 lg:order-2 flex justify-center lg:justify-end">
-            <div className="relative animate-fade-in-up [animation-delay:300ms]">
-              {/* Professional headshot with modern styling */}
+          {/* Image Column - Mobile-optimized, appears first on mobile */}
+          <div className="lg:col-span-5 flex justify-center lg:justify-end order-1 lg:order-2">
+            <div className="relative animate-fade-in-up [animation-delay:300ms] w-full max-w-sm sm:max-w-md lg:max-w-lg">
+              {/* Professional headshot with mobile-friendly sizing */}
               <div className="relative">
-                {/* Background decoration */}
-                <div className="absolute -inset-4 bg-gradient-professional rounded-3xl opacity-20 blur-xl"></div>
-                
                 {/* Main image container */}
-                <div className="relative bg-card rounded-3xl p-2 shadow-professional-xl">
-                  <div className="relative overflow-hidden rounded-2xl bg-gradient-subtle">
+                <div className="relative rounded-3xl p-2 shadow-professional-xl">
+                  <div className="relative overflow-hidden rounded-2xl">
                     <Image
-                      src={heroContent.headshot.src}
-                      alt={heroContent.headshot.alt}
+                      src={getThemeAwareImageSrc()}
+                      alt={hero.headshot.alt}
                       width={500}
                       height={600}
                       className="w-full h-auto object-cover object-center transition-transform duration-500 hover:scale-105"
                       priority
-                      placeholder="blur"
-                      blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkbHB0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
-                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 500px"
+                      sizes="(max-width: 640px) 300px, (max-width: 768px) 400px, (max-width: 1024px) 350px, 500px"
                     />
                     
                     {/* Floating elements for visual interest */}
@@ -130,8 +123,6 @@ export function HeroSection({ className }: HeroSectionProps) {
                     </div>
                   </div>
                 </div>
-                
-
               </div>
             </div>
           </div>

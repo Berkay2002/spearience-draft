@@ -44,12 +44,16 @@
     "primaryCta": "Se mitt arbete",
     "secondaryCta": "Kontakta mig",
     "headshot": {
-      "src": "/images/chrish/profile-hero.jpg",
+      "src": "/images/chrish/transparant-hero-chrish.png",
       "alt": "Chrish Fernando - Professionellt porträtt"
     }
   },
   "expertise": {
-    "title": "Expertområden",
+    "title": "Expertområden", 
+    "badge": "Kärnkompetens",
+    "keyCaps": "Nyckelkompetenser",
+    "professionalExcellence": "Professionell Excellens",
+    "excellenceDescription": "Beprövade metoder som levererar exceptionella resultat genom strategisk implementering och kontinuerlig förbättring.",
     "tabs": [
       {
         "id": "concept-development",
@@ -120,6 +124,8 @@
   },
   "testimonials": {
     "title": "Rekommendationer",
+    "subtitle": "Verkliga upplevelser från ledare som transformerat sina team och uppnått exceptionella resultat genom vårt samarbete.",
+    "badge": "Kundberättelser",
     "testimonials": [
       {
         "id": "client-1",
@@ -224,7 +230,13 @@
             "Similique sunt in culpa"
           ]
         }
-      ]
+      ],
+    "cta": {
+      "title": "Utforska Den Kompletta Portföljen",
+      "subtitle": "Fördjupa dig i detaljerade fallstudier, metoder och mätbara resultat över olika branscher och projektskala.",
+      "primaryButton": "Visa Alla Projekt",
+      "secondaryButton": "Diskutera Ditt Projekt"
+    }
   },
   "projectCaseStudy": {
     "navigation": {
